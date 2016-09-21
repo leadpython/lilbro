@@ -23,12 +23,18 @@ angular.module('lilbro', ['ionic', 'lilbro.controllers', 'lilbro.services'])
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  $ionicConfigProvider.views.transition('none');
   $stateProvider
     .state('main', {
       url: '/main',
       templateUrl: 'templates/main.html',
       controller: 'MainCONTROLLER'
+    })
+    .state('target', {
+      url: '/target',
+      templateUrl: 'templates/target.html',
+      controller: 'TargetCONTROLLER'
     })
 
   $urlRouterProvider.otherwise('/main');

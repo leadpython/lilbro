@@ -1,5 +1,5 @@
 angular.module('lilbro.services', [])
 
-.factory('SERVICES', function() {
+.factory('TargetSERVICES', function() {
 
 })
