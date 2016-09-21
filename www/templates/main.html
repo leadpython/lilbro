@@ -1,0 +1,38 @@
+<!-- MAIN PAGE -->
+<ion-view id="mainpage">
+
+  <!-- Logo & Name -->
+  <div id="main-logoAndName-container">
+    <img id="main-logo" src="../img/lilbroface.png">
+    <div id="main-name">lilbro</div>
+  </div>
+
+  <!-- Main Menu -->
+  <div id="main-menu-container">
+    <!-- Login -->
+    <div id="main-login" ng-if="!hasAlias">
+      <div style="width: 100%; height: auto; text-align: center; position: absolute; top: 30px;">
+        <div id="main-alias-label" >enter your hacker alias:</div>
+        <input id="main-alias-input" ng-model="player.alias">
+        <div id="main-start-button-container"><div id="main-start-button">start</div></div>
+      </div>
+    </div>
+
+    <!-- Menu Options -->
+    <div id="main-menu" ng-if="hasAlias">
+
+      <!-- Player Info -->
+      <div id="main-playerData">
+        <div>Alias: <span style="color: rgba(100,200,255,1);">{{player.alias}}</span></div>
+        <div>Earnings: <span style="color: rgba(100,200,255,1);">${{player.funds}}</span></div>
+      </div>
+
+      <!-- Menu Options -->
+      <div id="main-menu-option" ng-repeat="option in menuOptions track by $index">
+        <img id="main-menu-option-image" src="{{option.image}}">
+        <span id="main-menu-option-name" >{{option.name}}</span>
+      </div>
+    </div>
+  </div>
+
+</ion-view>

@@ -1,0 +1,102 @@
+/* ----- GLOBAL ----- */
+
+@font-face {
+  font-family: square;
+  src: url(square.ttf);
+}
+
+/* ----- MAIN PAGE ----- */
+
+/* Logo & Name */
+#mainpage {
+  background-color: black;
+  color: #00cc99;
+  font-family: square;
+}
+#main-logoAndName-container {
+  position: absolute;
+  top: 5%;
+  width: 100%;
+  height: auto;
+  text-align: center;
+}
+#main-logo {
+  margin: auto;
+  height: 150px;
+}
+#main-name {
+  margin-top: 20px;
+  font-size: 100px;
+}
+
+/* Main Menu */
+#main-menu-container {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 20px;
+  top: 300px;
+  border: 1px solid #00cc99;
+}
+/* - Login */
+#main-alias-label {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+#main-alias-input {
+  background-color: rgba(25,25,25,0.5);
+  border: 1px solid #00cc99;
+  border-radius: 5px;
+  height: 40px;
+  font-family: Courier New, Courier, monospace;
+  font-weight: bold;
+  text-align: center;
+  color: #00cc99;
+  padding-left: 5px;
+  font-size: 25px;
+}
+#main-start-button-container {
+  width: 100%;
+  height: auto;
+}
+#main-start-button {
+  border: 1px solid #00cc99;
+  border-radius: 5px;
+  margin: auto;
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 25px;
+  width: 120px;
+  height: 35px;
+}
+#main-start-button:active {
+  background-color: #00cc99;
+  color: black;
+}
+/* -- Menu Options */
+#main-playerData {
+  font-size: 20px;
+  padding: 10px;
+  height: auto;
+  background-color: rgba(25,25,25,1);
+}
+#main-menu-option {
+  border: 1px solid rgba(25,25,25,1);
+  margin: 5px;
+  height: 70px;
+  padding: 10px;
+  background-color: rgba(25,25,25,0.5);
+  position: relative;
+}
+#main-menu-option:active {
+  background-color: rgba(50,50,50,1);
+}
+#main-menu-option-image {
+  height: 50px;
+}
+#main-menu-option-name {
+  font-size: 30px;
+  position: absolute;
+  top: 25px;
+  margin-left: 20px;
+}
