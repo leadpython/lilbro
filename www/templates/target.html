@@ -4,8 +4,14 @@
 <div id="target-home-button" ng-click="goToMain()"> < main menu </div>
 
 <div style="position: absolute; top: 15px; left: 5px;">Target types:</div>
-<div id="target-list-container">
 
-</div>
+<!-- Target List -->
+<ion-content id="target-list-container">
+  <!-- Target -->
+  <div id="target-item" ng-click="targetClickEventHandler(item)" ng-repeat="item in targets track by $index">
+    <div id="target-item-type">{{item.type}}</div>
+    <img id="target-item-image" src="{{ '../img/' + $index + '.png'}}">
+  </div>
+</ion-content>
 
 </ion-view>

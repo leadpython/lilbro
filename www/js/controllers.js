@@ -37,8 +37,19 @@ angular.module('lilbro.controllers', [])
 })
 
 /////// TARGET CONTROLLER ///////
-.controller('TargetCONTROLLER', function($scope, $location) {
+.controller('TargetCONTROLLER', function($scope, $location, $ionicModal, TargetSERVICES) {
   $scope.goToMain = function() {
     $location.path('/main');
   };
+  $scope.targets = TargetSERVICES.targets;
+
+  $scope.targetClickEventHandler = function(target) {
+    $scope.selectedTarget = target;
+    $ionicModal.fromTemplateUrl('../templates/pop-templates/targetInfo.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.targetInfoModal = modal;
+      $scope.targetInfoModal.show();
+    });
+  }
 });

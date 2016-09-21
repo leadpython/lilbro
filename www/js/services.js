@@ -9,7 +9,7 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 0,
         timeLimit: undefined,
-        tries: 10
+        tries: 7
       },
       reward: {
         min: 0,
@@ -26,7 +26,7 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 0,
         timeLimit: undefined,
-        tries: 10
+        tries: 7
       },
       reward: {
         min: 0,
