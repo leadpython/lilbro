@@ -3,160 +3,210 @@ angular.module('lilbro.services', [])
 .factory('TargetSERVICES', function() {
   var targetServices = {};
 
-  targetServices.targets = [
-    {
-      type: 'Credit Cards',
+  var randomNumberGenerator = function(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
+  targetServices.currentTarget;
+  targetServices.targets = {
+    'Credit Card': {
+      type: 'Credit Card',
       security: {
         passLength: 0,
         timeLimit: undefined,
+        drainRate: undefined,
         tries: 7
       },
       reward: {
         min: 0,
-        max: 0
+        max: 5000
       },
       cost: {
         fee: 0,
         penalty: 0
-      }
+      },
+      jailTime: 0,
+      description: ''
     },
 
-    {
-      type: 'Debit Cards',
+    'Debit Card': {
+      type: 'Debit Card',
       security: {
         passLength: 0,
         timeLimit: undefined,
+        drainRate: undefined,
         tries: 7
       },
       reward: {
         min: 0,
-        max: 0
+        max: 25000
       },
       cost: {
         fee: 0,
         penalty: 0
-      }
+      },
+      jailTime: 0,
+      description: ''
     },
     
-    {
+    'Local Business': {
       type: 'Local Business',
       security: {
         passLength: 0,
         timeLimit: undefined,
+        drainRate: undefined,
         tries: 10
       },
       reward: {
-        min: 0,
-        max: 0
+        min: 10000,
+        max: 500000
       },
       cost: {
         fee: 0,
         penalty: 0
-      }
+      },
+      jailTime: 0,
+      description: ''
     },
     
-    {
-      type: 'Casinos',
+    'Casino': {
+      type: 'Casino',
       security: {
         passLength: 0,
         timeLimit: undefined,
+        drainRate: undefined,
         tries: 10
       },
       reward: {
-        min: 0,
-        max: 0
+        min: 50000,
+        max: 5000000
       },
       cost: {
         fee: 0,
         penalty: 0
-      }
+      },
+      jailTime: 0,
+      description: ''
     },
     
-    {
-      type: 'Drug Cartels',
+    'Drug Cartel': {
+      type: 'Drug Cartel',
       security: {
         passLength: 0,
         timeLimit: undefined,
+        drainRate: undefined,
         tries: 10
       },
       reward: {
-        min: 0,
-        max: 0
+        min: 100000,
+        max: 100000000
       },
       cost: {
         fee: 0,
         penalty: 0
-      }
+      },
+      jailTime: 0,
+      description: ''
     },
     
-    {
-      type: 'Covert Agencies',
+    'Covert Operatives': {
+      type: 'Covert Operatives',
       security: {
         passLength: 0,
         timeLimit: undefined,
+        drainRate: undefined,
         tries: 10
       },
       reward: {
-        min: 0,
-        max: 0
+        min: 500000,
+        max: 120000000
       },
       cost: {
         fee: 0,
         penalty: 0
-      }
+      },
+      jailTime: 0,
+      description: ''
     },
     
-    {
-      type: 'Multinational Corporations',
+    'Multinational Corporation': {
+      type: 'Multinational Corporation',
       security: {
         passLength: 0,
         timeLimit: undefined,
+        drainRate: undefined,
         tries: 10
       },
       reward: {
-        min: 0,
-        max: 0
+        min: 50000000,
+        max: 5000000000
       },
       cost: {
         fee: 0,
         penalty: 0
-      }
+      },
+      jailTime: 0,
+      description: ''
     },
     
-    {
+    'World Bank': {
       type: 'World Bank',
       security: {
         passLength: 0,
         timeLimit: undefined,
+        drainRate: undefined,
         tries: 10
       },
       reward: {
-        min: 0,
-        max: 0
+        min: 1000000000,
+        max: 20000000000
       },
       cost: {
         fee: 0,
         penalty: 0
-      }
+      },
+      jailTime: 0,
+      description: ''
     },
     
-    {
-      type: 'Black Hat Hackers',
+    'Black Hat Hacker': {
+      type: 'Black Hat Hacker',
       security: {
         passLength: 0,
         timeLimit: undefined,
+        drainRate: undefined,
         tries: 10
       },
       reward: {
         min: 0,
-        max: 0
+        max: 50000000000
       },
       cost: {
         fee: 0,
         penalty: 0
-      }
+      },
+      jailTime: 0,
+      description: ''
     }
-  ];
+  };
+
+  targetServices.generateTarget = function(targetType) {
+    for (var i = 0; i < 30; i++) {
+      var target = { accountNum: '' };
+      for (var j = 0; j < 5; j++) {
+        target.accountNum += randomNumberGenerator(1000, 9999);
+        if (j < 4) {
+          target.accountNum += '-';
+        }
+      }
+      target.funds = randomNumberGenerator(targetServices.targets[targetType].reward.min, targetServices.targets[targetType].reward.max);
+      target.security = targetServices.targets[targetType].security;
+      target.jailTime = targetServices.targets[targetType].jailTime;
+      target.cost = targetServices.targets[targetType].cost;
+      target.description = targetServices.targets[targetType].description;
+    }
+    return target;
+  };
 
   return targetServices;
 })

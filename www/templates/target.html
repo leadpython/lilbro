@@ -1,12 +1,17 @@
 <!-- TARGETS PAGE -->
 <ion-view id="targetPage">
 
+<div id="main-playerData">
+  <div>Alias: <span style="color: rgba(100,200,255,1);">{{player.alias}}</span></div>
+  <div>Earnings: <span style="color: rgba(100,200,255,1);">${{player.funds}}</span></div>
+</div>
+
 <div id="target-home-button" ng-click="goToMain()"> < main menu </div>
 
-<div style="position: absolute; top: 15px; left: 5px;">Target types:</div>
+<div style="position: absolute; top: 65px; left: 5px;">Target types:</div>
 
 <!-- Target List -->
-<ion-content id="target-list-container">
+<ion-content id="target-list-container"  has-bouncing="false">
   <!-- Target -->
   <div id="target-item" ng-click="targetClickEventHandler(item)" ng-repeat="item in targets track by $index">
     <div id="target-item-type">{{item.type}}</div>

@@ -36,6 +36,16 @@ angular.module('lilbro', ['ionic', 'lilbro.controllers', 'lilbro.services'])
       templateUrl: 'templates/target.html',
       controller: 'TargetCONTROLLER'
     })
+    .state('game', {
+      url: '/game',
+      templateUrl: 'templates/game.html',
+      controller: 'GameCONTROLLER'
+    })
+    .state('hackSimulation', {
+      url: '/hackSimulation',
+      templateUrl: 'templates/hackSimulation.html',
+      controller: 'HackSimulationCONTROLLER'
+    })
 
   $urlRouterProvider.otherwise('/main');
 });
