@@ -27,7 +27,7 @@ angular.module('lilbro.controllers', [])
       }
     },
     {
-      name: 'delete game',
+      name: 'reset game',
       image: '../img/garbage.png',
       clickEventHandler: function() {
         $scope.hasAlias = false;
@@ -53,7 +53,7 @@ angular.module('lilbro.controllers', [])
       $scope.targetListModal = modal;
       $scope.targetList = [];
       $scope.generateTargetList = $interval(function() {
-        if ($scope.targetList.length >= 15) {
+        if ($scope.targetList.length >= target.numOfResults) {
           $interval.cancel($scope.generateTargetList);
         }
         $scope.targetList.push(TargetSERVICES.generateTarget(target.type));
@@ -73,8 +73,8 @@ angular.module('lilbro.controllers', [])
     var commafied = [];
     for (var i = strArr.length-1, count = 1; i >= 0; i--, count++) {
       commafied.unshift(strArr[i]);
-      if (count === 3 && i != 0) {
-        count = 1;
+      if (count === 3 && i > 0) {
+        count = 0;
         commafied.unshift(',');
       }
     }
@@ -112,9 +112,9 @@ angular.module('lilbro.controllers', [])
                       '.',
                       '.',
                       '.',
-                      'Hacking interfaced successfully loaded!'];
+                      'Hacking interface successfully loaded!'];
   $scope.isAnimateCommandsDone = false;
-  $scope.countdown = 5000;
+  $scope.countdown = 3000;
   var i = 0;
   $scope.animateCommands = $interval(function() {
     if (i >= hackCommands.length) {
@@ -125,7 +125,7 @@ angular.module('lilbro.controllers', [])
       $scope.consoleOutput.push(hackCommands[i]);
       i++;
     }
-  }, 100);
+  }, 50);
 
   $scope.animateCountdown = $interval(function() {
     if ($scope.isAnimateCommandsDone) {
@@ -137,4 +137,8 @@ angular.module('lilbro.controllers', [])
     }
   }, 10);
 
-});
+})
+
+.controller('GameCONTROLLER', function($scope) {
+  $scope.haha = "ashhwq2w";
+})

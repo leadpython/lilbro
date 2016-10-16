@@ -26,7 +26,8 @@ angular.module('lilbro.services', [])
         penalty: 0
       },
       jailTime: 0,
-      description: ''
+      description: '',
+      numOfResults: 15
     },
 
     'Debit Card': {
@@ -46,7 +47,8 @@ angular.module('lilbro.services', [])
         penalty: 0
       },
       jailTime: 0,
-      description: ''
+      description: '',
+      numOfResults: 15
     },
     
     'Local Business': {
@@ -86,7 +88,8 @@ angular.module('lilbro.services', [])
         penalty: 0
       },
       jailTime: 0,
-      description: ''
+      description: '',
+      numOfResults: 15
     },
     
     'Drug Cartel': {
@@ -106,7 +109,8 @@ angular.module('lilbro.services', [])
         penalty: 0
       },
       jailTime: 0,
-      description: ''
+      description: '',
+      numOfResults: 5
     },
     
     'Covert Operatives': {
@@ -126,7 +130,8 @@ angular.module('lilbro.services', [])
         penalty: 0
       },
       jailTime: 0,
-      description: ''
+      description: '',
+      numOfResults: 10
     },
     
     'Multinational Corporation': {
@@ -166,7 +171,8 @@ angular.module('lilbro.services', [])
         penalty: 0
       },
       jailTime: 0,
-      description: ''
+      description: '',
+      numOfResults: 15
     },
     
     'Black Hat Hacker': {
@@ -186,25 +192,24 @@ angular.module('lilbro.services', [])
         penalty: 0
       },
       jailTime: 0,
-      description: ''
+      description: '',
+      numOfResults: 3
     }
   };
 
   targetServices.generateTarget = function(targetType) {
-    for (var i = 0; i < 30; i++) {
-      var target = { accountNum: '' };
-      for (var j = 0; j < 5; j++) {
-        target.accountNum += randomNumberGenerator(1000, 9999);
-        if (j < 4) {
-          target.accountNum += '-';
-        }
+    var target = { accountNum: '' };
+    for (var i = 0; i < 5; i++) {
+      target.accountNum += randomNumberGenerator(1000, 9999);
+      if (i < 4) {
+        target.accountNum += '-';
       }
-      target.funds = randomNumberGenerator(targetServices.targets[targetType].reward.min, targetServices.targets[targetType].reward.max);
-      target.security = targetServices.targets[targetType].security;
-      target.jailTime = targetServices.targets[targetType].jailTime;
-      target.cost = targetServices.targets[targetType].cost;
-      target.description = targetServices.targets[targetType].description;
     }
+    target.funds = randomNumberGenerator(targetServices.targets[targetType].reward.min, targetServices.targets[targetType].reward.max);
+    target.security = targetServices.targets[targetType].security;
+    target.jailTime = targetServices.targets[targetType].jailTime;
+    target.cost = targetServices.targets[targetType].cost;
+    target.description = targetServices.targets[targetType].description;
     return target;
   };
 

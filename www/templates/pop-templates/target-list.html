@@ -10,7 +10,7 @@
   <ion-content class="popup-content" has-bouncing="false">
     <div id="target-item" ng-repeat="target in targetList" ng-click="initiateGame(target)">
       <div style="font-size: 15px;">Account: #{{target.accountNum}}</div>
-      <div style="font-size: 15px;">Balance: ${{commafyNumber(target.funds)}}.00</div>
+      <div style="font-size: 15px;">Balance: <span style="color: green;">${{commafyNumber(target.funds)}}.00</span></div>
     </div>
   </ion-content>
 
