@@ -2,8 +2,8 @@
 <ion-view id="targetPage">
 
 <div id="main-playerData">
-  <div>Alias: <span style="color: rgba(100,200,255,1);">{{player.alias}}</span></div>
-  <div>Earnings: <span style="color: rgba(100,200,255,1);">${{player.funds}}</span></div>
+  <div>Username: <span style="color: rgba(100,200,255,1);">{{player.username}}</span></div>
+  <div>Earnings: <span style="color: rgba(100,200,255,1);">{{player.funds}} kryptos</span></div>
 </div>
 
 <div id="target-home-button" ng-click="goToMain()"> < main menu </div>
@@ -13,9 +13,10 @@
 <!-- Target List -->
 <ion-content id="target-list-container"  has-bouncing="false">
   <!-- Target -->
-  <div id="target-item" ng-click="targetClickEventHandler(item)" ng-repeat="item in targets track by $index">
+  <div id="target-item" ng-click="targetClickEventHandler(item, $index)" ng-repeat="item in targets track by $index">
     <div id="target-item-type">{{item.type}}</div>
     <img id="target-item-image" src="{{ '../img/' + $index + '.png'}}">
+    <div id="target-item-lock" ng-if="lockLevel($index)">locked</div>
   </div>
 </ion-content>
 

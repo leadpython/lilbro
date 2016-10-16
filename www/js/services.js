@@ -9,8 +9,8 @@ angular.module('lilbro.services', [])
 
   targetServices.currentTarget;
   targetServices.targets = {
-    'Credit Card': {
-      type: 'Credit Card',
+    'Credit Cards': {
+      type: 'Credit Cards',
       security: {
         passLength: 0,
         timeLimit: undefined,
@@ -30,8 +30,8 @@ angular.module('lilbro.services', [])
       numOfResults: 15
     },
 
-    'Debit Card': {
-      type: 'Debit Card',
+    'Debit Cards': {
+      type: 'Debit Cards',
       security: {
         passLength: 0,
         timeLimit: undefined,
@@ -51,8 +51,8 @@ angular.module('lilbro.services', [])
       numOfResults: 15
     },
     
-    'Local Business': {
-      type: 'Local Business',
+    'Local Businesses': {
+      type: 'Local Businesses',
       security: {
         passLength: 0,
         timeLimit: undefined,
@@ -71,8 +71,8 @@ angular.module('lilbro.services', [])
       description: ''
     },
     
-    'Casino': {
-      type: 'Casino',
+    'Casinos': {
+      type: 'Casinos',
       security: {
         passLength: 0,
         timeLimit: undefined,
@@ -92,8 +92,8 @@ angular.module('lilbro.services', [])
       numOfResults: 15
     },
     
-    'Drug Cartel': {
-      type: 'Drug Cartel',
+    'Drug Cartels': {
+      type: 'Drug Cartels',
       security: {
         passLength: 0,
         timeLimit: undefined,
@@ -134,8 +134,8 @@ angular.module('lilbro.services', [])
       numOfResults: 10
     },
     
-    'Multinational Corporation': {
-      type: 'Multinational Corporation',
+    'Multinational Corporations': {
+      type: 'Multinational Corporations',
       security: {
         passLength: 0,
         timeLimit: undefined,
@@ -151,11 +151,12 @@ angular.module('lilbro.services', [])
         penalty: 0
       },
       jailTime: 0,
-      description: ''
+      description: '',
+      numOfResults: 10
     },
     
-    'World Bank': {
-      type: 'World Bank',
+    'Central Banks': {
+      type: 'Central Banks',
       security: {
         passLength: 0,
         timeLimit: undefined,
@@ -172,7 +173,7 @@ angular.module('lilbro.services', [])
       },
       jailTime: 0,
       description: '',
-      numOfResults: 15
+      numOfResults: 5
     },
     
     'Black Hat Hacker': {
@@ -214,4 +215,32 @@ angular.module('lilbro.services', [])
   };
 
   return targetServices;
+})
+
+.factory('DataSERVICES', function($window) {
+  var dataServices = {};
+  dataServices.user = {};
+  dataServices.noUser = true;
+  dataServices.saveUser = function() {
+    $window.localStorage.setItem('lilbro-username', dataServices.user.username);
+    $window.localStorage.setItem('lilbro-funds', JSON.stringify(dataServices.user.funds));
+    $window.localStorage.setItem('lilbro-level', JSON.stringify(dataServices.user.level));
+  };
+  dataServices.loadUser = function() {
+    dataServices.user.username = $window.localStorage.getItem('lilbro-username');
+    dataServices.user.funds = Number($window.localStorage.getItem('lilbro-funds'));
+    dataServices.user.level = Number($window.localStorage.getItem('lilbro-level'));
+  };
+  dataServices.resetUser = function() {
+    dataServices.noUser = true;
+    dataServices.user = {username: '', funds: 0, level: 0};
+    dataServices.saveUser();
+  };
+  dataServices.updateUserData = function(key, value) {
+    if (key === 'username') {
+      dataServices.noUser = false;
+    }
+    dataServices.user[key] = value;
+  };
+  return dataServices;
 })

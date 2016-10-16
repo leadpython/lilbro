@@ -116,7 +116,7 @@
 #main-alias-input {
   background-color: black;
   border: 1px solid #00cc99;
-  top: 45%;
+  top: 200px;
   height: 40px;
   width: 80%;
   font-family: Courier New, Courier, monospace;
@@ -126,16 +126,12 @@
   font-size: 18px;
 }
 #main-start-button {
-  position: absolute;
   text-align: center;
+  margin-top: 5px;
   font-size: 25px;
   padding: 5px;
+  width: 100%;
   height: 35px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-
-
 }
 #main-start-button:active {
   background-color: #00cc99;
@@ -218,6 +214,17 @@
   position: absolute;
   top: 22px;
   left: 75px;
+}
+#target-item-lock {
+  position: absolute;
+  text-align: center;
+  color: rgb(75,75,75);
+  padding: 20px;
+  background: rgba(0,0,0,0.95);
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
 }
 #retrieving-loading-container {
   position: absolute;

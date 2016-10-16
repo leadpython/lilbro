@@ -10,18 +10,12 @@
   <ion-content class="popup-content" has-bouncing="false">
     <div id="target-item" ng-repeat="target in targetList" ng-click="initiateGame(target)">
       <div style="font-size: 15px;">Account: #{{target.accountNum}}</div>
-      <div style="font-size: 15px;">Balance: <span style="color: green;">${{commafyNumber(target.funds)}}.00</span></div>
+      <div style="font-size: 15px;">Balance: <span style="color: green;">{{commafyNumber(target.funds)}} kryptos</span></div>
     </div>
   </ion-content>
 
 <div ng-if="isLoading" class="popup-window"
      style="top: 40%; left: 10%; right: 10%; bottom: auto; height: 70px; z-index: 99999">
-  
-  <!-- Header Bar-->
-  <!--<div class="popup-headerBar">
-    <div class="popup-filename">cmd.exe</div>
-    <div class="popup-exit ion-ios-close-empty" ng-click="closeRetrieving()"></div>
-  </div>-->
 
 <div style="position:absolute; font-family: square; font-size: 35px; width: 100%; text-align: center; top:15px;">searching...</div>
 

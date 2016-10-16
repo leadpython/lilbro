@@ -1,15 +1,20 @@
 angular.module('lilbro.controllers', [])
 
 /////// MAIN CONTROLLER ///////
-.controller('MainCONTROLLER', function($scope, $location) {
+.controller('MainCONTROLLER', function($scope, $location, DataSERVICES) {
   $scope.$on('$ionicView.enter', function() {
-    $scope.player = {};
-    $scope.player.alias = "leadpython";
-    $scope.player.funds = 0;
+    DataSERVICES.loadUser();
+    $scope.user = DataSERVICES.user;
+    $scope.hasAlias = !DataSERVICES.noUser;
   });
-  $scope.hasAlias = false;
   $scope.start = function() {
+    DataSERVICES.resetUser();
+    DataSERVICES.updateUserData('username', $scope.user.username);
+    DataSERVICES.saveUser();
+    DataSERVICES.noUser = false;
     $scope.hasAlias = true;
+    DataSERVICES.loadUser();
+    $scope.user = DataSERVICES.user;
   };
   $scope.menuOptions = [
     {
@@ -31,21 +36,26 @@ angular.module('lilbro.controllers', [])
       image: '../img/garbage.png',
       clickEventHandler: function() {
         $scope.hasAlias = false;
+        $scope.user.username = '';
+        DataSERVICES.resetUser();
       }
     }
   ];
 })
 
 /////// TARGET CONTROLLER ///////
-.controller('TargetCONTROLLER', function($scope, $interval, $location, $ionicModal, TargetSERVICES) {
+.controller('TargetCONTROLLER', function($scope, $interval, $location, $ionicModal, DataSERVICES, TargetSERVICES) {
   $scope.progress = 0;
   $scope.targets = TargetSERVICES.targets;
   $scope.goToMain = function() {
     $location.path('/main');
   };
-  $scope.targetClickEventHandler = function(target) {
+  $scope.targetClickEventHandler = function(target, index) {
+    if ($scope.currentLevel < index) {
+      return;
+    }
     $scope.selectedTarget = target;
-    $scope.progress = 0;
+    $scope.progress = 0;;
     $ionicModal.fromTemplateUrl('../templates/pop-templates/target-list.html', {
       scope: $scope
     }).then(function(modal) {
@@ -68,6 +78,14 @@ angular.module('lilbro.controllers', [])
       }
     }, 10);
   };
+  $scope.lockLevel = function(index) {
+    $scope.currentLevel = DataSERVICES.user.level;
+    if ($scope.currentLevel >= index) {
+      return false;
+    } else {
+      return true;
+    }
+  };
   $scope.commafyNumber = function(num) {
     var strArr = (num.toString()).split('');
     var commafied = [];
@@ -78,7 +96,6 @@ angular.module('lilbro.controllers', [])
         commafied.unshift(',');
       }
     }
-    console.log(strArr);
     return commafied.join('');
   };
   $scope.closeTargetList = function() {
@@ -92,6 +109,10 @@ angular.module('lilbro.controllers', [])
   $scope.$on('$destroy', function() {
     $scope.retrievingModal.remove();
     $scope.targetListModal.remove();
+  });
+  $scope.$on('$ionicView.enter', function() {
+    DataSERVICES.loadUser();
+    $scope.player = DataSERVICES.user;
   });
 })
 
@@ -140,5 +161,5 @@ angular.module('lilbro.controllers', [])
 })
 
 .controller('GameCONTROLLER', function($scope) {
-  $scope.haha = "ashhwq2w";
+  
 })
