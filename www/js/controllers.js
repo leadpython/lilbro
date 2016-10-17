@@ -128,14 +128,14 @@ angular.module('lilbro.controllers', [])
                       'Encryption override...COMPLETE',
                       'Creating pointer to route...COMPLETE',
                       'Account drain module...READY',
-                      'Loading hack interface...',
-                      '.',
-                      '.',
-                      '.',
-                      '.',
-                      'Hacking interface successfully loaded!'];
+                      'Loading hack interface...'];
+var last3 = ['.',
+             '.',
+             '.',
+             'Hacking interface successfully loaded!'];
   $scope.isAnimateCommandsDone = false;
-  $scope.countdown = 3000;
+  $scope.isLast3AnimationsDone = false;
+  $scope.countdown = 5000;
   var i = 0;
   $scope.animateCommands = $interval(function() {
     if (i >= hackCommands.length) {
@@ -147,11 +147,23 @@ angular.module('lilbro.controllers', [])
       i++;
     }
   }, 50);
+  $scope.last3Animations = $interval(function() {
+    if ($scope.isAnimateCommandsDone) {
+      $scope.consoleOutput.push(last3[i]);
+      i++;
+      if (i > last3.length-1) {
+        i=0;
+        $scope.isLast3AnimationsDone = true;
+        $interval.cancel($scope.last3Animations);
+      }
+    }
+  }, 500);
 
   $scope.animateCountdown = $interval(function() {
-    if ($scope.isAnimateCommandsDone) {
+    if ($scope.isLast3AnimationsDone) {
       $scope.countdown -= 10;
       if ($scope.countdown <= 0) {
+        i=0;
         $interval.cancel($scope.animateCountdown);
         $location.path('/game');
       }
