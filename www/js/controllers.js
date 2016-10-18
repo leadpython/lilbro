@@ -308,6 +308,14 @@ var last3 = ['.',
   $scope.checkGuess = function() {
     var feedback = GameSERVICES.checkGuess($scope.guess.join(''));
     $scope.log.unshift(feedback);
+    if (feedback.success) {
+      $scope.triggerWin();
+      return;
+    }
+    if ($scope.log.length === $scope.target.security.tries) {
+      $scope.triggerLoss();
+      return;
+    }
   };
   $scope.triggerLoss = function() {
     console.log('GAME OVER');
