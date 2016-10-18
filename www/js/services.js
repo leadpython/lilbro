@@ -12,7 +12,7 @@ angular.module('lilbro.services', [])
     'Credit Cards': {
       type: 'Credit Cards',
       security: {
-        passLength: 0,
+        passLength: 3,
         timeLimit: undefined,
         drainRate: undefined,
         tries: 7
@@ -21,15 +21,16 @@ angular.module('lilbro.services', [])
         min: 0,
         max: 5000
       },
-      fee: 0,
-      jailTime: 0,
+      fee: 100,
+      jailTime: 1,
       description: '',
-      numOfResults: 15
+      numOfResults: 15,
+      imageUrl: 0
     },
     'Debit Cards': {
       type: 'Debit Cards',
       security: {
-        passLength: 0,
+        passLength: 4,
         timeLimit: undefined,
         drainRate: undefined,
         tries: 7
@@ -38,128 +39,136 @@ angular.module('lilbro.services', [])
         min: 0,
         max: 25000
       },
-      fee: 0,
+      fee: 100,
       jailTime: 0,
       description: '',
-      numOfResults: 15
+      numOfResults: 15,
+      imageUrl: 1
     },
     'Local Businesses': {
       type: 'Local Businesses',
       security: {
-        passLength: 0,
+        passLength: 5,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 10
+        tries: 7
       },
       reward: {
         min: 10000,
         max: 500000
       },
-      fee: 0,
+      fee: 100,
       jailTime: 0,
-      description: ''
+      description: '',
+      imageUrl: 2
     },
     'Casinos': {
       type: 'Casinos',
       security: {
-        passLength: 0,
+        passLength: 6,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 10
+        tries: 7
       },
       reward: {
         min: 50000,
         max: 5000000
       },
-      fee: 0,
+      fee: 100,
       jailTime: 0,
       description: '',
-      numOfResults: 15
+      numOfResults: 15,
+      imageUrl: 3
     },
     'Drug Cartels': {
       type: 'Drug Cartels',
       security: {
-        passLength: 0,
+        passLength: 7,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 10
+        tries: 7
       },
       reward: {
         min: 100000,
         max: 100000000
       },
-      fee: 0,
+      fee: 100,
       jailTime: 0,
       description: '',
-      numOfResults: 5
+      numOfResults: 5,
+      imageUrl: 4
     },
     'Covert Operatives': {
       type: 'Covert Operatives',
       security: {
-        passLength: 0,
+        passLength: 7,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 10
+        tries: 7
       },
       reward: {
         min: 500000,
         max: 120000000
       },
-      fee: 0,
+      fee: 100,
       jailTime: 0,
       description: '',
-      numOfResults: 10
+      numOfResults: 10,
+      imageUrl: 5
     },
     'Multinational Corporations': {
       type: 'Multinational Corporations',
       security: {
-        passLength: 0,
+        passLength: 7,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 10
+        tries: 7
       },
       reward: {
         min: 50000000,
         max: 5000000000
       },
-      fee: 0,
+      fee: 100,
       jailTime: 0,
       description: '',
-      numOfResults: 10
+      numOfResults: 10,
+      imageUrl: 6
     },
     'Central Banks': {
       type: 'Central Banks',
       security: {
-        passLength: 0,
+        passLength: 7,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 10
+        tries: 7
       },
       reward: {
         min: 1000000000,
         max: 20000000000
       },
-      fee: 0,
+      fee: 100,
       jailTime: 0,
       description: '',
-      numOfResults: 5
+      numOfResults: 5,
+      imageUrl: 7
     },
     'Black Hat Hacker': {
       type: 'Black Hat Hacker',
       security: {
-        passLength: 0,
+        passLength: 8,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 10
+        tries: 7
       },
       reward: {
         min: 0,
         max: 50000000000
       },
-      fee: 0,
+      fee: 100,
       jailTime: 0,
       description: '',
-      numOfResults: 3
+      numOfResults: 3,
+      imageUrl: 8
     }
   };
 
@@ -171,11 +180,13 @@ angular.module('lilbro.services', [])
         target.accountNum += '-';
       }
     }
+    target.type = targetServices.targets[targetType].type;
     target.funds = randomNumberGenerator(targetServices.targets[targetType].reward.min, targetServices.targets[targetType].reward.max);
     target.security = targetServices.targets[targetType].security;
     target.jailTime = targetServices.targets[targetType].jailTime;
     target.fee = targetServices.targets[targetType].fee;
     target.description = targetServices.targets[targetType].description;
+    target.imageUrl = targetServices.targets[targetType].imageUrl;
     return target;
   };
 
@@ -198,14 +209,61 @@ angular.module('lilbro.services', [])
   };
   dataServices.resetUser = function() {
     dataServices.noUser = true;
-    dataServices.user = {username: '', funds: 0, level: 0};
+    dataServices.user = {username: '', funds: 100, level: 0};
     dataServices.saveUser();
   };
-  dataServices.updateUserData = function(key, value) {
-    if (key === 'username') {
-      dataServices.noUser = false;
-    }
-    dataServices.user[key] = value;
+  dataServices.updateUsername = function(username) {
+    dataServices.noUser = false;
+    dataServices.user.username = username;
   };
   return dataServices;
+})
+
+.factory('GameSERVICES', function() {
+  var gameServices = {};
+  var password = 0;
+  gameServices.generatePassword = function(length) {
+    var min = 1 * Math.pow(10, length-1);
+    var max = 1 * Math.pow(10, length) - 1;
+    password = Math.floor(Math.random() * (max - min + 1)) + min;
+    password = password.toString().split('');
+    console.log(length);
+    console.log(password);
+  };
+  gameServices.checkGuess = function(guess) {
+    var guessArr = guess.split('');
+    var secretCodeArr = password.join('').split('');
+    var feedback = {
+      guess: guess,
+      numPos: 0,
+      numOnly: 0,
+      success: false,
+      date: new Date()
+    };
+
+    if (guess === password.join('')) {
+      feedback.success = true;
+    }
+
+    for (var i = 0; i < guessArr.length; i++) {
+      if (guessArr[i] === secretCodeArr[i] && guessArr[i] !== undefined) {
+        feedback.numPos++;
+        delete guessArr[i];
+        delete secretCodeArr[i];
+      }
+    }
+
+    for (var i = 0; i < guessArr.length; i++) {
+      for (var j = 0; j < secretCodeArr.length; j++) {
+        if (guessArr[i] === secretCodeArr[j] && guessArr[i] !== undefined) {
+          feedback.numOnly++;
+          delete guessArr[i];
+          delete secretCodeArr[j];
+        }
+      }
+    }
+    return feedback;
+  };
+
+  return gameServices;
 })
