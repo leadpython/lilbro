@@ -46,6 +46,11 @@ angular.module('lilbro', ['ionic', 'lilbro.controllers', 'lilbro.services'])
       templateUrl: 'templates/hackSimulation.html',
       controller: 'HackSimulationCONTROLLER'
     })
+    .state('jail', {
+      url: '/jail',
+      templateUrl: 'templates/jail.html',
+      controller: 'JailCONTROLLER'
+    })
 
   $urlRouterProvider.otherwise('/main');
 });

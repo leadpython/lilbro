@@ -2,14 +2,14 @@
 
 <div id="playerData">
   <div>Username: <span style="color: rgba(100,200,255,1);">{{player.username}}</span></div>
-  <div>Earnings: <span style="color: green;">k{{commafyNumber(player.funds)}}.00</span></div>
+  <div>Earnings: <span style="{{drainingStyle()}}">k{{commafyNumber(player.funds)}}.00</span></div>
 </div>
 
 <div id="game-target-container">
   <div id="game-target-label">{{target.type.toUpperCase()}}</div>
   <image id="game-target-image" src="{{ 'img/' + target.imageUrl + '.png' }}"></image>
   <div id="game-target-account">#{{target.accountNum}}</div>
-  <div id="game-target-funds">k{{commafyNumber(target.funds)}}.00</div>
+  <div id="game-target-funds" style="{{drainingStyle()}}">k{{commafyNumber(target.funds)}}.00</div>
 </div>
 
 <div id="game-toolbar-container">
@@ -50,10 +50,10 @@
   </div>
 </div>
 
-<div ng-if="toggledTools.log" id="game-log-container">
+<div id="game-log-container">
   <div id="game-log-label">HISTORY LOG</div>
   <ion-content id="game-log-content">
-    <div class="game-log-entry" ng-repeat="entry in log track by $index">
+    <div class="game-log-entry" style="{{successEntryStyle(entry.success)}}" ng-repeat="entry in log track by $index">
       <div class="game-log-guessCode">{{entry.guess}}</div>
       <div id="game-log-clues">
         <div>
@@ -75,6 +75,23 @@
 })}}</div>
     </div>
   </ion-content>
+</div>
+
+<div ng-if="draining" id="game-drain-window">
+  <div id="game-drain-label">account-drain.exe</div>
+  <div id="game-drain-draining">draining...</div>
+  <div id="game-drain-loadingbar-container">
+    <div id="game-drain-loadingbar" style="{{drainBar()}}"></div>
+  </div>
+</div>
+
+<div ng-if="disconnecting" id="game-drain-window">
+  <div id="game-drain-label">Terminal</div>
+  <div id="game-drain-draining" ng-if="aboutToDC">disconnecting...</div>
+  <div id="game-disconnect-code" ng-if="!aboutToDC">{{disconnectCode.join('')}}</div>
+  <div id="game-drain-loadingbar-container">
+    <div id="game-drain-loadingbar" style="{{disconnectBar()}}"></div>
+  </div>
 </div>
 
 </ion-view>

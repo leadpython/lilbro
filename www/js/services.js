@@ -22,7 +22,7 @@ angular.module('lilbro.services', [])
         max: 5000
       },
       fee: 100,
-      jailTime: 1,
+      jailTime: 0.5,
       description: '',
       numOfResults: 15,
       imageUrl: 0
@@ -201,26 +201,45 @@ angular.module('lilbro.services', [])
     $window.localStorage.setItem('lilbro-username', dataServices.user.username);
     $window.localStorage.setItem('lilbro-funds', JSON.stringify(dataServices.user.funds));
     $window.localStorage.setItem('lilbro-level', JSON.stringify(dataServices.user.level));
+    $window.localStorage.setItem('lilbro-jailTerm', JSON.stringify(dataServices.user.releaseDate.getTime()));
   };
   dataServices.loadUser = function() {
     dataServices.user.username = $window.localStorage.getItem('lilbro-username');
     dataServices.user.funds = Number($window.localStorage.getItem('lilbro-funds'));
     dataServices.user.level = Number($window.localStorage.getItem('lilbro-level'));
+    dataServices.user.releaseDate = new Date(Number($window.localStorage.getItem('lilbro-jailTerm')));
     if (dataServices.user.username === null || dataServices.user.username === undefined || dataServices.user.username === '') {
-      dataServices.noUser = true;
+      dataServices.resetUser();
     } else {
       dataServices.noUser = false;
     }
   };
   dataServices.resetUser = function() {
     dataServices.noUser = true;
-    dataServices.user = {username: '', funds: 100, level: 0};
+    dataServices.user = {username: '', funds: 100, level: 0, releaseDate: new Date(0)};
     dataServices.saveUser();
   };
   dataServices.updateUsername = function(username) {
     dataServices.noUser = false;
     dataServices.user.username = username;
+    dataServices.saveUser();
   };
+  dataServices.updateFunds = function(money) {
+    dataServices.user.funds += money;
+    dataServices.saveUser();
+  };
+  dataServices.updateLevel = function(level) {
+    dataServices.user.level = level;
+    dataServices.saveUser();
+  };
+  dataServices.chargeCrime = function(jailTime) {
+    dataServices.user.releaseDate = new Date((new Date()).getTime() + jailTime);
+    dataServices.saveUser();
+  };
+  dataServices.amIFree = function() {
+    var currentDate = new Date();
+    return currentDate.getTime() >= dataServices.user.releaseDate.getTime();
+  }
   return dataServices;
 })
 
@@ -232,8 +251,6 @@ angular.module('lilbro.services', [])
     var max = 1 * Math.pow(10, length) - 1;
     password = Math.floor(Math.random() * (max - min + 1)) + min;
     password = password.toString().split('');
-    console.log(length);
-    console.log(password);
   };
   gameServices.checkGuess = function(guess) {
     var guessArr = guess.split('');

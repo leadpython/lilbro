@@ -4,14 +4,15 @@ angular.module('lilbro.controllers', [])
 .controller('MainCONTROLLER', function($scope, $location, DataSERVICES) {
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
+    if (!DataSERVICES.amIFree()) {
+      $location.path('/jail');
+    }
     $scope.user = DataSERVICES.user;
     $scope.hasAlias = !DataSERVICES.noUser;
   });
   $scope.start = function() {
     DataSERVICES.resetUser();
     DataSERVICES.updateUsername($scope.user.username);
-    DataSERVICES.saveUser();
-    DataSERVICES.noUser = false;
     $scope.hasAlias = true;
     DataSERVICES.loadUser();
     $scope.user = DataSERVICES.user;
@@ -125,9 +126,8 @@ angular.module('lilbro.controllers', [])
   $scope.initiateGame = function(target) {
     GameSERVICES.generatePassword(target.security.passLength);
     TargetSERVICES.currentTarget = target;
-    DataSERVICES.user.funds -= target.fee;
+    DataSERVICES.updateFunds(-1 * target.fee);
     $scope.player = DataSERVICES.user;
-    DataSERVICES.saveUser();
     $scope.targetListModal.remove();
     $location.path('/hackSimulation');
   }
@@ -137,6 +137,9 @@ angular.module('lilbro.controllers', [])
   });
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
+    if (!DataSERVICES.amIFree()) {
+      $location.path('/jail');
+    }
     $scope.player = DataSERVICES.user;
   });
 })
@@ -148,7 +151,7 @@ angular.module('lilbro.controllers', [])
                       'lilbro_000@lilbro MINGW64 ~/root $ stage encryption-override.exe',
                       'lilbro_000@lilbro MINGW64 ~/root $ set route -force fund-route.bat',
                       'lilbro_000@lilbro MINGW64 ~/root $ stage account-drain.exe',
-                      'lilbro_000@lilbro MINGW64 ~/root $ run -all staged',
+                      'lilbro_000@lilbro MINGW64 ~/root $ engage stage -all',
                       'Injection...COMPLETE',
                       'Encryption override...COMPLETE',
                       'Creating pointer to route...COMPLETE',
@@ -157,10 +160,12 @@ angular.module('lilbro.controllers', [])
 var last3 = ['.',
              '.',
              '.',
+             '.',
+             '.',
              'Hacking interface successfully loaded!'];
   $scope.isAnimateCommandsDone = false;
   $scope.isLast3AnimationsDone = false;
-  $scope.countdown = 5000;
+  $scope.countdown = 3000;
   var i = 0;
   $scope.animateCommands = $interval(function() {
     if (i >= hackCommands.length) {
@@ -171,7 +176,7 @@ var last3 = ['.',
       $scope.consoleOutput.push(hackCommands[i]);
       i++;
     }
-  }, 50);
+  }, 100);
   $scope.last3Animations = $interval(function() {
     if ($scope.isAnimateCommandsDone) {
       $scope.consoleOutput.push(last3[i]);
@@ -189,45 +194,36 @@ var last3 = ['.',
       $scope.countdown -= 10;
       if ($scope.countdown <= 0) {
         i=0;
-        $interval.cancel($scope.animateCountdown);
         $location.path('/game');
+        $interval.cancel($scope.animateCountdown);
       }
     }
   }, 10);
 
 })
 
-.controller('GameCONTROLLER', function($scope, DataSERVICES, TargetSERVICES, GameSERVICES) {
+.controller('GameCONTROLLER', function($scope, $timeout, $interval, $location, DataSERVICES, TargetSERVICES, GameSERVICES) {
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
+    if (!DataSERVICES.amIFree()) {
+      $location.path('/jail');
+    }
     $scope.win = false;
-    $scope.player = DataSERVICES.user;
+    $scope.player = {};
+    $scope.player.funds = DataSERVICES.user.funds;
+    $scope.player.level = DataSERVICES.user.level;
+    $scope.player.username = DataSERVICES.user.username;
     $scope.target = TargetSERVICES.currentTarget;
     $scope.clear();
     $scope.currentDigit = 0;
-    // account num
-    // funds
-    // security
-        //passLength
-        //timeLimit
-        //drainRate
-        // tries
-    // jail time
-    // fee
-    // description
     $scope.toggledTools = {
       keypad: true,
       log: false
-    }
+    };
   });
+
   $scope.log = [];
-  $scope.initializeArray = function(length) {
-    var arr = [];
-    for (var i = 0; i < length; i++) {
-      arr.push('0');
-    }
-    return arr;
-  }
+
   $scope.indicator = function(index) {
     if ($scope.currentDigit === index) {
       return '5px solid #00cc99';
@@ -240,7 +236,33 @@ var last3 = ['.',
       name: 'disconnect',
       ioniconTag: 'ion-power',
       clickHandler: function() {
-
+        $scope.disconnecting = true;
+        var code = 'nmcli dev disconect iface eth0';
+        $scope.disconnectCode = [];
+        var i = 0;
+        $scope.disconnectAnimation = $interval(function() {
+          $scope.disconnectCode.push(code.split('')[i]);
+          i++;
+          if ($scope.disconnectCode.length >= code.split('').length) {
+            $interval.cancel($scope.disconnectAnimation);
+            $timeout(function() {
+              $scope.aboutToDC = true;
+              var percentage = 0;
+              $scope.disconnectBar = function() {
+                return 'width: ' + percentage + '%;';
+              };
+              $scope.disconnectBarAnimation = $interval(function() {
+                percentage++;
+                if (percentage >= 100) {
+                  $scope.disconnectCode = [];
+                  $scope.disconnecting = false;
+                  $interval.cancel($scope.disconnectBarAnimation);
+                  $location.path('/main');
+                }
+              }, 20);
+            }, 1000);
+          }
+        }, 25);
       }
     },
     {
@@ -263,7 +285,40 @@ var last3 = ['.',
       name: 'drain',
       ioniconTag: 'ion-nuclear',
       clickHandler: function() {
-        
+        if ($scope.win) {
+          DataSERVICES.updateFunds($scope.target.funds);
+          if ($scope.target.imageUrl > $scope.player.level) {
+            DataSERVICES.updateLevel($scope.target.imageUrl);
+          }
+          var max = $scope.target.funds;
+          var min = 0;
+          $scope.drainBar = function() {
+            return 'width: ' + Math.floor(min / max) + '%;';
+          };
+          var increment = Math.floor($scope.target.funds * 0.02);
+          $scope.showDrain = true;
+          $scope.draining = true;
+          $scope.drainAnimation = $interval(function() {
+            if ($scope.target.funds < increment) {
+              $scope.player.funds += $scope.target.funds;
+              min = max;
+              $scope.target.funds = 0;              
+            } else {
+              $scope.target.funds -= increment;
+              $scope.player.funds += increment;
+              min += increment;
+            }
+            if ($scope.target.funds <= 0) {
+              $scope.draining = false;
+              $scope.drained = true;
+              $scope.target.funds = 0;    
+              $scope.draining = false;
+              $scope.drained = true;
+              $scope.win = false;
+              $interval.cancel($scope.drainAnimation);
+            }
+          }, 50);
+        }
       }
     },
   ];
@@ -281,6 +336,13 @@ var last3 = ['.',
       }
     }
     return commafied.join('');
+  };
+  $scope.drainingStyle = function() {
+    if ($scope.draining) {
+      return 'background: rgba(100,200,255,0.25); color: rgb(100,200,255);';
+    } else {
+      return 'background: rgb(25,25,25); color: green;';
+    }
   };
   $scope.hitNum = function(num) {
     $scope.guess[$scope.currentDigit] = num.toString();
@@ -313,7 +375,7 @@ var last3 = ['.',
       $scope.triggerWin();
       return;
     }
-    if ($scope.log.length === $scope.target.security.tries) {
+    if ($scope.log.length >= $scope.target.security.tries) {
       $scope.triggerLoss();
       return;
     }
@@ -325,16 +387,55 @@ var last3 = ['.',
       } else {
         return 'background: red; color: black;';
       }
+    } else if (item.name === 'disconnect') {
+      if ($scope.drained) {
+        return 'background: rgba(100, 200, 255, 1); color: black;';
+      } else {
+        return 'background: rgb(25,25,25); color: rgb(75,75,75);';
+      }
     }
-  }
+  };
+  $scope.successEntryStyle = function(success) {
+    if (success) {
+      return 'border: 2px solid rgba(100,200,255,1); background: rgba(100,200,255,0.25);';
+    } else {
+      return 'border: 1px solid rgba(25,25,25,1); background: rgba(25,25,25,0.5);';
+    }
+  };
   $scope.triggerLoss = function() {
-    console.log('GAME OVER');
-    // send to jail
+    DataSERVICES.chargeCrime($scope.target.jailTime * 60 * 1000);
+    $location.path('/jail');
   };
   $scope.triggerWin = function() {
-    console.log('YOU WIN');
     $scope.win = true;
-    // add money
-    // animate drain
+  };
+})
+
+.controller('JailCONTROLLER', function($scope, $interval, $location, DataSERVICES) {
+  $scope.$on('$ionicView.enter', function() {
+    console.log('jailed');
+    DataSERVICES.loadUser();
+    if (DataSERVICES.amIFree()) {
+      $location.path('/main');
+    }
+    $scope.releaseDate = DataSERVICES.user.releaseDate;
+    $scope.secondsLeft = $scope.getSeconds();
+    $scope.animateTime = $interval(function() {
+      $scope.getSeconds();
+    }, 500);
+  });
+  $scope.$on('$destroy', function() {
+    $interval.cancel($scope.animateTime);
+  });
+  $scope.getSeconds = function() {
+    if (DataSERVICES.amIFree()) {
+      $scope.secondsLeft = 0;
+      $interval.cancel($scope.animateTime);
+      $location.path('/main');
+    } else {
+      var currentDate = new Date();
+      var millisecondsLeft = $scope.releaseDate.getTime() - currentDate.getTime();
+      $scope.secondsLeft = Math.floor(millisecondsLeft / 1000);
+    }
   };
 })

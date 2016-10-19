@@ -351,11 +351,12 @@
 }
 .game-keypad-container {
   position: absolute;
-  background: rgb(25,25,25);
-  top: 165px;
-  left: 5px;
-  right: 5px;
-  bottom: 40px;
+  background: rgba(25,25,25,0.9);
+  height: 305px;
+  left: 10px;
+  right: 10px;
+  bottom: 45px;
+  z-index: 9998;
 }
 #game-keypad-pads-container {
   position: absolute;
@@ -434,7 +435,8 @@
   bottom: 40px;
   left: 5px;
   right: 5px;
-  top: 155px;
+  top: 165px;
+  z-index: 0;
 }
 #game-log-label {
   position: absolute;
@@ -458,8 +460,6 @@
   width: 100%;
   height: 75px;
   margin-bottom: 5px;
-  background: rgba(25,25,25,0.5);
-  border: 1px solid rgba(25,25,25,1);
 }
 .game-log-guessCode {
   position: absolute;
@@ -502,4 +502,65 @@
   height: 20px;
   font-size: 12px;
   padding-right: 5px;
+}
+#game-drain-window {
+  position: absolute;
+  z-index: 9999;
+  background-color: black;
+  border: 2px solid rgb(100,200,255);
+  top: 300px;
+  right: 20px;
+  left: 20px;
+  height: 150px;
+}
+#game-drain-label {
+  position: absolute;
+  font-family: Courier New;
+  font-size: 12px;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 25px;
+  padding: 2px;
+  padding-left: 5px;
+  border-bottom: 2px solid rgb(100,200,255);
+  color: rgb(100,200,255);
+  font-weight: bold;
+}
+#game-drain-loadingbar-container {
+  position: absolute;
+  font-family: Courier New;
+  font-size: 12px;
+  bottom: 20px;
+  left: 10px;
+  right: 10px;
+  height: 15px;
+  padding: 2px;
+  padding-left: 5px;
+  border: 1px solid rgb(100,200,255);
+}
+#game-drain-loadingbar {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  background-color: rgb(100,200,255);
+}
+#game-drain-draining {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 85px;
+  font-size: 25px;
+  color: rgb(100,200,255);
+}
+#game-disconnect-code {
+  position: absolute;
+  font-family: Courier New;
+  width: 100%;
+  text-align: left;
+  top: 85px;
+  left: 10px;
+  font-size: 15px;
+  color: rgb(100,200,255);
 }
