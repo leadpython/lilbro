@@ -34,21 +34,21 @@ angular.module('lilbro.controllers', [])
   $scope.menuOptions = [
     {
       name: 'seek targets',
-      image: '../img/target.png',
+      image: 'img/target.png',
       clickEventHandler: function() {
         $location.path('/target');
       }
     },
     {
       name: 'how to play',
-      image: '../img/question.png',
+      image: 'img/question.png',
       clickEventHandler: function() {
         $location.path('/tutorial');
       }
     },
     {
       name: 'reset game',
-      image: '../img/garbage.png',
+      image: 'img/garbage.png',
       clickEventHandler: function() {
         $scope.hasAlias = false;
         $scope.user.username = '';
@@ -74,7 +74,7 @@ angular.module('lilbro.controllers', [])
     }
     $scope.selectedTarget = target;
     $scope.progress = 0;;
-    $ionicModal.fromTemplateUrl('../templates/pop-templates/target-list.html', {
+    $ionicModal.fromTemplateUrl('templates/pop-templates/target-list.html', {
       scope: $scope
     }).then(function(modal) {
       $scope.isLoading = true;
