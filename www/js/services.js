@@ -206,7 +206,7 @@ angular.module('lilbro.services', [])
     dataServices.user.username = $window.localStorage.getItem('lilbro-username');
     dataServices.user.funds = Number($window.localStorage.getItem('lilbro-funds'));
     dataServices.user.level = Number($window.localStorage.getItem('lilbro-level'));
-    if (dataServices.user.username === null || dataServices.user.username === undefined dataServices.user.username === '') {
+    if (dataServices.user.username === null || dataServices.user.username === undefined || dataServices.user.username === '') {
       dataServices.noUser = true;
     } else {
       dataServices.noUser = false;
