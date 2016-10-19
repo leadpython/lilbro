@@ -1,24 +1,25 @@
 <!-- TARGETS PAGE -->
 <ion-view id="targetPage">
 
-<div id="main-playerData">
+<div id="playerData">
   <div>Username: <span style="color: rgba(100,200,255,1);">{{player.username}}</span></div>
   <div>Earnings: <span style="color: green;">k{{commafyNumber(player.funds)}}.00</span></div>
 </div>
 
 <div id="target-home-button" ng-click="goToMain()"> < main menu </div>
 
-<div style="position: absolute; top: 65px; left: 5px;">Target types:</div>
-
 <!-- Target List -->
-<ion-content id="target-list-container"  has-bouncing="false">
+<div id="target-list-container">
+  <div id="target-list-container-label">TARGET TYPES</div>
   <!-- Target -->
+  <ion-content style="padding: 5px; padding-top: 25px;" has-bouncing="false">
   <div id="target-item" ng-click="targetClickEventHandler(item, $index)" ng-repeat="item in targets track by $index">
-    <div id="target-item-type">{{item.type.toUpperCase()}}</div>
+    <div id="target-item-type">{{item.type}}</div>
     <img id="target-item-image" src="{{ 'img/' + item.imageUrl + '.png' }}">
     <div id="target-item-lock" class="ion-locked" ng-if="lockLevel($index)"></div>
     <div id="target-item-cost" class="">k{{commafyNumber(item.fee)}}.00</div>
   </div>
-</ion-content>
+  </ion-content>
+</div>
 
 </ion-view>
