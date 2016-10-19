@@ -13,12 +13,12 @@
 </div>
 
 <div id="game-toolbar-container">
-  <div ng-click="item.clickHandler()" class="{{item.ioniconTag}} game-toolbar-item" ng-repeat="item in toolbarOptions track by $index">
+  <div ng-click="item.clickHandler()" class="{{item.ioniconTag}} game-toolbar-item" style="{{winStyle(item)}}" ng-repeat="item in toolbarOptions track by $index">
   </div>
 </div>
 
 <div ng-if="toggledTools.keypad" class="game-keypad-container">
-  <div id="game-guessbox">
+  <div id="game-guessbox" style="{{winstyle({name: 'drain'})}}">
     <span style="border-bottom: {{indicator($index)}};" class="game-guessbox-digit" ng-repeat="num in guess track by $index">{{num}}</span>
   </div>
 

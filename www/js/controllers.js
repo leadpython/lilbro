@@ -200,6 +200,7 @@ var last3 = ['.',
 .controller('GameCONTROLLER', function($scope, DataSERVICES, TargetSERVICES, GameSERVICES) {
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
+    $scope.win = false;
     $scope.player = DataSERVICES.user;
     $scope.target = TargetSERVICES.currentTarget;
     $scope.clear();
@@ -317,10 +318,23 @@ var last3 = ['.',
       return;
     }
   };
+  $scope.winStyle = function(item) {
+    if (item.name === 'drain') {
+      if ($scope.win) {
+        return 'background: rgba(100, 200, 255, 1); color: black;';
+      } else {
+        return 'background: red; color: black;';
+      }
+    }
+  }
   $scope.triggerLoss = function() {
     console.log('GAME OVER');
+    // send to jail
   };
   $scope.triggerWin = function() {
     console.log('YOU WIN');
+    $scope.win = true;
+    // add money
+    // animate drain
   };
 })
