@@ -8,8 +8,20 @@
 <div id="game-target-container">
   <div id="game-target-label">{{target.type.toUpperCase()}}</div>
   <image id="game-target-image" src="{{ 'img/' + target.imageUrl + '.png' }}"></image>
-  <div id="game-target-account">#{{target.accountNum}}</div>
-  <div id="game-target-funds" style="{{drainingStyle()}}">k{{commafyNumber(target.funds)}}.00</div>
+  <div id="game-target-account"><span style="font-size: 15px;">ACCOUNT: #</span>{{target.accountNum}}</div>
+  <div id="game-target-funds" style="{{drainingStyle()}}"><span style="font-size: 15px;">BALANCE:</span> k{{commafyNumber(target.funds)}}.00</div>
+</div>
+
+<div id="game-attempts">
+  <div id="game-attempts-label" class="ion-clipboard"></div>
+  <div id="game-attempts-squares">
+    <span class="game-attempts-square" style="{{attemptsStyle(item)}}" ng-repeat="item in attemptsContainerArray track by $index"></span>
+  </div>
+</div>
+
+<div id="game-timeLimit">
+  <div id="game-timeLimit-label" class="ion-clock"></div>
+  <div id="game-timeLimit-time">{{timeLeftString}}</div>
 </div>
 
 <div id="game-toolbar-container">

@@ -7,15 +7,15 @@ angular.module('lilbro.services', [])
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
 
-  targetServices.currentTarget;
+  targetServices.currentTarget = {};
   targetServices.targets = {
     'Credit Cards': {
       type: 'Credit Cards',
       security: {
         passLength: 3,
-        timeLimit: undefined,
-        drainRate: undefined,
-        tries: 7
+        timeLimit: 50,
+        drainRate: 0.25,
+        tries: 10
       },
       reward: {
         min: 0,
@@ -51,7 +51,7 @@ angular.module('lilbro.services', [])
         passLength: 5,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 7
+        tries: 10
       },
       reward: {
         min: 10000,
@@ -68,7 +68,7 @@ angular.module('lilbro.services', [])
         passLength: 6,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 7
+        tries: 10
       },
       reward: {
         min: 50000,
@@ -86,7 +86,7 @@ angular.module('lilbro.services', [])
         passLength: 7,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 7
+        tries: 10
       },
       reward: {
         min: 100000,
@@ -104,7 +104,7 @@ angular.module('lilbro.services', [])
         passLength: 7,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 7
+        tries: 10
       },
       reward: {
         min: 500000,
@@ -122,7 +122,7 @@ angular.module('lilbro.services', [])
         passLength: 7,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 7
+        tries: 10
       },
       reward: {
         min: 50000000,
@@ -140,7 +140,7 @@ angular.module('lilbro.services', [])
         passLength: 7,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 7
+        tries: 10
       },
       reward: {
         min: 1000000000,
@@ -158,7 +158,7 @@ angular.module('lilbro.services', [])
         passLength: 8,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 7
+        tries: 10
       },
       reward: {
         min: 0,
@@ -174,9 +174,9 @@ angular.module('lilbro.services', [])
 
   targetServices.generateTarget = function(targetType) {
     var target = { accountNum: '' };
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 4; i++) {
       target.accountNum += randomNumberGenerator(1000, 9999);
-      if (i < 4) {
+      if (i < 3) {
         target.accountNum += '-';
       }
     }

@@ -9,7 +9,7 @@
   font-size: 20px;
   padding: 10px;
   padding-top: 20px;
-  height: auto;
+  height: 65px;
   background-color: rgba(25,25,25,1);
 }
 .popup-window {
@@ -299,34 +299,35 @@
   border: 2px solid #00cc99;
   left: 5px;
   right: 5px;
-  top: 75px;
-  height: 85px;
+  top: 70px;
+  height: 75px;
 }
 #game-target-image {
   position: absolute;
   margin: 0px;
   left: -2px;
   top: 16px;
-  height: 67px;
+  height: 57px;
   width: auto;
   border: 2px solid #00cc99;
   padding: 5px;
 }
 #game-target-account {
   position: absolute;
-  left: 75px;
+  left: 60px;
   font-size: 20px;
   top: 22px;
 }
 #game-target-funds {
   position: absolute;
   background: rgb(25,25,25);
-  padding: 5px;
+  padding: 2px;
   padding-left: 10px;
-  left: 75px;
-  right: 10px;
-  font-size: 25px;
-  top: 45px;
+  left: 60px;
+  right: 5px;
+  font-size: 20px;
+  top: 42px;
+  height: auto;
   color: green;
 }
 #game-toolbar-container {
@@ -435,7 +436,7 @@
   bottom: 40px;
   left: 5px;
   right: 5px;
-  top: 165px;
+  top: 190px;
   z-index: 0;
 }
 #game-log-label {
@@ -511,7 +512,7 @@
   top: 300px;
   right: 20px;
   left: 20px;
-  height: 150px;
+  height: 100px;
 }
 #game-drain-label {
   position: absolute;
@@ -550,7 +551,7 @@
   position: absolute;
   width: 100%;
   text-align: center;
-  top: 85px;
+  top: 40px;
   font-size: 25px;
   color: rgb(100,200,255);
 }
@@ -559,8 +560,78 @@
   font-family: Courier New;
   width: 100%;
   text-align: left;
-  top: 85px;
+  top: 40px;
   left: 10px;
   font-size: 15px;
   color: rgb(100,200,255);
+}
+#game-attempts {
+  position: absolute;
+  border: 2px solid #00cc99;
+  height: 45px;
+  right: 153px;
+  left: 5px;
+  top: 143px;
+}
+#game-timeLimit {
+  position: absolute;
+  border: 2px solid #00cc99;
+  height: 45px;
+  width: 150px;
+  right: 5px;
+  top: 143px;
+}
+#game-timeLimit-time {
+  position: absolute;
+  color: #00cc99;
+  font-size: 35px;
+  color: rgb(100,200,255);
+  font-weight: bold;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 45px;
+  padding-top: 12px;
+  text-align: center;
+}
+#game-timeLimit-label {
+  position: absolute;
+  background-color: #00cc99;
+  color: black;
+  font-size: 35px;
+  padding: 2px;
+  padding-left: 6px;
+  padding-right: 6px;
+  width: 45px;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+#game-attempts-label {
+  position: absolute;
+  background-color: #00cc99;
+  color: black;
+  font-size: 35px;
+  padding: 2px;
+  padding-left: 9px;
+  padding-right: 9px;
+  width: 45px;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+#game-attempts-squares {
+  position: absolute;
+  left: 46px;
+  right: 0px;
+  bottom: 0px;
+  top: 0px;
+  padding: 6px; 
+}
+.game-attempts-square {
+  display: inline-block;
+  border: 2px solid #00cc99;
+  height: 100%;
+  width: 15px;
+  margin-right: 3px;
 }
