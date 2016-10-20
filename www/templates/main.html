@@ -14,7 +14,7 @@
     <!-- Player Info -->
     <div id="main-playerData">
       <div>Username: <span style="color: rgba(100,200,255,1);">{{user.username}}</span></div>
-      <div>Earnings: <span style="color: green;">k{{commafyNumber(user.funds)}}.00</span></div>
+      <div>Earnings: <span style="color: green;">${{commafyNumber(user.funds)}}.00</span></div>
     </div>
 
     <!-- Menu Options -->
@@ -31,12 +31,13 @@
   <!-- Login -->
   <div class="main-menu-login" ng-if="!hasAlias">
     <div style="width: 100%; height: 100%; text-align: center; position: absolute; top: 35%;">
-      <div id="main-alias-label">Username:</div>
+      <div id="main-alias-label">USERNAME:</div>
       <input id="main-alias-input" ng-model="user.username">
-      <div id="main-start-button" ng-click="start()">login</div>
+      <div id="main-start-button" ng-click="start()">LOGIN</div>
     </div>
     
     
   </div>
 
+<div style="position: absolute; bottom: 0px; left: 0px; right: 0px; font-size: 12px; text-align: center;" >Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 </ion-view>

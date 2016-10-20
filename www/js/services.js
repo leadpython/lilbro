@@ -13,9 +13,9 @@ angular.module('lilbro.services', [])
       type: 'Credit Cards',
       security: {
         passLength: 3,
-        timeLimit: undefined,
+        timeLimit: 30,
         drainRate: undefined,
-        tries: 10
+        tries: 15
       },
       reward: {
         min: 0,
@@ -33,7 +33,7 @@ angular.module('lilbro.services', [])
         passLength: 4,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 7
+        tries: 5
       },
       reward: {
         min: 0,
@@ -51,7 +51,7 @@ angular.module('lilbro.services', [])
         passLength: 5,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 10
+        tries: 5
       },
       reward: {
         min: 10000,
@@ -68,7 +68,7 @@ angular.module('lilbro.services', [])
         passLength: 6,
         timeLimit: undefined,
         drainRate: 0.005,
-        tries: 10
+        tries: 5
       },
       reward: {
         min: 50000,
@@ -86,7 +86,7 @@ angular.module('lilbro.services', [])
         passLength: 7,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 10
+        tries: 5
       },
       reward: {
         min: 100000,
@@ -104,7 +104,7 @@ angular.module('lilbro.services', [])
         passLength: 7,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 10
+        tries: 5
       },
       reward: {
         min: 500000,
@@ -122,7 +122,7 @@ angular.module('lilbro.services', [])
         passLength: 7,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 10
+        tries: 5
       },
       reward: {
         min: 50000000,
@@ -140,7 +140,7 @@ angular.module('lilbro.services', [])
         passLength: 7,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 10
+        tries: 5
       },
       reward: {
         min: 1000000000,
@@ -158,7 +158,7 @@ angular.module('lilbro.services', [])
         passLength: 8,
         timeLimit: undefined,
         drainRate: undefined,
-        tries: 10
+        tries: 5
       },
       reward: {
         min: 0,
@@ -201,12 +201,18 @@ angular.module('lilbro.services', [])
     $window.localStorage.setItem('lilbro-username', dataServices.user.username);
     $window.localStorage.setItem('lilbro-funds', JSON.stringify(dataServices.user.funds));
     $window.localStorage.setItem('lilbro-level', JSON.stringify(dataServices.user.level));
+    $window.localStorage.setItem('lilbro-high', JSON.stringify(dataServices.user.high));
+    $window.localStorage.setItem('lilbro-timeUpgrade', JSON.stringify(dataServices.user.timeUpgrade));
+    $window.localStorage.setItem('lilbro-bonusAttempts', JSON.stringify(dataServices.user.bonusAttempts));
     $window.localStorage.setItem('lilbro-jailTerm', JSON.stringify(dataServices.user.releaseDate.getTime()));
   };
   dataServices.loadUser = function() {
     dataServices.user.username = $window.localStorage.getItem('lilbro-username');
     dataServices.user.funds = Number($window.localStorage.getItem('lilbro-funds'));
     dataServices.user.level = Number($window.localStorage.getItem('lilbro-level'));
+    dataServices.user.high = Number($window.localStorage.getItem('lilbro-high'));
+    dataServices.user.timeUpgrade = Number($window.localStorage.getItem('lilbro-timeUpgrade'));
+    dataServices.user.bonusAttempts = Number($window.localStorage.getItem('lilbro-bonusAttempts'));
     dataServices.user.releaseDate = new Date(Number($window.localStorage.getItem('lilbro-jailTerm')));
     if (dataServices.user.username === null || dataServices.user.username === undefined || dataServices.user.username === '') {
       dataServices.resetUser();
@@ -216,7 +222,15 @@ angular.module('lilbro.services', [])
   };
   dataServices.resetUser = function() {
     dataServices.noUser = true;
-    dataServices.user = {username: '', funds: 300, level: 0, releaseDate: new Date(0)};
+    dataServices.user = {
+      username: '', 
+      funds: 300, 
+      level: 0, 
+      releaseDate: new Date(0),
+      high: 1,
+      timeUpgrade: 30,
+      bonusAttempts: 0
+    };
     dataServices.saveUser();
   };
   dataServices.updateUsername = function(username) {

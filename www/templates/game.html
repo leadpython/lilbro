@@ -2,14 +2,14 @@
 
 <div id="playerData">
   <div>Username: <span style="color: rgba(100,200,255,1);">{{player.username}}</span></div>
-  <div>Earnings: <span style="{{drainingStyle()}}">k{{commafyNumber(player.funds)}}.00</span></div>
+  <div>Earnings: <span style="{{drainingStyle()}}">${{commafyNumber(player.funds)}}.00</span></div>
 </div>
 
 <div id="game-target-container">
   <div id="game-target-label">{{target.type.toUpperCase()}}</div>
   <image id="game-target-image" src="{{ 'img/' + target.imageUrl + '.png' }}"></image>
   <div id="game-target-account"><span style="font-size: 15px;">ACCOUNT: #</span>{{target.accountNum}}</div>
-  <div id="game-target-funds" style="{{drainingStyle()}}"><span style="font-size: 15px;">BALANCE:</span> k{{commafyNumber(target.funds)}}.00</div>
+  <div id="game-target-funds" style="{{drainingStyle()}}"><span style="font-size: 15px;">BALANCE:</span> ${{commafyNumber(target.funds)}}.00</div>
 </div>
 
 <div id="game-attempts">
@@ -19,9 +19,9 @@
   </div>
 </div>
 
-<div id="game-timeLimit">
-  <div id="game-timeLimit-label" class="ion-clock"></div>
-  <div id="game-timeLimit-time">{{timeLeftString}}</div>
+<div id="game-timeLimit" style="border-color: {{timeColor}};">
+  <div id="game-timeLimit-label" class="ion-clock" style="background: {{timeColor}};"></div>
+  <div id="game-timeLimit-time" style="color: white;">{{timeLeftString}}</div>
 </div>
 
 <div id="game-toolbar-container">
@@ -104,6 +104,27 @@
   <div id="game-drain-loadingbar-container">
     <div id="game-drain-loadingbar" style="{{disconnectBar()}}"></div>
   </div>
+</div>
+
+<div ng-if="goingToJail" id="game-goingToJail-window">
+  YOU WERE CAUGHT!
+  <div style="position: absolute; bottom: 20px; left: 0px; right: 0px;"><span style="font-size: 20px;">GOING TO JAIL IN . . . </span>{{timeBeforeJail}}</div>
+</div>
+
+<div ng-if="lockedOut" style="background: rgba(0,0,0,0.5); position: absolute; top: 190px; bottom: 40px; left: 0px; right: 0px;">
+<div id="game-lockedOut-window">
+  <div style="padding-top: 15px; width: 100%; text-align: center; font-size: 50px; font-weight: bold;">LOCKED OUT</div>
+  <div style="position: absolute; text-align: center; bottom: 5px; left: 0px; right: 0px;">DISCONNECT NOW BEFORE<br>YOU ARE CAUGHT</div>
+</div>
+</div>
+
+<div ng-if="lockedOut" style="background: rgba(0,0,0,0.5); position: absolute; height: 40px; bottom: 0px; right: 0px; width: 75%;">
+</div>
+
+<div ng-if="lockedOut" style="background: rgba(0,0,0,0.5); position: absolute; height: 45px; top: 143px; bottom: 0px; left: 0px; right: 155px;">
+</div>
+
+<div ng-if="lockedOut" style="background: rgba(0,0,0,0.5); position: absolute; height: 143px; top: 0; bottom: 0px; left: 0px; right: 0;">
 </div>
 
 </ion-view>

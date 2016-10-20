@@ -11,6 +11,9 @@ angular.module('lilbro.controllers', [])
     $scope.hasAlias = !DataSERVICES.noUser;
   });
   $scope.start = function() {
+    if ($scope.user.username === '' || $scope.user.username === undefined || $scope.user.username === null) {
+      return;
+    }
     DataSERVICES.resetUser();
     DataSERVICES.updateUsername($scope.user.username);
     $scope.hasAlias = true;
@@ -41,8 +44,15 @@ angular.module('lilbro.controllers', [])
       }
     },
     {
+      name: 'black market',
+      image: 'img/balance.png',
+      clickEventHandler: function() {
+        // $location.path('/tutorial');
+      }
+    },
+    {
       name: 'hacker manual',
-      image: 'img/question.png',
+      image: 'img/laptop.png',
       clickEventHandler: function() {
         $location.path('/tutorial');
       }
@@ -229,6 +239,7 @@ angular.module('lilbro.controllers', [])
     $scope.drained = false;
     $scope.draining = false;
     $scope.attemptsContainerArray = $scope.generateAttemptsContainer();
+    $scope.lockedOut = false;
     $scope.toggledTools = {
       keypad: true,
       log: false
@@ -255,7 +266,30 @@ angular.module('lilbro.controllers', [])
         $scope.timeLeftString = `${minsString}:${secondsString}`;
       }
     };
-    $scope.getTimeLeft();
+    $scope.getTimeLeft(); 
+
+    // slow down time if user is high
+    if (DataSERVICES.user.high === 1) {
+      DataSERVICES.user.high = 0;
+      DataSERVICES.saveUser();
+      if (Math.random() <= 0) {
+        $scope.timeColor = 'red';
+        $scope.timeLimitSpeedMultiplier = 0.5;
+      } else {
+        $scope.timeColor = 'rgb(100,200,255)';
+        $scope.timeLimitSpeedMultiplier = 1.25;
+      }
+    } else {
+      $scope.timeColor = '#00cc99';
+      $scope.timeLimitSpeedMultiplier = 1;
+    }
+
+    // add time if user purchased it
+    if (DataSERVICES.user.timeUpgrade === 1 && $scope.timeLeft !== undefined) {
+      DataSERVICES.user.timeUpgrade = 0;
+      DataSERVICES.saveUser();
+      $scope.timeLeft += 30;
+    }
     $scope.timeLeftAnimation = $interval(function() {
       if ($scope.timeLeft === undefined) {
         $interval.cancel($scope.timeLeftAnimation);
@@ -271,10 +305,9 @@ angular.module('lilbro.controllers', [])
       } else if ($scope.lost) {
         $interval.cancel($scope.timeLeftAnimation);
       }
-    },500);
+    }, 1000 * $scope.timeLimitSpeedMultiplier);
     $scope.startDefensiveDrain = function() {
       if ($scope.target.security.drainRate) {
-        // console.log($scope.target.security.drainRate);
         var decrement = Math.floor(($scope.target.funds * $scope.target.security.drainRate) / 10.0);
         if (decrement < 1) {
           decrement = 1;
@@ -305,7 +338,7 @@ angular.module('lilbro.controllers', [])
   };
   $scope.generateAttemptsContainer = function() {
     var array = [];
-    for (var i = 0; i < $scope.target.security.tries; i++) {
+    for (var i = 0; i < $scope.target.security.tries + DataSERVICES.user.bonusAttempts; i++) {
       array.push(false);
     }
     return array;
@@ -324,6 +357,12 @@ angular.module('lilbro.controllers', [])
       clickHandler: function() {
         if ($scope.clicked) {
           return;
+        }
+        // if we are locked out, then ok to disconnect
+        if (!$scope.lockedOut) {
+          if (!$scope.win) {
+            return;
+          }
         }
         $scope.clicked = true;
         $scope.disconnecting = true;
@@ -361,16 +400,7 @@ angular.module('lilbro.controllers', [])
       name: 'keypad',
       ioniconTag: 'ion-calculator',
       clickHandler: function() {
-        $scope.toggledTools.keypad = true;
-        $scope.toggledTools.log = false;
-      }
-    },
-    {
-      name: 'log',
-      ioniconTag: 'ion-clipboard',
-      clickHandler: function() {
-        $scope.toggledTools.keypad = false;
-        $scope.toggledTools.log = true;
+        $scope.toggledTools.keypad = !$scope.toggledTools.keypad;
       }
     },
     {
@@ -409,8 +439,7 @@ angular.module('lilbro.controllers', [])
               $scope.drained = true;
               $scope.target.funds = 0;    
               $scope.draining = false;
-              $scope.drained = true;
-              $scope.win = false;
+              $scope.win = true;
               $interval.cancel($scope.drainAnimation);
             }
           }, 50);
@@ -465,6 +494,9 @@ angular.module('lilbro.controllers', [])
     }
   };
   $scope.checkGuess = function() {
+    if ($scope.lost || $scope.win) {
+      return;
+    }
     for (var i = 0; i < $scope.attemptsContainerArray.length; i++) {
       if ($scope.attemptsContainerArray[i] === false) {
         $scope.attemptsContainerArray[i] = true;
@@ -478,23 +510,30 @@ angular.module('lilbro.controllers', [])
       $scope.toggledTools.keypad = false;
       return;
     }
-    if ($scope.log.length >= $scope.target.security.tries) {
-      $scope.triggerLoss();
+    if ($scope.log.length >= $scope.attemptsContainerArray.length) {
+      $scope.lockedOut = true;
+      $scope.toggledTools.keypad = false;
       return;
     }
   };
   $scope.winStyle = function(item) {
     if (item.name === 'drain') {
       if ($scope.win) {
-        return 'background: rgba(100, 200, 255, 1); color: black;';
+        return 'background: rgba(100, 200, 255, 1); color: black; width: 25%;';
       } else {
-        return 'background: red; color: black;';
+        return 'background: rgba(255,0,0,0.25); color: black; width: 25%;';
       }
     } else if (item.name === 'disconnect') {
-      if ($scope.drained) {
-        return 'background: rgba(100, 200, 255, 1); color: black;';
+      if ($scope.drained || $scope.lockedOut) {
+        return 'background: rgba(100, 200, 255, 1); color: black; width: 25%;';
       } else {
-        return 'background: rgb(25,25,25); color: rgb(75,75,75);';
+        return 'background: rgba(255,0,0,0.25); color: black; width: 25%;';
+      }
+    } else if (item.name === 'keypad') {
+      if ($scope.toggledTools.keypad) {
+        return 'background: #00cc99; color: black; width: 50%;';
+      } else {
+        return 'background: rgba(25, 25, 25, 1); color: #00cc99; width: 50%;';
       }
     }
   };
@@ -509,7 +548,16 @@ angular.module('lilbro.controllers', [])
     DataSERVICES.chargeCrime($scope.target.jailTime * 60 * 1000);
     $interval.cancel($scope.timeLeftAnimation);
     $scope.lost = true;
-    $location.path('/jail');
+    $scope.timeBeforeJail = 3000;
+    $scope.goToJailAnimation = $interval(function() {
+      $scope.timeBeforeJail -= 10;
+      $scope.goingToJail = true;
+      if ($scope.timeBeforeJail <= 0) {
+        $scope.goingToJail = false;
+        $interval.cancel($scope.goToJailAnimation);
+        $location.path('/jail');
+      }
+    }, 10);
   };
   $scope.triggerWin = function() {
     $scope.win = true;
