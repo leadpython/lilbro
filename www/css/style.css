@@ -585,7 +585,7 @@
   position: absolute;
   color: #00cc99;
   font-size: 35px;
-  color: rgb(100,200,255);
+  color: #00cc99;
   font-weight: bold;
   top: 0px;
   bottom: 0px;
@@ -634,4 +634,69 @@
   height: 100%;
   width: 15px;
   margin-right: 3px;
+}
+
+/*///// JAIL PAGE /////*/
+#jailPage {
+  background-color: black;
+  padding: 0px;
+  font-family: square;
+}
+#jail-image {
+  width: 175px;
+  height: auto;
+}
+#jail-board {
+  position: absolute;
+  padding: 10px;
+  padding-top: 35px;
+  background-color: rgb(25,25,25);
+  color: rgba(255,255,255,0.75);
+  font-size: 30px;
+  top: 260px;
+  left: 50px;
+  right: 50px;
+  height: 150px;
+}
+#jail-sentence-container {
+  position: absolute;
+  padding: 10px;
+  padding-top: 32px;
+  background-color: rgb(25,25,25);
+  color: rgba(255,255,255,0.75);
+  font-size: 30px;
+  top: 415px;
+  left: 50px;
+  width: 100px;
+  height: 60px;
+}
+
+#jail-sentence-cost {
+  position: absolute;
+  padding: 10px;
+  padding-top: 32px;
+  background-color: rgb(25,25,25);
+  color: rgba(255,255,255,0.75);
+  font-size: 30px;
+  top: 415px;
+  left: 155px;
+  right: 50px;
+  height: 60px;
+}
+#jail-bribe {
+  position: absolute;
+  background: #00cc99;
+  color: black;
+  font-size: 50px;
+  text-align: center;
+  font-weight: bold;
+  padding: 20px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  height: 50px;
+}
+#jail-bribe:active {
+  background: rgb(25,25,25);
+  color: #00cc99;
 }

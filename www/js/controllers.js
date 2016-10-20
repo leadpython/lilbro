@@ -209,8 +209,10 @@ angular.module('lilbro.controllers', [])
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
     if (!DataSERVICES.amIFree()) {
+      $interval.cancel($scope.timeLeftAnimation);
       $location.path('/jail');
     }
+    $scope.lost = false;
     $scope.win = false;
     $scope.player = {};
     $scope.player.funds = DataSERVICES.user.funds;
@@ -261,15 +263,15 @@ angular.module('lilbro.controllers', [])
       }
       $scope.timeLeft--;
       $scope.getTimeLeft();
-      if ($scope.timeLeft <= 0 && $scope.win !== true) {
+      if ($scope.timeLeft <= 0) {
         $scope.timeLeft = 0;
-        $scope.getTimeLeft();
-        $interval.cancel($scope.timeLeftAnimation);
         $interval.cancel($scope.disconnectAnimation);
         $interval.cancel($scope.disconnectBarAnimation);
         $scope.triggerLoss();
+      } else if ($scope.lost) {
+        $interval.cancel($scope.timeLeftAnimation);
       }
-    },1000);
+    },500);
     $scope.startDefensiveDrain = function() {
       if ($scope.target.security.drainRate) {
         // console.log($scope.target.security.drainRate);
@@ -505,6 +507,8 @@ angular.module('lilbro.controllers', [])
   };
   $scope.triggerLoss = function() {
     DataSERVICES.chargeCrime($scope.target.jailTime * 60 * 1000);
+    $interval.cancel($scope.timeLeftAnimation);
+    $scope.lost = true;
     $location.path('/jail');
   };
   $scope.triggerWin = function() {
@@ -512,31 +516,76 @@ angular.module('lilbro.controllers', [])
   };
 })
 
-.controller('JailCONTROLLER', function($scope, $interval, $location, DataSERVICES) {
+.controller('JailCONTROLLER', function($scope, $interval, $location, TargetSERVICES, DataSERVICES) {
   $scope.$on('$ionicView.enter', function() {
-    console.log('jailed');
     DataSERVICES.loadUser();
     if (DataSERVICES.amIFree()) {
       $location.path('/main');
     }
+    $scope.username = DataSERVICES.user.username;
+    $scope.funds = DataSERVICES.user.funds;
     $scope.releaseDate = DataSERVICES.user.releaseDate;
+    $scope.timeLeftString = '0:00';
+    $scope.costString = '0';
     $scope.secondsLeft = $scope.getSeconds();
     $scope.animateTime = $interval(function() {
       $scope.getSeconds();
-    }, 500);
+      if ($scope.secondsLeft <= 0) {
+        DataSERVICES.release();
+        $interval.cancel($scope.animateTime);
+        $location.path('/main');
+      }
+    }, 100);
   });
   $scope.$on('$destroy', function() {
     $interval.cancel($scope.animateTime);
   });
   $scope.getSeconds = function() {
-    if (DataSERVICES.amIFree()) {
-      $scope.secondsLeft = 0;
+    var currentDate = new Date();
+    var millisecondsLeft = $scope.releaseDate.getTime() - currentDate.getTime();
+    $scope.secondsLeft = Math.floor(millisecondsLeft / 1000);
+    $scope.getTimeLeft();
+  };
+  $scope.commafyNumber = function(num) {
+    if (num === undefined) {
+      return '';
+    }
+    var strArr = (num.toString()).split('');
+    var commafied = [];
+    for (var i = strArr.length-1, count = 1; i >= 0; i--, count++) {
+      commafied.unshift(strArr[i]);
+      if (count === 3 && i > 0) {
+        count = 0;
+        commafied.unshift(',');
+      }
+    }
+    return commafied.join('');
+  };
+  $scope.getTimeLeft = function() {
+    var timeLeftSeconds = $scope.secondsLeft;
+    $scope.costString = `${Math.floor(timeLeftSeconds * 75)}`;
+    var mins = Math.floor(timeLeftSeconds / 60.0);
+    var seconds = Math.floor(timeLeftSeconds - (mins * 60));
+    var minsString = '';
+    var secondsString = '';
+    if (seconds >= 10) {
+      secondsString = `${seconds}`;
+    } else {
+      secondsString = `0${seconds}`;
+    }
+    if (mins >= 10) {
+      minsString = `${mins}`;
+    } else {
+      minsString = `0${mins}`;
+    }
+    $scope.timeLeftString = `${minsString}:${secondsString}`;
+  };
+  $scope.bribe = function() {
+    if ($scope.funds >= Math.floor($scope.secondsLeft * 75)) {
+      DataSERVICES.updateFunds(-1 * ($scope.secondsLeft * 75));
+      DataSERVICES.release();
       $interval.cancel($scope.animateTime);
       $location.path('/main');
-    } else {
-      var currentDate = new Date();
-      var millisecondsLeft = $scope.releaseDate.getTime() - currentDate.getTime();
-      $scope.secondsLeft = Math.floor(millisecondsLeft / 1000);
     }
-  };
+  }
 })

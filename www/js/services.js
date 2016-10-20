@@ -13,8 +13,8 @@ angular.module('lilbro.services', [])
       type: 'Credit Cards',
       security: {
         passLength: 3,
-        timeLimit: 50,
-        drainRate: 0.25,
+        timeLimit: undefined,
+        drainRate: undefined,
         tries: 10
       },
       reward: {
@@ -22,7 +22,7 @@ angular.module('lilbro.services', [])
         max: 5000
       },
       fee: 100,
-      jailTime: 0.5,
+      jailTime: 1,
       description: '',
       numOfResults: 15,
       imageUrl: 0
@@ -39,8 +39,8 @@ angular.module('lilbro.services', [])
         min: 0,
         max: 25000
       },
-      fee: 100,
-      jailTime: 0,
+      fee: 500,
+      jailTime: 1.5,
       description: '',
       numOfResults: 15,
       imageUrl: 1
@@ -57,8 +57,8 @@ angular.module('lilbro.services', [])
         min: 10000,
         max: 500000
       },
-      fee: 100,
-      jailTime: 0,
+      fee: 20000,
+      jailTime: 5,
       description: '',
       imageUrl: 2
     },
@@ -67,15 +67,15 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 6,
         timeLimit: undefined,
-        drainRate: undefined,
+        drainRate: 0.005,
         tries: 10
       },
       reward: {
         min: 50000,
         max: 5000000
       },
-      fee: 100,
-      jailTime: 0,
+      fee: 60000,
+      jailTime: 10,
       description: '',
       numOfResults: 15,
       imageUrl: 3
@@ -92,8 +92,8 @@ angular.module('lilbro.services', [])
         min: 100000,
         max: 100000000
       },
-      fee: 100,
-      jailTime: 0,
+      fee: 120000,
+      jailTime: 30,
       description: '',
       numOfResults: 5,
       imageUrl: 4
@@ -110,8 +110,8 @@ angular.module('lilbro.services', [])
         min: 500000,
         max: 120000000
       },
-      fee: 100,
-      jailTime: 0,
+      fee: 600000,
+      jailTime: 60,
       description: '',
       numOfResults: 10,
       imageUrl: 5
@@ -128,8 +128,8 @@ angular.module('lilbro.services', [])
         min: 50000000,
         max: 5000000000
       },
-      fee: 100,
-      jailTime: 0,
+      fee: 5000000,
+      jailTime: 75,
       description: '',
       numOfResults: 10,
       imageUrl: 6
@@ -146,8 +146,8 @@ angular.module('lilbro.services', [])
         min: 1000000000,
         max: 20000000000
       },
-      fee: 100,
-      jailTime: 0,
+      fee: 500000000,
+      jailTime: 120,
       description: '',
       numOfResults: 5,
       imageUrl: 7
@@ -164,10 +164,10 @@ angular.module('lilbro.services', [])
         min: 0,
         max: 50000000000
       },
-      fee: 100,
+      fee: 0,
       jailTime: 0,
       description: '',
-      numOfResults: 3,
+      numOfResults: 1,
       imageUrl: 8
     }
   };
@@ -216,7 +216,7 @@ angular.module('lilbro.services', [])
   };
   dataServices.resetUser = function() {
     dataServices.noUser = true;
-    dataServices.user = {username: '', funds: 100, level: 0, releaseDate: new Date(0)};
+    dataServices.user = {username: '', funds: 300, level: 0, releaseDate: new Date(0)};
     dataServices.saveUser();
   };
   dataServices.updateUsername = function(username) {
@@ -235,6 +235,11 @@ angular.module('lilbro.services', [])
   dataServices.chargeCrime = function(jailTime) {
     dataServices.user.releaseDate = new Date((new Date()).getTime() + jailTime);
     dataServices.saveUser();
+  };
+  dataServices.release = function() {
+    dataServices.user.releaseDate = new Date(0);
+    dataServices.saveUser();
+    console.log(dataServices.amIFree());
   };
   dataServices.amIFree = function() {
     var currentDate = new Date();
