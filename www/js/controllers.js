@@ -341,7 +341,7 @@ angular.module('lilbro.controllers', [])
   });
   $scope.attemptsStyle = function(attempt) {
     if (attempt) {
-      return 'background: #00cc99;';
+      return 'background: red;';
     } else {
       return 'background: black;';
     }
@@ -365,6 +365,8 @@ angular.module('lilbro.controllers', [])
       name: 'disconnect',
       ioniconTag: 'ion-power',
       clickHandler: function() {
+        var disconnectBTN = document.getElementsByClassName('ion-power')[0];
+        disconnectBTN.style.backgroundColor = 'blue';
         if ($scope.clicked) {
           return;
         }
@@ -401,8 +403,8 @@ angular.module('lilbro.controllers', [])
                   DataSERVICES.unCheat();
                   $location.path('/main');
                 }
-              }, 20);
-            }, 1000);
+              }, 10);
+            }, 500);
           }
         }, 25);
       }
@@ -418,6 +420,8 @@ angular.module('lilbro.controllers', [])
       name: 'drain',
       ioniconTag: 'ion-nuclear',
       clickHandler: function() {
+        var drainBTN = document.getElementsByClassName('ion-nuclear')[0];
+        drainBTN.style.backgroundColor = 'blue';
         if ($scope.target.funds <= 0) {
           return;
         }
@@ -451,6 +455,7 @@ angular.module('lilbro.controllers', [])
               $scope.target.funds = 0;    
               $scope.draining = false;
               $scope.win = true;
+              drainBTN.style.backgroundColor = 'rgba(255,100,100,0.25)';
               $interval.cancel($scope.drainAnimation);
             }
           }, 50);
@@ -530,15 +535,15 @@ angular.module('lilbro.controllers', [])
   $scope.winStyle = function(item) {
     if (item.name === 'drain') {
       if ($scope.win) {
-        return 'background: rgba(100, 200, 255, 1); color: black; width: 25%;';
+        return 'background: rgba(100,255,100,1); color: black; width: 25%;';
       } else {
-        return 'background: rgba(255,0,0,0.25); color: black; width: 25%;';
+        return 'background: rgba(255,100,100,0.25); color: black; width: 25%;';
       }
     } else if (item.name === 'disconnect') {
       if ($scope.drained || $scope.lockedOut) {
-        return 'background: rgba(100, 200, 255, 1); color: black; width: 25%;';
+        return 'background: rgba(100,255,100,1); color: black; width: 25%;';
       } else {
-        return 'background: rgba(255,0,0,0.25); color: black; width: 25%;';
+        return 'background: rgba(255,100,100,0.25); color: black; width: 25%;';
       }
     } else if (item.name === 'keypad') {
       if ($scope.toggledTools.keypad) {

@@ -15,7 +15,7 @@ angular.module('lilbro.services', [])
         passLength: 3,
         timeLimit: 600,
         drainRate: undefined,
-        tries: 5
+        tries: 10
       },
       reward: {
         min: 0,
