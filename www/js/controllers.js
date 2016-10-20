@@ -2,17 +2,17 @@ angular.module('lilbro.controllers', [])
 
 /////// MAIN CONTROLLER ///////
 .controller('MainCONTROLLER', function($scope, $location, DataSERVICES) {
+  $scope.$on('$ionicView.loaded', function (viewInfo, state) {
+
+  });
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
-    if (!DataSERVICES.amIFree()) {
+    if (DataSERVICES.didPlayerCheat() === 'cheater') {
+      DataSERVICES.chargeCrime(1 * 60 * 1000);
       $location.path('/jail');
     }
-    if (DataSERVICES.didPlayerCheat() === 'cheater') {
-      DataSERVICES.chargeCrime(30 * 60 * 1000);
+    if (!DataSERVICES.amIFree()) {
       $location.path('/jail');
-      DataSERVICES.unCheat();
-    } else {
-      DataSERVICES.unCheat();
     }
     $scope.user = DataSERVICES.user;
     $scope.hasAlias = !DataSERVICES.noUser;
@@ -226,7 +226,6 @@ angular.module('lilbro.controllers', [])
     DataSERVICES.loadUser();
     if (!DataSERVICES.amIFree()) {
       $interval.cancel($scope.timeLeftAnimation);
-      DataSERVICES.unCheat();
       $location.path('/jail');
     }
     // add time if user purchased time upgrade
@@ -582,7 +581,6 @@ angular.module('lilbro.controllers', [])
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
     if (DataSERVICES.amIFree()) {
-      DataSERVICES.unCheat();
       $location.path('/main');
     }
     if (DataSERVICES.didPlayerCheat() === 'cheater') {
@@ -599,7 +597,6 @@ angular.module('lilbro.controllers', [])
       if ($scope.secondsLeft <= 0) {
         DataSERVICES.release();
         $interval.cancel($scope.animateTime);
-        DataSERVICES.unCheat();
         $location.path('/main');
       }
     }, 100);
@@ -652,7 +649,6 @@ angular.module('lilbro.controllers', [])
       DataSERVICES.updateFunds(-1 * ($scope.secondsLeft * 75));
       DataSERVICES.release();
       $interval.cancel($scope.animateTime);
-      DataSERVICES.unCheat();
       $location.path('/main');
     }
   };

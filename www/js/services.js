@@ -13,7 +13,7 @@ angular.module('lilbro.services', [])
       type: 'Credit Card',
       security: {
         passLength: 3,
-        timeLimit: 10,
+        timeLimit: 600,
         drainRate: undefined,
         tries: 5
       },
@@ -22,7 +22,7 @@ angular.module('lilbro.services', [])
         max: 1000
       },
       fee: 100,
-      jailTime: 10,
+      jailTime: 1,
       description: '',
       numOfResults: 15,
       imageUrl: 0
@@ -66,7 +66,7 @@ angular.module('lilbro.services', [])
       type: 'Casino',
       security: {
         passLength: 6,
-        timeLimit: undefined,
+        timeLimit: 420,
         drainRate: 0.005,
         tries: 5
       },
@@ -84,8 +84,8 @@ angular.module('lilbro.services', [])
       type: 'Drug Cartel',
       security: {
         passLength: 7,
-        timeLimit: undefined,
-        drainRate: undefined,
+        timeLimit: 300,
+        drainRate: 0.005,
         tries: 5
       },
       reward: {
@@ -102,8 +102,8 @@ angular.module('lilbro.services', [])
       type: 'Covert Operative',
       security: {
         passLength: 7,
-        timeLimit: undefined,
-        drainRate: undefined,
+        timeLimit: 300,
+        drainRate: 0.01,
         tries: 5
       },
       reward: {
@@ -120,8 +120,8 @@ angular.module('lilbro.services', [])
       type: 'Multinational Corporation',
       security: {
         passLength: 7,
-        timeLimit: undefined,
-        drainRate: undefined,
+        timeLimit: 240,
+        drainRate: 0.01,
         tries: 5
       },
       reward: {
@@ -138,8 +138,8 @@ angular.module('lilbro.services', [])
       type: 'Central Bank',
       security: {
         passLength: 7,
-        timeLimit: undefined,
-        drainRate: undefined,
+        timeLimit: 240,
+        drainRate: 0.015,
         tries: 5
       },
       reward: {
@@ -156,8 +156,8 @@ angular.module('lilbro.services', [])
       type: 'Black Hat Hacker',
       security: {
         passLength: 8,
-        timeLimit: undefined,
-        drainRate: undefined,
+        timeLimit: 90,
+        drainRate: 0.02,
         tries: 5
       },
       reward: {
@@ -257,11 +257,6 @@ angular.module('lilbro.services', [])
   };
   dataServices.amIFree = function() {
     var currentDate = new Date();
-
-    if (currentDate.getTime() >= dataServices.user.releaseDate.getTime()) {
-      dataServices.unCheat();
-    }
-
     return currentDate.getTime() >= dataServices.user.releaseDate.getTime();
   }
   dataServices.didPlayerCheat = function() {
