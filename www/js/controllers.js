@@ -9,6 +9,7 @@ angular.module('lilbro.controllers', [])
     }
     if (DataSERVICES.didPlayerCheat() === 'cheater') {
       DataSERVICES.chargeCrime(30 * 60 * 1000);
+      $location.path('/jail');
       DataSERVICES.unCheat();
     } else {
       DataSERVICES.unCheat();
@@ -225,6 +226,7 @@ angular.module('lilbro.controllers', [])
     DataSERVICES.loadUser();
     if (!DataSERVICES.amIFree()) {
       $interval.cancel($scope.timeLeftAnimation);
+      DataSERVICES.unCheat();
       $location.path('/jail');
     }
     // add time if user purchased time upgrade
@@ -397,6 +399,7 @@ angular.module('lilbro.controllers', [])
                   $interval.cancel($scope.disconnectBarAnimation);
                   $interval.cancel($scope.timeLeftAnimation);
                   $scope.clicked = false;
+                  DataSERVICES.unCheat();
                   $location.path('/main');
                 }
               }, 20);
@@ -565,6 +568,7 @@ angular.module('lilbro.controllers', [])
       if ($scope.timeBeforeJail <= 0) {
         $scope.goingToJail = false;
         $interval.cancel($scope.goToJailAnimation);
+        DataSERVICES.unCheat();
         $location.path('/jail');
       }
     }, 10);
@@ -572,15 +576,13 @@ angular.module('lilbro.controllers', [])
   $scope.triggerWin = function() {
     $scope.win = true;
   };
-  $scope.$on('$ionicView.leave', function() {
-    DataSERVICES.unCheat();
-  });
 })
 
 .controller('JailCONTROLLER', function($scope, $interval, $location, TargetSERVICES, DataSERVICES) {
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
     if (DataSERVICES.amIFree()) {
+      DataSERVICES.unCheat();
       $location.path('/main');
     }
     if (DataSERVICES.didPlayerCheat() === 'cheater') {
@@ -597,6 +599,7 @@ angular.module('lilbro.controllers', [])
       if ($scope.secondsLeft <= 0) {
         DataSERVICES.release();
         $interval.cancel($scope.animateTime);
+        DataSERVICES.unCheat();
         $location.path('/main');
       }
     }, 100);
@@ -649,6 +652,7 @@ angular.module('lilbro.controllers', [])
       DataSERVICES.updateFunds(-1 * ($scope.secondsLeft * 75));
       DataSERVICES.release();
       $interval.cancel($scope.animateTime);
+      DataSERVICES.unCheat();
       $location.path('/main');
     }
   };
