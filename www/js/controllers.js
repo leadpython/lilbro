@@ -7,6 +7,12 @@ angular.module('lilbro.controllers', [])
     if (!DataSERVICES.amIFree()) {
       $location.path('/jail');
     }
+    if (DataSERVICES.didPlayerCheat() === 'cheater') {
+      DataSERVICES.chargeCrime(30 * 60 * 1000);
+      DataSERVICES.unCheat();
+    } else {
+      DataSERVICES.unCheat();
+    }
     $scope.user = DataSERVICES.user;
     $scope.hasAlias = !DataSERVICES.noUser;
   });
@@ -47,7 +53,7 @@ angular.module('lilbro.controllers', [])
       name: 'black market',
       image: 'img/balance.png',
       clickEventHandler: function() {
-        // $location.path('/tutorial');
+        $location.path('/market');
       }
     },
     {
@@ -214,10 +220,8 @@ angular.module('lilbro.controllers', [])
 })
 
 .controller('GameCONTROLLER', function($scope, $timeout, $interval, $location, DataSERVICES, TargetSERVICES, GameSERVICES) {
-  document.addEventListener("pause", function() {
-    $scope.triggerLoss();
-  }, false);
   $scope.$on('$ionicView.enter', function() {
+    DataSERVICES.cheat();
     DataSERVICES.loadUser();
     if (!DataSERVICES.amIFree()) {
       $interval.cancel($scope.timeLeftAnimation);
@@ -568,6 +572,9 @@ angular.module('lilbro.controllers', [])
   $scope.triggerWin = function() {
     $scope.win = true;
   };
+  $scope.$on('$ionicView.leave', function() {
+    DataSERVICES.unCheat();
+  });
 })
 
 .controller('JailCONTROLLER', function($scope, $interval, $location, TargetSERVICES, DataSERVICES) {
@@ -575,6 +582,9 @@ angular.module('lilbro.controllers', [])
     DataSERVICES.loadUser();
     if (DataSERVICES.amIFree()) {
       $location.path('/main');
+    }
+    if (DataSERVICES.didPlayerCheat() === 'cheater') {
+      $scope.specialMessage = true;
     }
     $scope.username = DataSERVICES.user.username;
     $scope.funds = DataSERVICES.user.funds;
@@ -641,7 +651,10 @@ angular.module('lilbro.controllers', [])
       $interval.cancel($scope.animateTime);
       $location.path('/main');
     }
-  }
+  };
+  $scope.exitSpecialMessage = function() {
+    $scope.specialMessage = false;
+  };
 })
 
 .controller('MarketCONTROLLER', function($scope, $location, DataSERVICES) {

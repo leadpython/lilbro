@@ -13,7 +13,7 @@ angular.module('lilbro.services', [])
       type: 'Credit Card',
       security: {
         passLength: 3,
-        timeLimit: undefined,
+        timeLimit: 10,
         drainRate: undefined,
         tries: 5
       },
@@ -22,7 +22,7 @@ angular.module('lilbro.services', [])
         max: 1000
       },
       fee: 100,
-      jailTime: 1,
+      jailTime: 10,
       description: '',
       numOfResults: 15,
       imageUrl: 0
@@ -251,13 +251,28 @@ angular.module('lilbro.services', [])
     dataServices.saveUser();
   };
   dataServices.release = function() {
+    dataServices.unCheat();
     dataServices.user.releaseDate = new Date(0);
     dataServices.saveUser();
   };
   dataServices.amIFree = function() {
     var currentDate = new Date();
+
+    if (currentDate.getTime() >= dataServices.user.releaseDate.getTime()) {
+      dataServices.unCheat();
+    }
+
     return currentDate.getTime() >= dataServices.user.releaseDate.getTime();
   }
+  dataServices.didPlayerCheat = function() {
+    return $window.localStorage.getItem('lilbro-cheat');
+  };
+  dataServices.cheat = function() {
+    $window.localStorage.setItem('lilbro-cheat', 'cheater');
+  };
+  dataServices.unCheat = function() {
+    $window.localStorage.setItem('lilbro-cheat', 'good');
+  };
   return dataServices;
 })
 

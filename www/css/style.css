@@ -631,7 +631,7 @@
   display: inline-block;
   border: 1px solid #00cc99;
   height: 100%;
-  width: 9px;
+  width: 10px;
   margin-right: 3px;
 }
 #game-goingToJail-window {
@@ -834,7 +834,21 @@
   color: #00cc99;
   background-color: rgba(0,0,0,0);
 }
-
+#special-message {
+  line-height: 25px;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: black;
+  color: white;
+  font-family: Arial;
+  font-size: 20px;
+  text-align: center;
+  padding: 10px;
+  padding-top: 20px;
+}
 
 
 
