@@ -13,7 +13,7 @@ angular.module('lilbro.services', [])
       type: 'Credit Card',
       security: {
         passLength: 3,
-        timeLimit: 30,
+        timeLimit: undefined,
         drainRate: undefined,
         tries: 5
       },

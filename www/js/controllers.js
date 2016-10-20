@@ -235,8 +235,10 @@ angular.module('lilbro.controllers', [])
     $scope.player.level = DataSERVICES.user.level;
     $scope.player.username = DataSERVICES.user.username;
     $scope.target = TargetSERVICES.currentTarget;
-    console.log(bonusTime)
     $scope.timeLeft = Number($scope.target.security.timeLimit) + bonusTime;
+    if ( !($scope.timeLeft > 0) ) {
+      $scope.timeLeft = undefined;
+    }
     $scope.timeLeftString = 'X';
     $scope.clear();
     $scope.currentDigit = 0;
