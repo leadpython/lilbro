@@ -9,17 +9,17 @@ angular.module('lilbro.services', [])
 
   targetServices.currentTarget = {};
   targetServices.targets = {
-    'Credit Cards': {
-      type: 'Credit Cards',
+    'Credit Card': {
+      type: 'Credit Card',
       security: {
         passLength: 3,
         timeLimit: 30,
         drainRate: undefined,
-        tries: 15
+        tries: 5
       },
       reward: {
         min: 0,
-        max: 5000
+        max: 1000
       },
       fee: 100,
       jailTime: 1,
@@ -27,17 +27,17 @@ angular.module('lilbro.services', [])
       numOfResults: 15,
       imageUrl: 0
     },
-    'Debit Cards': {
-      type: 'Debit Cards',
+    'Debit Card': {
+      type: 'Debit Card',
       security: {
         passLength: 4,
-        timeLimit: undefined,
+        timeLimit: 600,
         drainRate: undefined,
         tries: 5
       },
       reward: {
         min: 0,
-        max: 25000
+        max: 15000
       },
       fee: 500,
       jailTime: 1.5,
@@ -45,8 +45,8 @@ angular.module('lilbro.services', [])
       numOfResults: 15,
       imageUrl: 1
     },
-    'Local Businesses': {
-      type: 'Local Businesses',
+    'Local Business': {
+      type: 'Local Business',
       security: {
         passLength: 5,
         timeLimit: undefined,
@@ -62,8 +62,8 @@ angular.module('lilbro.services', [])
       description: '',
       imageUrl: 2
     },
-    'Casinos': {
-      type: 'Casinos',
+    'Casino': {
+      type: 'Casino',
       security: {
         passLength: 6,
         timeLimit: undefined,
@@ -80,8 +80,8 @@ angular.module('lilbro.services', [])
       numOfResults: 15,
       imageUrl: 3
     },
-    'Drug Cartels': {
-      type: 'Drug Cartels',
+    'Drug Cartel': {
+      type: 'Drug Cartel',
       security: {
         passLength: 7,
         timeLimit: undefined,
@@ -98,8 +98,8 @@ angular.module('lilbro.services', [])
       numOfResults: 5,
       imageUrl: 4
     },
-    'Covert Operatives': {
-      type: 'Covert Operatives',
+    'Covert Operative': {
+      type: 'Covert Operative',
       security: {
         passLength: 7,
         timeLimit: undefined,
@@ -116,8 +116,8 @@ angular.module('lilbro.services', [])
       numOfResults: 10,
       imageUrl: 5
     },
-    'Multinational Corporations': {
-      type: 'Multinational Corporations',
+    'Multinational Corporation': {
+      type: 'Multinational Corporation',
       security: {
         passLength: 7,
         timeLimit: undefined,
@@ -134,8 +134,8 @@ angular.module('lilbro.services', [])
       numOfResults: 10,
       imageUrl: 6
     },
-    'Central Banks': {
-      type: 'Central Banks',
+    'Central Bank': {
+      type: 'Central Bank',
       security: {
         passLength: 7,
         timeLimit: undefined,
@@ -227,9 +227,9 @@ angular.module('lilbro.services', [])
       funds: 300, 
       level: 0, 
       releaseDate: new Date(0),
-      high: 1,
-      timeUpgrade: 30,
-      bonusAttempts: 0
+      high: 0,
+      timeUpgrade: 0,
+      bonusAttempts: 10
     };
     dataServices.saveUser();
   };
@@ -253,7 +253,6 @@ angular.module('lilbro.services', [])
   dataServices.release = function() {
     dataServices.user.releaseDate = new Date(0);
     dataServices.saveUser();
-    console.log(dataServices.amIFree());
   };
   dataServices.amIFree = function() {
     var currentDate = new Date();

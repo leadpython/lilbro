@@ -46,6 +46,11 @@ angular.module('lilbro', ['ionic', 'lilbro.controllers', 'lilbro.services'])
       templateUrl: 'templates/hackSimulation.html',
       controller: 'HackSimulationCONTROLLER'
     })
+    .state('market', {
+      url: '/market',
+      templateUrl: 'templates/market.html',
+      controller: 'MarketCONTROLLER'
+    })
     .state('jail', {
       url: '/jail',
       templateUrl: 'templates/jail.html',

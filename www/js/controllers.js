@@ -210,9 +210,7 @@ angular.module('lilbro.controllers', [])
         }
       }
     }, 10);
-
   });
-
 })
 
 .controller('GameCONTROLLER', function($scope, $timeout, $interval, $location, DataSERVICES, TargetSERVICES, GameSERVICES) {
@@ -222,6 +220,14 @@ angular.module('lilbro.controllers', [])
       $interval.cancel($scope.timeLeftAnimation);
       $location.path('/jail');
     }
+    // add time if user purchased time upgrade
+    if (DataSERVICES.user.timeUpgrade === 1) {
+      DataSERVICES.user.timeUpgrade = 0;
+      DataSERVICES.saveUser();
+      var bonusTime = 30;
+    } else {
+      var bonusTime = 0;
+    }
     $scope.lost = false;
     $scope.win = false;
     $scope.player = {};
@@ -229,7 +235,8 @@ angular.module('lilbro.controllers', [])
     $scope.player.level = DataSERVICES.user.level;
     $scope.player.username = DataSERVICES.user.username;
     $scope.target = TargetSERVICES.currentTarget;
-    $scope.timeLeft = $scope.target.security.timeLimit;
+    console.log(bonusTime)
+    $scope.timeLeft = Number($scope.target.security.timeLimit) + bonusTime;
     $scope.timeLeftString = 'X';
     $scope.clear();
     $scope.currentDigit = 0;
@@ -272,7 +279,7 @@ angular.module('lilbro.controllers', [])
     if (DataSERVICES.user.high === 1) {
       DataSERVICES.user.high = 0;
       DataSERVICES.saveUser();
-      if (Math.random() <= 0) {
+      if (Math.random() <= 0.03) {
         $scope.timeColor = 'red';
         $scope.timeLimitSpeedMultiplier = 0.5;
       } else {
@@ -282,13 +289,6 @@ angular.module('lilbro.controllers', [])
     } else {
       $scope.timeColor = '#00cc99';
       $scope.timeLimitSpeedMultiplier = 1;
-    }
-
-    // add time if user purchased it
-    if (DataSERVICES.user.timeUpgrade === 1 && $scope.timeLeft !== undefined) {
-      DataSERVICES.user.timeUpgrade = 0;
-      DataSERVICES.saveUser();
-      $scope.timeLeft += 30;
     }
     $scope.timeLeftAnimation = $interval(function() {
       if ($scope.timeLeft === undefined) {
@@ -550,6 +550,7 @@ angular.module('lilbro.controllers', [])
     $scope.lost = true;
     $scope.timeBeforeJail = 3000;
     $scope.goToJailAnimation = $interval(function() {
+      $scope.toggledTools.keypad = false;
       $scope.timeBeforeJail -= 10;
       $scope.goingToJail = true;
       if ($scope.timeBeforeJail <= 0) {
@@ -637,3 +638,30 @@ angular.module('lilbro.controllers', [])
     }
   }
 })
+
+.controller('MarketCONTROLLER', function($scope, $location, DataSERVICES) {
+  $scope.$on('$ionicView.enter', function() {
+
+  });
+  $scope.goToMain = function() {
+    $location.path('/main')
+  };
+  $scope.products = [
+    {
+      name: 'UPGRADE HACKING TOOL',
+      imageUrl: 'img/upgrade.png'
+    },
+    {
+      name: 'DISRUPT TRIANGULATION',
+      imageUrl: 'img/power.png'
+    },
+    {
+      name: 'SPEED 2.0',
+      imageUrl: 'img/syringe.png'
+    }
+  ];
+
+});
+
+
+

@@ -1,0 +1,21 @@
+<ion-view id="marketPage">
+  <div id="market-header">
+    <image id="market-icon" src="img/balance.png" />
+    <span id="market-title">BLACK MARKET</span>
+  </div>
+
+  <div id="market-funds-label"><u>ACCOUNT BALANCE:</u></div>
+  <div id="market-funds"><span style="font-size: 20px;">$</span>{{commafy(funds)}}.00</div>
+
+  <view id="market-product-container">
+    <div id="market-product-title">COMMODITIES</div>
+    <ion-content id="market-product-content">
+      <div id="market-product" ng-repeat="item in products track by $index">
+        <image id="market-item-image" src="{{item.imageUrl}}" />
+        <div id="market-item-buy">PURCHASE</div>
+      </div>
+    </ion-content>
+  </view>
+
+  <div id="target-home-button" ng-click="goToMain()">< main menu</div>
+</ion-view>
