@@ -229,7 +229,7 @@ angular.module('lilbro.services', [])
       releaseDate: new Date(0),
       high: 0,
       timeUpgrade: 0,
-      bonusAttempts: 10
+      bonusAttempts: 5
     };
     dataServices.saveUser();
   };

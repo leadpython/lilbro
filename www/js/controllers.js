@@ -214,6 +214,9 @@ angular.module('lilbro.controllers', [])
 })
 
 .controller('GameCONTROLLER', function($scope, $timeout, $interval, $location, DataSERVICES, TargetSERVICES, GameSERVICES) {
+  document.addEventListener("pause", function() {
+    $scope.triggerLoss();
+  }, false);
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
     if (!DataSERVICES.amIFree()) {
