@@ -621,11 +621,12 @@
 }
 #game-attempts-squares {
   position: absolute;
-  left: 38px;
+  left: 37px;
   right: 0px;
   bottom: 0px;
   top: 0px;
-  padding: 6px; 
+  padding: 6px;
+  padding-right: 5px;
 }
 .game-attempts-square {
   display: inline-block;

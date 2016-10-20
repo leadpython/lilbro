@@ -510,6 +510,8 @@ angular.module('lilbro.controllers', [])
     }
   };
   $scope.checkGuess = function() {
+    $scope.currentDigit = 0;
+    $scope.toggledTools.keypad = false;
     if ($scope.lost || $scope.win) {
       return;
     }
