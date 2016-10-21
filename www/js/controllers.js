@@ -409,6 +409,9 @@ angular.module('lilbro.controllers', [])
                   $interval.cancel($scope.timeLeftAnimation);
                   $scope.clicked = false;
                   DataSERVICES.unCheat();
+                  if ($scope.target.imageUrl >= $scope.player.level) {
+                    DataSERVICES.updateLevel($scope.target.imageUrl+1);
+                  }
                   $location.path('/main');
                 }
               }, 10);
@@ -436,9 +439,6 @@ angular.module('lilbro.controllers', [])
           drainBTN.style.backgroundColor = 'blue';
           $interval.cancel($scope.defensiveDrainAnimation);
           DataSERVICES.updateFunds($scope.target.funds);
-          if ($scope.target.imageUrl >= $scope.player.level) {
-            DataSERVICES.updateLevel($scope.target.imageUrl+1);
-          }
           var max = $scope.target.funds;
           var min = 0;
           $scope.drainBar = function() {
