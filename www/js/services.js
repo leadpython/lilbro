@@ -13,7 +13,7 @@ angular.module('lilbro.services', [])
       type: 'Credit Card',
       security: {
         passLength: 3,
-        timeLimit: 600,
+        timeLimit: 300,
         drainRate: undefined,
         tries: 10
       },
@@ -21,7 +21,7 @@ angular.module('lilbro.services', [])
         min: 0,
         max: 1000
       },
-      fee: 100,
+      fee: 150,
       jailTime: 1,
       description: '',
       numOfResults: 15,
@@ -31,16 +31,16 @@ angular.module('lilbro.services', [])
       type: 'Debit Card',
       security: {
         passLength: 4,
-        timeLimit: 600,
+        timeLimit: 300,
         drainRate: undefined,
-        tries: 5
+        tries: 10
       },
       reward: {
         min: 0,
         max: 15000
       },
-      fee: 500,
-      jailTime: 1.5,
+      fee: 1500,
+      jailTime: 2,
       description: '',
       numOfResults: 15,
       imageUrl: 1
@@ -49,15 +49,15 @@ angular.module('lilbro.services', [])
       type: 'Local Business',
       security: {
         passLength: 5,
-        timeLimit: undefined,
+        timeLimit: 300,
         drainRate: undefined,
-        tries: 5
+        tries: 10
       },
       reward: {
         min: 10000,
         max: 500000
       },
-      fee: 20000,
+      fee: 60000,
       jailTime: 5,
       description: '',
       imageUrl: 2
@@ -66,15 +66,15 @@ angular.module('lilbro.services', [])
       type: 'Casino',
       security: {
         passLength: 6,
-        timeLimit: 420,
+        timeLimit: 300,
         drainRate: 0.005,
-        tries: 5
+        tries: 10
       },
       reward: {
         min: 50000,
         max: 5000000
       },
-      fee: 60000,
+      fee: 550000,
       jailTime: 10,
       description: '',
       numOfResults: 15,
@@ -84,15 +84,15 @@ angular.module('lilbro.services', [])
       type: 'Drug Cartel',
       security: {
         passLength: 7,
-        timeLimit: 300,
+        timeLimit: 240,
         drainRate: 0.005,
-        tries: 5
+        tries: 10
       },
       reward: {
         min: 100000,
         max: 100000000
       },
-      fee: 120000,
+      fee: 1090000,
       jailTime: 30,
       description: '',
       numOfResults: 5,
@@ -102,15 +102,15 @@ angular.module('lilbro.services', [])
       type: 'Covert Operative',
       security: {
         passLength: 7,
-        timeLimit: 300,
+        timeLimit: 180,
         drainRate: 0.01,
-        tries: 5
+        tries: 10
       },
       reward: {
         min: 500000,
         max: 120000000
       },
-      fee: 600000,
+      fee: 12500000,
       jailTime: 60,
       description: '',
       numOfResults: 10,
@@ -120,15 +120,15 @@ angular.module('lilbro.services', [])
       type: 'Multinational Corporation',
       security: {
         passLength: 7,
-        timeLimit: 240,
+        timeLimit: 120,
         drainRate: 0.01,
-        tries: 5
+        tries: 10
       },
       reward: {
         min: 50000000,
         max: 5000000000
       },
-      fee: 5000000,
+      fee: 500000000,
       jailTime: 75,
       description: '',
       numOfResults: 10,
@@ -138,9 +138,9 @@ angular.module('lilbro.services', [])
       type: 'Central Bank',
       security: {
         passLength: 7,
-        timeLimit: 240,
+        timeLimit: 120,
         drainRate: 0.015,
-        tries: 5
+        tries: 10
       },
       reward: {
         min: 1000000000,
@@ -158,13 +158,13 @@ angular.module('lilbro.services', [])
         passLength: 8,
         timeLimit: 90,
         drainRate: 0.02,
-        tries: 5
+        tries: 10
       },
       reward: {
         min: 0,
         max: 50000000000
       },
-      fee: 0,
+      fee: 5000000000,
       jailTime: 0,
       description: '',
       numOfResults: 1,
@@ -229,7 +229,7 @@ angular.module('lilbro.services', [])
       releaseDate: new Date(0),
       high: 0,
       timeUpgrade: 0,
-      bonusAttempts: 5
+      bonusAttempts: 0
     };
     dataServices.saveUser();
   };
