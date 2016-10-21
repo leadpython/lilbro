@@ -9,17 +9,17 @@ angular.module('lilbro.services', [])
 
   targetServices.currentTarget = {};
   targetServices.targets = {
-    'Credit Card': {
+    'DEMO #1': {
       type: 'DEMO #1',
       security: {
         passLength: 3,
         timeLimit: undefined,
-        drainRate: undefined,
+        drainRate: .25,
         tries: 10
       },
       reward: {
-        min: 0,
-        max: 100
+        min: 10000,
+        max: 20000
       },
       fee: 0,
       jailTime: 0.15,
@@ -27,7 +27,7 @@ angular.module('lilbro.services', [])
       numOfResults: 15,
       imageUrl: 0
     },
-    'Credit Card': {
+    'DEMO #2': {
       type: 'DEMO #2',
       security: {
         passLength: 4,
@@ -43,9 +43,9 @@ angular.module('lilbro.services', [])
       jailTime: 0.15,
       description: '',
       numOfResults: 15,
-      imageUrl: 0
+      imageUrl: 1
     },
-    'Credit Card': {
+    'DEMO #3': {
       type: 'DEMO #3',
       security: {
         passLength: 4,
@@ -61,9 +61,9 @@ angular.module('lilbro.services', [])
       jailTime: 15,
       description: '',
       numOfResults: 15,
-      imageUrl: 0
+      imageUrl: 2
     },
-    'Credit Card': {
+    'DEMO #4': {
       type: 'DEMO #4',
       security: {
         passLength: 5,
@@ -79,7 +79,7 @@ angular.module('lilbro.services', [])
       jailTime: 15,
       description: '',
       numOfResults: 15,
-      imageUrl: 0
+      imageUrl: 3
     },
     'Credit Card': {
       type: 'Credit Card',
@@ -97,7 +97,7 @@ angular.module('lilbro.services', [])
       jailTime: 1,
       description: '',
       numOfResults: 15,
-      imageUrl: 2
+      imageUrl: 5
     },
     'Debit Card': {
       type: 'Debit Card',
@@ -115,7 +115,7 @@ angular.module('lilbro.services', [])
       jailTime: 2,
       description: '',
       numOfResults: 15,
-      imageUrl: 2
+      imageUrl: 5
     },
     'Local Business': {
       type: 'Local Business',
@@ -132,7 +132,7 @@ angular.module('lilbro.services', [])
       fee: 60000,
       jailTime: 5,
       description: '',
-      imageUrl: 2
+      imageUrl: 5
     },
     'Casino': {
       type: 'Casino',
@@ -150,7 +150,7 @@ angular.module('lilbro.services', [])
       jailTime: 10,
       description: '',
       numOfResults: 15,
-      imageUrl: 3
+      imageUrl: 5
     },
     'Drug Cartel': {
       type: 'Drug Cartel',
@@ -168,7 +168,7 @@ angular.module('lilbro.services', [])
       jailTime: 30,
       description: '',
       numOfResults: 5,
-      imageUrl: 4
+      imageUrl: 5
     },
     'Covert Operative': {
       type: 'Covert Operative',

@@ -122,8 +122,8 @@ angular.module('lilbro.controllers', [])
       return true;
     }
   };
-  $scope.canAfford = function(cost) {
-    return $scope.player.funds >= cost;
+  $scope.canAfford = function(cost, index) {
+    return $scope.player.funds <= cost && !$scope.lockLevel(index);
   };
   $scope.commafyNumber = function(num) {
     if (num === undefined) {
@@ -544,13 +544,17 @@ angular.module('lilbro.controllers', [])
   };
   $scope.winStyle = function(item) {
     if (item.name === 'drain') {
-      if ($scope.win) {
+      if ($scope.win && $scope.target.funds > 0) {
         return 'background: rgba(100,255,100,1); color: black; width: 25%;';
       } else {
         return 'background: rgba(255,100,100,0.25); color: black; width: 25%;';
       }
     } else if (item.name === 'disconnect') {
       if (($scope.drained || $scope.lockedOut) && $scope.defensiveDrained !== true) {
+        return 'background: rgba(100,255,100,1); color: black; width: 25%;';
+      } else if ($scope.target.funds <= 0 && $scope.win) {
+        return 'background: rgba(100,255,100,1); color: black; width: 25%;';
+      } else if ($scope.win) {
         return 'background: rgba(100,255,100,1); color: black; width: 25%;';
       } else {
         return 'background: rgba(255,100,100,0.25); color: black; width: 25%;';
@@ -606,7 +610,6 @@ angular.module('lilbro.controllers', [])
       $location.path('/main');
     }
     if (DataSERVICES.didPlayerCheat() === 'cheater') {
-      DataSERVICES.uncheat();
       $scope.specialMessage = true;
     }
     $scope.username = DataSERVICES.user.username;
