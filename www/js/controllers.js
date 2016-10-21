@@ -266,7 +266,7 @@ angular.module('lilbro.controllers', [])
     };
     $scope.getTimeLeft = function() {
       if ($scope.timeLeft === undefined) {
-        $scope.timeLeftString = 'X';
+        $scope.timeLeftString = '';
       } else {
         var timeLeftSeconds = $scope.timeLeft;
         var mins = Math.floor(timeLeftSeconds / 60.0);
@@ -300,7 +300,11 @@ angular.module('lilbro.controllers', [])
         $scope.timeLimitSpeedMultiplier = 1.25;
       }
     } else {
-      $scope.timeColor = '#00cc99';
+      if ($scope.target.security.timeLimit === undefined) {
+        $scope.timeColor = 'gray';
+      } else {
+        $scope.timeColor = '#00cc99';
+      }
       $scope.timeLimitSpeedMultiplier = 1;
     }
     $scope.timeLeftAnimation = $interval(function() {

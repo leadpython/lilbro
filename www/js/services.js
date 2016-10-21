@@ -10,12 +10,84 @@ angular.module('lilbro.services', [])
   targetServices.currentTarget = {};
   targetServices.targets = {
     'Credit Card': {
+      type: 'DEMO #1',
+      security: {
+        passLength: 3,
+        timeLimit: undefined,
+        drainRate: undefined,
+        tries: 10
+      },
+      reward: {
+        min: 0,
+        max: 100
+      },
+      fee: 0,
+      jailTime: 0.15,
+      description: '',
+      numOfResults: 15,
+      imageUrl: 0
+    },
+    'Credit Card': {
+      type: 'DEMO #2',
+      security: {
+        passLength: 4,
+        timeLimit: 120,
+        drainRate: undefined,
+        tries: 10
+      },
+      reward: {
+        min: 0,
+        max: 500
+      },
+      fee: 100,
+      jailTime: 0.15,
+      description: '',
+      numOfResults: 15,
+      imageUrl: 0
+    },
+    'Credit Card': {
+      type: 'DEMO #3',
+      security: {
+        passLength: 4,
+        timeLimit: undefined,
+        drainRate: 0.0001,
+        tries: 10
+      },
+      reward: {
+        min: 0,
+        max: 5000
+      },
+      fee: 500,
+      jailTime: 15,
+      description: '',
+      numOfResults: 15,
+      imageUrl: 0
+    },
+    'Credit Card': {
+      type: 'DEMO #4',
+      security: {
+        passLength: 5,
+        timeLimit: 120,
+        drainRate: 0.001,
+        tries: 10
+      },
+      reward: {
+        min: 0,
+        max: 5000
+      },
+      fee: 500,
+      jailTime: 15,
+      description: '',
+      numOfResults: 15,
+      imageUrl: 0
+    },
+    'Credit Card': {
       type: 'Credit Card',
       security: {
         passLength: 3,
-        timeLimit: 300,
+        timeLimit: undefined,
         drainRate: 0.000001,
-        tries: 10
+        tries: 7
       },
       reward: {
         min: 0,
@@ -25,15 +97,15 @@ angular.module('lilbro.services', [])
       jailTime: 1,
       description: '',
       numOfResults: 15,
-      imageUrl: 0
+      imageUrl: 2
     },
     'Debit Card': {
       type: 'Debit Card',
       security: {
         passLength: 4,
-        timeLimit: 300,
+        timeLimit: undefined,
         drainRate: undefined,
-        tries: 10
+        tries: 7
       },
       reward: {
         min: 0,
@@ -43,15 +115,15 @@ angular.module('lilbro.services', [])
       jailTime: 2,
       description: '',
       numOfResults: 15,
-      imageUrl: 1
+      imageUrl: 2
     },
     'Local Business': {
       type: 'Local Business',
       security: {
         passLength: 5,
         timeLimit: 300,
-        drainRate: .00001,
-        tries: 10
+        drainRate: undefined,
+        tries: 7
       },
       reward: {
         min: 10000,
@@ -66,9 +138,9 @@ angular.module('lilbro.services', [])
       type: 'Casino',
       security: {
         passLength: 6,
-        timeLimit: 300,
-        drainRate: .00001,
-        tries: 10
+        timeLimit: 240,
+        drainRate: undefined,
+        tries: 7
       },
       reward: {
         min: 50000,
@@ -84,9 +156,9 @@ angular.module('lilbro.services', [])
       type: 'Drug Cartel',
       security: {
         passLength: 7,
-        timeLimit: 240,
-        drainRate: 0.0005,
-        tries: 10
+        timeLimit: 180,
+        drainRate: undefined,
+        tries: 7
       },
       reward: {
         min: 100000,
@@ -103,8 +175,8 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 7,
         timeLimit: 180,
-        drainRate: 0.0001,
-        tries: 10
+        drainRate: 0.001,
+        tries: 7
       },
       reward: {
         min: 500000,
@@ -120,9 +192,9 @@ angular.module('lilbro.services', [])
       type: 'Multinational Corporation',
       security: {
         passLength: 7,
-        timeLimit: 120,
-        drainRate: 0.001,
-        tries: 10
+        timeLimit: 150,
+        drainRate: 0.002,
+        tries: 7
       },
       reward: {
         min: 50000000,
@@ -139,8 +211,8 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 7,
         timeLimit: 120,
-        drainRate: 0.015,
-        tries: 10
+        drainRate: 0.005,
+        tries: 7
       },
       reward: {
         min: 1000000000,
@@ -157,8 +229,8 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 8,
         timeLimit: 90,
-        drainRate: 0.01,
-        tries: 10
+        drainRate: 0.02,
+        tries: 7
       },
       reward: {
         min: 0,
