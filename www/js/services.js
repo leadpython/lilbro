@@ -12,9 +12,9 @@ angular.module('lilbro.services', [])
     'DEMO #1': {
       type: 'DEMO #1',
       security: {
-        passLength: 3,
+        passLength: 4,
         timeLimit: undefined,
-        drainRate: .25,
+        drainRate: undefined,
         tries: 10
       },
       reward: {
@@ -66,7 +66,7 @@ angular.module('lilbro.services', [])
     'DEMO #4': {
       type: 'DEMO #4',
       security: {
-        passLength: 5,
+        passLength: 4,
         timeLimit: 120,
         drainRate: 0.001,
         tries: 10
