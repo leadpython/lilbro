@@ -3,7 +3,7 @@
 
 <div id="playerData">
   <div>Username: <span style="color: rgba(100,200,255,1);">{{player.username}}</span></div>
-  <div>Earnings: <span style="color: green;">${{commafyNumber(player.funds)}}.00</span></div>
+  <div>Funds: <span style="color: green;">${{commafyNumber(player.funds)}}.00</span></div>
 </div>
 
 <div id="target-home-button" ng-click="goToMain()"> < main menu </div>
@@ -17,7 +17,7 @@
     <div id="target-item-type">{{item.type}}</div>
     <img id="target-item-image" src="{{ 'img/' + item.imageUrl + '.png' }}">
     <div id="target-item-lock" class="ion-locked" ng-if="lockLevel($index)"></div>
-    <div id="target-item-cost" class=""><span style="font-size: 12px;">$</span>{{commafyNumber(item.fee)}}.00</div>
+    <div id="target-item-cost" class=""><span style="font-size: 15px;">$</span>{{commafyNumber(item.fee)}}.00<span ng-if="{{canAfford(item.fee)}}" id="insufficient">INSUFFICIENT FUNDS</span></div>
   </div>
   </ion-content>
 </div>

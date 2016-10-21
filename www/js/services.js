@@ -14,7 +14,7 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 3,
         timeLimit: 300,
-        drainRate: undefined,
+        drainRate: 0.000001,
         tries: 10
       },
       reward: {
@@ -50,7 +50,7 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 5,
         timeLimit: 300,
-        drainRate: undefined,
+        drainRate: .00001,
         tries: 10
       },
       reward: {
@@ -67,7 +67,7 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 6,
         timeLimit: 300,
-        drainRate: 0.005,
+        drainRate: .00001,
         tries: 10
       },
       reward: {
@@ -85,7 +85,7 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 7,
         timeLimit: 240,
-        drainRate: 0.005,
+        drainRate: 0.0005,
         tries: 10
       },
       reward: {
@@ -103,7 +103,7 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 7,
         timeLimit: 180,
-        drainRate: 0.01,
+        drainRate: 0.0001,
         tries: 10
       },
       reward: {
@@ -121,7 +121,7 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 7,
         timeLimit: 120,
-        drainRate: 0.01,
+        drainRate: 0.001,
         tries: 10
       },
       reward: {
@@ -157,7 +157,7 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 8,
         timeLimit: 90,
-        drainRate: 0.02,
+        drainRate: 0.01,
         tries: 10
       },
       reward: {

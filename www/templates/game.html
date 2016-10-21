@@ -2,14 +2,14 @@
 
 <div id="playerData">
   <div>Username: <span style="color: rgba(100,200,255,1);">{{player.username}}</span></div>
-  <div>Earnings: <span style="{{drainingStyle()}}">${{commafyNumber(player.funds)}}.00</span></div>
+  <div>Funds: <span style="{{drainingStyle()}}">${{commafyNumber(player.funds)}}.00</span></div>
 </div>
 
 <div id="game-target-container">
   <div id="game-target-label">{{target.type.toUpperCase()}}</div>
   <image id="game-target-image" src="{{ 'img/' + target.imageUrl + '.png' }}"></image>
   <div id="game-target-account"><span style="font-size: 15px;">ACCOUNT: #</span>{{target.accountNum}}</div>
-  <div id="game-target-funds" style="{{drainingStyle()}}"><span style="font-size: 15px;">BALANCE:</span> ${{commafyNumber(target.funds)}}.00</div>
+  <div id="game-target-funds" style="{{drainingStyle()}}"><span style="font-size: 15px; margin-left: 20px">BALANCE:</span> ${{commafyNumber(target.funds)}}.00<span ng-if="defensiveDrain()" class="ion-nuclear" id="defDrain"></span></div>
 </div>
 
 <div id="game-attempts">

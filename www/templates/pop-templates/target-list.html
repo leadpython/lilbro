@@ -1,4 +1,5 @@
-<ion-modal-view class="popup-window" style="width: 90%; height: 80%; min-height: 0; max-height: 100%; top: 10%; left: 5%; right: 5%; bottom: 10%;">
+<ion-modal-view style="background: rgba(0,0,0,0.5)">
+<div class="popup-window" style="width: 90%; height: 80%; min-height: 0; max-height: 100%; top: 10%; left: 5%; right: 5%; bottom: 10%;">
 
   <!-- Header Bar-->
   <div class="popup-headerBar">
@@ -9,8 +10,8 @@
   <!-- Popup Content -->
   <ion-content class="popup-content" has-bouncing="false">
     <div id="target-item" ng-repeat="target in targetList" ng-click="initiateGame(target)">
-      <div style="font-size: 15px;">Account: #{{target.accountNum}}</div>
-      <div style="font-size: 15px;">Balance: <span style="color: green;">k{{commafyNumber(target.funds)}}.00</span></div>
+      <div style="font-size: 20px;">Account: #{{target.accountNum}}</div>
+      <div style="font-size: 20px;">Balance: <span style="color: green;"><span style="font-size: 15px">$</span>{{commafyNumber(target.funds)}}.00</span></div>
     </div>
   </ion-content>
 
@@ -31,4 +32,5 @@
 
 </div>
 
+</div>
 </ion-modal-view>

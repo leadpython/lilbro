@@ -122,6 +122,9 @@ angular.module('lilbro.controllers', [])
       return true;
     }
   };
+  $scope.canAfford = function(cost) {
+    return $scope.player.funds >= cost;
+  };
   $scope.commafyNumber = function(num) {
     if (num === undefined) {
       return '';
@@ -330,6 +333,7 @@ angular.module('lilbro.controllers', [])
           }
           if ($scope.target.funds <= 0) {
             $scope.drained = true;
+            $scope.defensiveDrained = true;
             $interval.cancel($scope.defensiveDrainAnimation);
           }
         }, 100);
@@ -366,7 +370,6 @@ angular.module('lilbro.controllers', [])
       ioniconTag: 'ion-power',
       clickHandler: function() {
         var disconnectBTN = document.getElementsByClassName('ion-power')[0];
-        disconnectBTN.style.backgroundColor = 'blue';
         if ($scope.clicked) {
           return;
         }
@@ -377,6 +380,7 @@ angular.module('lilbro.controllers', [])
           }
         }
         $scope.clicked = true;
+        disconnectBTN.style.backgroundColor = 'blue';
         $scope.disconnecting = true;
         var code = 'nmcli dev disconect iface eth0';
         $scope.disconnectCode = [];
@@ -421,11 +425,11 @@ angular.module('lilbro.controllers', [])
       ioniconTag: 'ion-nuclear',
       clickHandler: function() {
         var drainBTN = document.getElementsByClassName('ion-nuclear')[0];
-        drainBTN.style.backgroundColor = 'blue';
         if ($scope.target.funds <= 0) {
           return;
         }
         if ($scope.win) {
+          drainBTN.style.backgroundColor = 'blue';
           $interval.cancel($scope.defensiveDrainAnimation);
           DataSERVICES.updateFunds($scope.target.funds);
           if ($scope.target.imageUrl >= $scope.player.level) {
@@ -542,7 +546,7 @@ angular.module('lilbro.controllers', [])
         return 'background: rgba(255,100,100,0.25); color: black; width: 25%;';
       }
     } else if (item.name === 'disconnect') {
-      if ($scope.drained || $scope.lockedOut) {
+      if (($scope.drained || $scope.lockedOut) && $scope.defensiveDrained !== true) {
         return 'background: rgba(100,255,100,1); color: black; width: 25%;';
       } else {
         return 'background: rgba(255,100,100,0.25); color: black; width: 25%;';
@@ -582,6 +586,13 @@ angular.module('lilbro.controllers', [])
   $scope.triggerWin = function() {
     $scope.win = true;
   };
+  $scope.defensiveDrain = function() {
+    if ($scope.target.security.drainRate === undefined) {
+      return false;
+    } else {
+      return true;
+    }
+  };
 })
 
 .controller('JailCONTROLLER', function($scope, $interval, $location, TargetSERVICES, DataSERVICES) {
@@ -591,6 +602,7 @@ angular.module('lilbro.controllers', [])
       $location.path('/main');
     }
     if (DataSERVICES.didPlayerCheat() === 'cheater') {
+      DataSERVICES.uncheat();
       $scope.specialMessage = true;
     }
     $scope.username = DataSERVICES.user.username;
