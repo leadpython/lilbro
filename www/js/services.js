@@ -22,7 +22,7 @@ angular.module('lilbro.services', [])
         max: 20000
       },
       fee: 0,
-      jailTime: 0.15,
+      jailTime: 0.25,
       description: '',
       numOfResults: 15,
       imageUrl: 0
@@ -40,7 +40,7 @@ angular.module('lilbro.services', [])
         max: 500
       },
       fee: 100,
-      jailTime: 0.15,
+      jailTime: 0.25,
       description: '',
       numOfResults: 15,
       imageUrl: 1
@@ -50,7 +50,7 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 4,
         timeLimit: undefined,
-        drainRate: 0.0001,
+        drainRate: 0.05,
         tries: 10
       },
       reward: {
@@ -58,7 +58,7 @@ angular.module('lilbro.services', [])
         max: 5000
       },
       fee: 500,
-      jailTime: 15,
+      jailTime: 25,
       description: '',
       numOfResults: 15,
       imageUrl: 2
@@ -68,7 +68,7 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 4,
         timeLimit: 120,
-        drainRate: 0.001,
+        drainRate: 0.05,
         tries: 10
       },
       reward: {
@@ -76,7 +76,7 @@ angular.module('lilbro.services', [])
         max: 5000
       },
       fee: 500,
-      jailTime: 15,
+      jailTime: 25,
       description: '',
       numOfResults: 15,
       imageUrl: 3

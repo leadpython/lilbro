@@ -675,6 +675,7 @@
   color: red;
   margin-left: 10px;
   font-size: 25px;
+  animation: blink 1s;
 }
 
 /*///// JAIL PAGE /////*/
@@ -870,5 +871,16 @@
 }
 
 
+@keyframes blink {
+  0% {
+      opacity: 1;
+  }
+  50% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
 
 
