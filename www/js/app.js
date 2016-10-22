@@ -26,6 +26,7 @@ angular.module('lilbro', ['ionic', 'lilbro.controllers', 'lilbro.services'])
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $ionicConfigProvider.views.transition('none');
   $ionicConfigProvider.views.maxCache(0);
+  $ionicConfigProvider.views.swipeBackEnabled(false);
   $stateProvider
     .state('main', {
       url: '/main',
