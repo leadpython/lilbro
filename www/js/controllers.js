@@ -224,6 +224,11 @@ angular.module('lilbro.controllers', [])
 })
 
 .controller('GameCONTROLLER', function($scope, $timeout, $interval, $location, DataSERVICES, TargetSERVICES, GameSERVICES) {
+  $scope.$on('$ionicView.leave', function() {
+    if ($scope.target.imageUrl >= $scope.player.level && $scope.win) {
+      DataSERVICES.updateLevel($scope.target.imageUrl+1);
+    }
+  });
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.cheat();
     DataSERVICES.loadUser();
@@ -409,9 +414,6 @@ angular.module('lilbro.controllers', [])
                   $interval.cancel($scope.timeLeftAnimation);
                   $scope.clicked = false;
                   DataSERVICES.unCheat();
-                  if ($scope.target.imageUrl >= $scope.player.level) {
-                    DataSERVICES.updateLevel($scope.target.imageUrl+1);
-                  }
                   $location.path('/main');
                 }
               }, 10);
