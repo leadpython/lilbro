@@ -78,8 +78,16 @@ angular.module('lilbro.controllers', [])
 
 /////// TARGET CONTROLLER ///////
 .controller('TargetCONTROLLER', function($scope, $interval, $location, $ionicModal, GameSERVICES, DataSERVICES, TargetSERVICES) {
+  $scope.$on('$ionicView.enter', function() {
+    DataSERVICES.loadUser();
+    $scope.player = DataSERVICES.user;
+    if (!DataSERVICES.amIFree()) {
+      $location.path('/jail');
+    }
+  });
   $scope.progress = 0;
   $scope.targets = TargetSERVICES.targets;
+
   $scope.goToMain = function() {
     $location.path('/main');
   };
@@ -123,7 +131,9 @@ angular.module('lilbro.controllers', [])
     }
   };
   $scope.canAfford = function(cost, index) {
-    return $scope.player.funds <= cost && !$scope.lockLevel(index);
+    DataSERVICES.loadUser();
+    $scope.player = DataSERVICES.user;
+    return $scope.player.funds < cost && !$scope.lockLevel(index);
   };
   $scope.commafyNumber = function(num) {
     if (num === undefined) {
@@ -154,13 +164,6 @@ angular.module('lilbro.controllers', [])
   $scope.$on('$destroy', function() {
     $scope.retrievingModal.remove();
     $scope.targetListModal.remove();
-  });
-  $scope.$on('$ionicView.enter', function() {
-    DataSERVICES.loadUser();
-    if (!DataSERVICES.amIFree()) {
-      $location.path('/jail');
-    }
-    $scope.player = DataSERVICES.user;
   });
 })
 

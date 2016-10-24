@@ -14,7 +14,7 @@ angular.module('lilbro.services', [])
       security: {
         passLength: 3,
         timeLimit: undefined,
-        drainRate: 0.000001,
+        drainRate: undefined,
         tries: 7
       },
       reward: {
@@ -224,7 +224,7 @@ angular.module('lilbro.services', [])
     dataServices.noUser = true;
     dataServices.user = {
       username: '', 
-      funds: 300, 
+      funds: 450, 
       level: 0, 
       releaseDate: new Date(0),
       high: 0,
