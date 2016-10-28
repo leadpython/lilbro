@@ -3,13 +3,29 @@
 <div id="playerData">
   <div>Username: <span style="color: rgba(100,200,255,1);">{{player.username}}</span></div>
   <div>Funds: <span style="{{drainingStyle()}}">${{commafyNumber(player.funds)}}.00</span></div>
+  <div id="game-toolbox" ng-click="toggleToolbox()">
+    <image style="width: 100%; height: auto;"src="img/toolbox.png" />
+  </div>
+</div>
+
+<div ng-if="toggledTools.toolbox" id="game-toolbox-items">
+  <div ng-click="tool.effect()" class="game-toolbox-item" ng-repeat="tool in toolboxItems track by $index">
+    <image class="game-toolbox-item-image" src="{{tool.imageUrl}}" />
+    <div class="game-toolbox-item-name">{{tool.name}}</div>
+    <div class="game-toolbox-item-description">{{tool.description}}</div>
+    <div class="game-toolbox-item-quantity">{{tool.getQuantity()}}</div>
+  </div>
+</div>
+
+<div ng-if="isDisrupted" id="game-disrupted">
+  disrupted
 </div>
 
 <div id="game-target-container">
   <div id="game-target-label">{{target.type.toUpperCase()}}</div>
   <image id="game-target-image" src="{{ 'img/' + target.imageUrl + '.png' }}"></image>
   <div id="game-target-account"><span style="font-size: 15px;">ACCOUNT: #</span>{{target.accountNum}}</div>
-  <div id="game-target-funds" style="{{drainingStyle()}}"><span style="font-size: 15px; margin-left: 20px">BALANCE:</span> ${{commafyNumber(target.funds)}}.00<span ng-if="defensiveDrain()" class="ion-nuclear" id="defDrain"></span></div>
+  <div id="game-target-funds" style="{{drainingStyle()}}"><span style="font-size: 15px; margin-left: 10px">BALANCE:</span> ${{commafyNumber(target.funds)}}.00<span ng-if="defensiveDrain()" class="ion-nuclear" id="defDrain"></span></div>
 </div>
 
 <div id="game-attempts">

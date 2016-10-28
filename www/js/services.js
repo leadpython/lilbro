@@ -201,8 +201,9 @@ angular.module('lilbro.services', [])
     $window.localStorage.setItem('lilbro-username', dataServices.user.username);
     $window.localStorage.setItem('lilbro-funds', JSON.stringify(dataServices.user.funds));
     $window.localStorage.setItem('lilbro-level', JSON.stringify(dataServices.user.level));
-    $window.localStorage.setItem('lilbro-high', JSON.stringify(dataServices.user.high));
-    $window.localStorage.setItem('lilbro-timeUpgrade', JSON.stringify(dataServices.user.timeUpgrade));
+    $window.localStorage.setItem('lilbro-speed', JSON.stringify(dataServices.user.speed));
+    $window.localStorage.setItem('lilbro-disrupt', JSON.stringify(dataServices.user.disrupt));
+    $window.localStorage.setItem('lilbro-blackmail', JSON.stringify(dataServices.user.blackmail));
     $window.localStorage.setItem('lilbro-bonusAttempts', JSON.stringify(dataServices.user.bonusAttempts));
     $window.localStorage.setItem('lilbro-jailTerm', JSON.stringify(dataServices.user.releaseDate.getTime()));
   };
@@ -210,8 +211,9 @@ angular.module('lilbro.services', [])
     dataServices.user.username = $window.localStorage.getItem('lilbro-username');
     dataServices.user.funds = Number($window.localStorage.getItem('lilbro-funds'));
     dataServices.user.level = Number($window.localStorage.getItem('lilbro-level'));
-    dataServices.user.high = Number($window.localStorage.getItem('lilbro-high'));
-    dataServices.user.timeUpgrade = Number($window.localStorage.getItem('lilbro-timeUpgrade'));
+    dataServices.user.speed = Number($window.localStorage.getItem('lilbro-speed'));
+    dataServices.user.disrupt = Number($window.localStorage.getItem('lilbro-disrupt'));
+    dataServices.user.blackmail = Number($window.localStorage.getItem('lilbro-blackmail'));
     dataServices.user.bonusAttempts = Number($window.localStorage.getItem('lilbro-bonusAttempts'));
     dataServices.user.releaseDate = new Date(Number($window.localStorage.getItem('lilbro-jailTerm')));
     if (dataServices.user.username === null || dataServices.user.username === undefined || dataServices.user.username === '') {
@@ -227,9 +229,10 @@ angular.module('lilbro.services', [])
       funds: 450, 
       level: 0, 
       releaseDate: new Date(0),
-      high: 0,
-      timeUpgrade: 0,
-      bonusAttempts: 0
+      disrupt: 0,
+      speed: 0,
+      bonusAttempts: 0,
+      blackmail: 0
     };
     dataServices.saveUser();
   };
@@ -261,6 +264,22 @@ angular.module('lilbro.services', [])
   }
   dataServices.didPlayerCheat = function() {
     return $window.localStorage.getItem('lilbro-cheat');
+  };
+  dataServices.addDisrupt = function() {
+    dataServices.user.disrupt++;
+    dataServices.saveUser();
+  };
+  dataServices.addSpeed = function() {
+    dataServices.user.speed++;
+    dataServices.saveUser();
+  };
+  dataServices.addAttempts = function() {
+    dataServices.user.bonusAttempts++;
+    dataServices.saveUser();
+  };
+  dataServices.addBlackmail = function() {
+    dataServices.user.blackmail++;
+    dataServices.saveUser();
   };
   dataServices.cheat = function() {
     $window.localStorage.setItem('lilbro-cheat', 'cheater');

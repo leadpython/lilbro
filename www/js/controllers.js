@@ -239,6 +239,82 @@ angular.module('lilbro.controllers', [])
       $interval.cancel($scope.timeLeftAnimation);
       $location.path('/jail');
     }
+
+    $scope.toolboxItems = [
+      {
+        name: 'DISRUPT COMMS',
+        imageUrl: 'img/power.png',
+        description: 'Disable target\'s defenses for 30 seconds.',
+        getQuantity: function() {
+          return DataSERVICES.user.disrupt;
+        },
+        effect: function() {
+          if (DataSERVICES.user.disrupt <= 0) {
+            return;
+          }
+          $scope.toggledTools.toolbox = false;
+          $scope.isDisrupted = true;
+          $scope.disruptTimeLeft = 30000;
+          $scope.disruptTimeLeftAnimation = $interval(function() {
+            $scope.disruptTimeLeft -= 100;
+            if ($scope.disruptTimeLeft <= 0) {
+              $interval.cancel($scope.disruptTimeLeftAnimation);
+            }
+          }, 100);
+          if ($scope.target.security.timeLimit) {
+            $interval.cancel($scope.timeLeftAnimation);
+            $timeout(function() {
+              $scope.startTimeLimitAnimation();
+              $scope.isDisrupted = false;
+            }, 30000);
+          }
+          if ($scope.target.security.drainRate) {
+            $interval.cancel($scope.defensiveDrainAnimation);
+            $timeout(function() {
+              $scope.startDefensiveDrain();
+              $scope.isDisrupted = false;
+            }, 30000);
+          }
+        }
+      },
+      {
+        name: 'SPEED 2.0',
+        imageUrl: 'img/syringe.png',
+        description: 'Slow down perception of time by 25%.',
+        getQuantity: function() {
+          return DataSERVICES.user.speed;
+        },
+        effect: function() {
+          if (DataSERVICES.user.speed <= 0) {
+            return;
+          }
+          DataSERVICES.user.speed--;
+          DataSERVICES.saveUser();
+          $scope.toggledTools.toolbox = false;
+          if (Math.random() <= 0.03) {
+            $scope.timeColor = 'red';
+            $scope.timeLimitSpeedMultiplier = 0.5;
+          } else {
+            $scope.timeColor = 'rgb(100,200,255)';
+            $scope.timeLimitSpeedMultiplier = 1.25;
+          }
+          if ($scope.target.security.timeLimit === undefined) {
+            $scope.timeColor = 'gray';
+            $scope.timeLimitSpeedMultiplier = 1;
+          }
+
+          if ($scope.target.security.timeLimit) {
+            $interval.cancel($scope.timeLeftAnimation);
+            $scope.startTimeLimitAnimation();
+          }
+          if ($scope.target.security.drainRate) {
+            $interval.cancel($scope.defensiveDrainAnimation);
+            $scope.startDefensiveDrain();
+          }
+        }
+      }
+    ];
+
     // add time if user purchased time upgrade
     if (DataSERVICES.user.timeUpgrade === 1) {
       DataSERVICES.user.timeUpgrade = 0;
@@ -247,6 +323,7 @@ angular.module('lilbro.controllers', [])
     } else {
       var bonusTime = 0;
     }
+    $scope.timeLimitSpeedMultiplier = 1;
     $scope.lost = false;
     $scope.win = false;
     $scope.player = {};
@@ -270,7 +347,17 @@ angular.module('lilbro.controllers', [])
     $scope.lockedOut = false;
     $scope.toggledTools = {
       keypad: true,
-      log: false
+      toolbox: false
+    };
+    $scope.toggleToolbox = function() {
+      var toolboxBTN = document.getElementById('game-toolbox');
+      if ($scope.toggledTools.toolbox) {
+        toolboxBTN.style.backgroundColor = 'rgb(25,25,25)';
+        $scope.toggledTools.toolbox = false;
+      } else {
+        toolboxBTN.style.backgroundColor = 'rgb(50,50,50)';
+        $scope.toggledTools.toolbox = true;
+      }
     };
     $scope.getTimeLeft = function() {
       if ($scope.timeLeft === undefined) {
@@ -295,42 +382,30 @@ angular.module('lilbro.controllers', [])
       }
     };
     $scope.getTimeLeft(); 
-
-    // slow down time if user is high
-    if (DataSERVICES.user.high === 1) {
-      DataSERVICES.user.high = 0;
-      DataSERVICES.saveUser();
-      if (Math.random() <= 0.03) {
-        $scope.timeColor = 'red';
-        $scope.timeLimitSpeedMultiplier = 0.5;
-      } else {
-        $scope.timeColor = 'rgb(100,200,255)';
-        $scope.timeLimitSpeedMultiplier = 1.25;
-      }
+    if ($scope.target.security.timeLimit === undefined) {
+      $scope.timeColor = 'gray';
     } else {
-      if ($scope.target.security.timeLimit === undefined) {
-        $scope.timeColor = 'gray';
-      } else {
-        $scope.timeColor = '#00cc99';
-      }
-      $scope.timeLimitSpeedMultiplier = 1;
+      $scope.timeColor = '#00cc99';
     }
-    $scope.timeLeftAnimation = $interval(function() {
-      if ($scope.timeLeft === undefined) {
-        $interval.cancel($scope.timeLeftAnimation);
-        return;
-      }
-      $scope.timeLeft--;
-      $scope.getTimeLeft();
-      if ($scope.timeLeft <= 0) {
-        $scope.timeLeft = 0;
-        $interval.cancel($scope.disconnectAnimation);
-        $interval.cancel($scope.disconnectBarAnimation);
-        $scope.triggerLoss();
-      } else if ($scope.lost) {
-        $interval.cancel($scope.timeLeftAnimation);
-      }
-    }, 1000 * $scope.timeLimitSpeedMultiplier);
+    $scope.startTimeLimitAnimation = function() {
+      $scope.timeLeftAnimation = $interval(function() {
+        if ($scope.timeLeft === undefined) {
+          $interval.cancel($scope.timeLeftAnimation);
+          return;
+        }
+        $scope.timeLeft--;
+        $scope.getTimeLeft();
+        if ($scope.timeLeft <= 0) {
+          $scope.timeLeft = 0;
+          $interval.cancel($scope.disconnectAnimation);
+          $interval.cancel($scope.disconnectBarAnimation);
+          $scope.triggerLoss();
+        } else if ($scope.lost) {
+          $interval.cancel($scope.timeLeftAnimation);
+        }
+      }, 1000 * $scope.timeLimitSpeedMultiplier);
+    };
+    $scope.startTimeLimitAnimation();
     $scope.startDefensiveDrain = function() {
       if ($scope.target.security.drainRate) {
         var decrement = Math.floor(($scope.target.funds * $scope.target.security.drainRate) / 10.0);
@@ -348,9 +423,7 @@ angular.module('lilbro.controllers', [])
             $scope.defensiveDrained = true;
             $interval.cancel($scope.defensiveDrainAnimation);
           }
-        }, 100);
-      } else { 
-        return;
+        }, 100 * $scope.timeLimitSpeedMultiplier);
       }
     };
     $scope.startDefensiveDrain();
@@ -695,18 +768,97 @@ angular.module('lilbro.controllers', [])
   $scope.goToMain = function() {
     $location.path('/main')
   };
+  $scope.getFunds = function() {
+    return DataSERVICES.user.funds;
+  };
+  $scope.commafyNumber = function(num) {
+    if (num === undefined) {
+      return '';
+    }
+    var strArr = (num.toString()).split('');
+    var commafied = [];
+    for (var i = strArr.length-1, count = 1; i >= 0; i--, count++) {
+      commafied.unshift(strArr[i]);
+      if (count === 3 && i > 0) {
+        count = 0;
+        commafied.unshift(',');
+      }
+    }
+    return commafied.join('');
+  };
   $scope.products = [
     {
       name: 'UPGRADE HACKING TOOL',
-      imageUrl: 'img/upgrade.png'
+      imageUrl: 'img/upgrade.png',
+      description: 'Adds bonus password attempt permanently.',
+      cost: function() {
+        var quantityOwned = DataSERVICES.user.bonusAttempts;
+        return 100 * Math.pow(10, quantityOwned);
+      },
+      getQuantity: function() {
+        return DataSERVICES.user.bonusAttempts;
+      },
+      purchase: function(cost) {
+        if (DataSERVICES.user.funds < cost) {
+          return;
+        }
+        DataSERVICES.updateFunds(-1 * cost);
+        DataSERVICES.addAttempts();
+      }
     },
     {
       name: 'DISRUPT TRIANGULATION',
-      imageUrl: 'img/power.png'
+      imageUrl: 'img/power.png',
+      description: 'Disable all target\'s defenses by 30 seconds.',
+      cost: function() {
+        return 30000;
+      },
+      getQuantity: function() {
+        return DataSERVICES.user.disrupt;
+      },
+      purchase: function(cost) {
+        if (DataSERVICES.user.funds < cost) {
+          return;
+        }
+        DataSERVICES.updateFunds(-1 * cost);
+        DataSERVICES.addDisrupt();        
+      }
     },
     {
       name: 'SPEED 2.0',
-      imageUrl: 'img/syringe.png'
+      imageUrl: 'img/syringe.png',
+      description: 'Slow down perception of time by 25%. Warning: 3% risk of speeding perception of time by 50%.',
+      cost: function() {
+        return 50000;
+      },
+      getQuantity: function() {
+        return DataSERVICES.user.speed;
+      },
+      purchase: function(cost) {
+        if (DataSERVICES.user.funds < cost) {
+          return;
+        }
+        DataSERVICES.updateFunds(-1 * cost);
+        DataSERVICES.addSpeed();  
+      }
+    },
+    {
+      name: 'BLACKMAIL DOCUMENTS',
+      imageUrl: 'img/folder.png',
+      description: 'Use to get out of jail for free.',
+      cost: function() {
+        return 100000;
+      },
+      getQuantity: function() {
+        return DataSERVICES.user.blackmail;
+      },
+      purchase: function(cost) {
+        if (DataSERVICES.user.funds < cost) {
+          return;
+        }
+        DataSERVICES.updateFunds(-1 * cost);
+        DataSERVICES.addBlackmail();
+      }
     }
   ];
 

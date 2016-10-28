@@ -669,13 +669,91 @@
   right: 20px;
   left: 20px;
 }
+#game-toolbox {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  padding: 10px;
+  border: 1px solid rgba(50,50,50,1);
+  border-radius: 5px;
+  height: 40px;
+  width: 40px;
+}
+#game-toolbox-items {
+  position: absolute;
+  top: 65px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background-color: rgba(0,0,0,0.9);
+  z-index: 9999;
+  padding: 20px;
+}
+.game-toolbox-item {
+  position: relative;
+  border: 1px solid rgb(50,50,50);
+  height: 75px;
+  margin-top: 10px;
+  background-color: rgb(25,25,25);
+}
+.game-toolbox-item:active: {
+  border: 1px solid #00cc99;
+  background-color: gray;
+}
+.game-toolbox-item-image {
+  height: 100%;
+  width: auto;
+  padding: 15px;
+  background-color: rgb(50,50,50);
+}
+.game-toolbox-item-name {
+  position: absolute;
+  top: 5px;
+  left: 80px;
+  font-weight: bold;
+  font-size: 15px;
+}
+.game-toolbox-item-description {
+  position: absolute;
+  font-size: 15px;
+  top: 25px;
+  left: 80px;
+  right: 50px;
+  padding: 5px;
+  line-height: 15px;
+}
+.game-toolbox-item-quantity {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 45px;
+  height: 100%;
+  background-color: rgb(50,50,50);
+  font-size: 50px;
+  padding: 15px;
+  padding-top: 30px;
+}
+#game-disrupted {
+  position: absolute;
+  background-color: rgba(255,0,0,0.25);
+  border: 2px solid red;
+  top: 130px;
+  left: 100px;
+  right: 100px;
+  height: 50px;
+  border-radius: 5px;
+  z-index: 9999;
+  text-align: center;
+  padding: 15px;
+  font-size: 30px;
+  color: red;
+}
 #defDrain {
   position: absolute;
   margin-top: -1px;
   color: red;
   margin-left: 10px;
   font-size: 25px;
-  animation: blink 1s;
 }
 
 /*///// JAIL PAGE /////*/
@@ -775,7 +853,7 @@
   top: 40px;
   left: 75px;
   display: block;
-  font-size: 40px;
+  font-size: 30px;
 }
 #market-funds {
   position: absolute;
@@ -828,13 +906,13 @@
   border: 1px solid gray;
   background-color: rgb(25,25,25);
   width: 100%;
-  height: 200px;
+  height: 175px;
   padding: 0px;
   margin-bottom: 5px;
 }
 #market-item-image {
   height: auto;
-  width: 50px;
+  width: 75px;
   padding: 5px;
   background-color: rgb(50,50,50);
 }
@@ -854,6 +932,29 @@
   color: #00cc99;
   background-color: rgba(0,0,0,0);
 }
+#market-item-quantity {
+  position: absolute;
+  bottom: 0px;
+  left: 5px;
+  font-size: 15px;
+}
+#market-item-description {
+  position: absolute;
+  left: 5px;
+  font-size: 15px;
+}
+#market-item-name {
+  position: absolute;
+  top: 5px;
+  left: 85px;
+  font-size: 20px;
+}
+#market-item-cost {
+  position: absolute;
+  top: 25px;
+  left: 85px;
+  font-size: 15px;
+}
 #special-message {
   line-height: 25px;
   position: absolute;
@@ -868,19 +969,6 @@
   text-align: center;
   padding: 10px;
   padding-top: 20px;
-}
-
-
-@keyframes blink {
-  0% {
-      opacity: 1;
-  }
-  50% {
-      opacity: 0;
-  }
-  100% {
-      opacity: 1;
-  }
 }
 
 
