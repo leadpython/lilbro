@@ -13,7 +13,7 @@
       <div id="market-product" ng-repeat="item in products track by $index">
         <image id="market-item-image" src="{{item.imageUrl}}" />
         <div id="market-item-name">{{item.name}}</div>
-        <div id="market-item-cost">Cost: ${{commafyNumber(item.cost())}}.00</div>
+        <div id="market-item-cost">${{commafyNumber(item.cost())}}.00</div>
         <div id="market-item-buy" ng-click="item.purchase(item.cost())">PURCHASE</div>
         <div id="market-item-description"><u>Description:</u><br>--- {{item.description}}</div>
         <div id="market-item-quantity">Quantity owned: {{item.getQuantity();}}</div>
