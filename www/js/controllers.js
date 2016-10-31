@@ -200,7 +200,7 @@ angular.module('lilbro.controllers', [])
         $scope.consoleOutput.push(hackCommands[i]);
         i++;
       }
-    }, 100);
+    }, 50);
     $scope.last3Animations = $interval(function() {
       if ($scope.isAnimateCommandsDone) {
         $scope.consoleOutput.push(last3[i]);
@@ -211,7 +211,7 @@ angular.module('lilbro.controllers', [])
           $interval.cancel($scope.last3Animations);
         }
       }
-    }, 500);
+    }, 100);
 
     $scope.animateCountdown = $interval(function() {
       if ($scope.isLast3AnimationsDone) {
@@ -252,6 +252,9 @@ angular.module('lilbro.controllers', [])
           if (DataSERVICES.user.disrupt <= 0) {
             return;
           }
+          document.getElementById('game-toolbox').style.backgroundColor = 'rgb(25,25,25)';
+          DataSERVICES.user.disrupt--;
+          DataSERVICES.saveUser();
           $scope.toggledTools.toolbox = false;
           $scope.isDisrupted = true;
           $scope.disruptTimeLeft = 30000;
@@ -288,6 +291,7 @@ angular.module('lilbro.controllers', [])
           if (DataSERVICES.user.speed <= 0) {
             return;
           }
+          document.getElementById('game-toolbox').style.backgroundColor = 'rgb(25,25,25)';
           DataSERVICES.user.speed--;
           DataSERVICES.saveUser();
           $scope.toggledTools.toolbox = false;
@@ -807,9 +811,9 @@ angular.module('lilbro.controllers', [])
       }
     },
     {
-      name: 'DISRUPT TRIANGULATION',
+      name: 'DISRUPT COMMS',
       imageUrl: 'img/power.png',
-      description: 'Disable all target\'s defenses by 30 seconds.',
+      description: 'Disable all target\'s defenses for 30 seconds.',
       cost: function() {
         return 30000;
       },
@@ -843,7 +847,7 @@ angular.module('lilbro.controllers', [])
       }
     },
     {
-      name: 'BLACKMAIL DOCUMENTS',
+      name: 'BLACKMAIL',
       imageUrl: 'img/folder.png',
       description: 'Use to get out of jail for free.',
       cost: function() {
