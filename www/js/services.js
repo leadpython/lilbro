@@ -226,7 +226,7 @@ angular.module('lilbro.services', [])
     dataServices.noUser = true;
     dataServices.user = {
       username: '', 
-      funds: 450, 
+      funds: 300, 
       level: 0, 
       releaseDate: new Date(0),
       disrupt: 0,

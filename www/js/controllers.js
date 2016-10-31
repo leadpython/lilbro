@@ -228,6 +228,7 @@ angular.module('lilbro.controllers', [])
 
 .controller('GameCONTROLLER', function($scope, $timeout, $interval, $location, DataSERVICES, TargetSERVICES, GameSERVICES) {
   $scope.$on('$ionicView.leave', function() {
+    $interval.cancel($scope.disconnectBarAnimation);
     if ($scope.target.imageUrl >= $scope.player.level && $scope.win) {
       DataSERVICES.updateLevel($scope.target.imageUrl+1);
     }
@@ -486,17 +487,18 @@ angular.module('lilbro.controllers', [])
                 return 'width: ' + percentage + '%;';
               };
               $scope.disconnectBarAnimation = $interval(function() {
-                percentage++;
+                percentage += 5;
                 if (percentage >= 100) {
                   percentage = 0;
                   $scope.disconnecting = false;
                   $interval.cancel($scope.disconnectBarAnimation);
                   $interval.cancel($scope.timeLeftAnimation);
+                  $interval.cancel($scope.defensiveDrainAnimation);
                   $scope.clicked = false;
                   DataSERVICES.unCheat();
                   $location.path('/main');
                 }
-              }, 10);
+              }, 50);
             }, 500);
           }
         }, 25);
