@@ -8,7 +8,7 @@ angular.module('lilbro.controllers', [])
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
     if (DataSERVICES.didPlayerCheat() === 'cheater') {
-      DataSERVICES.chargeCrime(1 * 60 * 1000);
+      DataSERVICES.chargeCrime(1);
       $location.path('/jail');
     }
     if (!DataSERVICES.amIFree()) {
@@ -413,7 +413,7 @@ angular.module('lilbro.controllers', [])
     $scope.startTimeLimitAnimation();
     $scope.startDefensiveDrain = function() {
       if ($scope.target.security.drainRate) {
-        var decrement = Math.floor(($scope.target.funds * $scope.target.security.drainRate) / 10.0);
+        var decrement = $scope.target.security.drainRate / 10.0;
         if (decrement < 1) {
           decrement = 1;
         }
@@ -659,7 +659,7 @@ angular.module('lilbro.controllers', [])
     }
   };
   $scope.triggerLoss = function() {
-    DataSERVICES.chargeCrime($scope.target.jailTime * 60 * 1000);
+    DataSERVICES.chargeCrime($scope.target.jailTime);
     $interval.cancel($scope.timeLeftAnimation);
     $scope.lost = true;
     $scope.timeBeforeJail = 3000;
