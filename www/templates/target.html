@@ -17,7 +17,7 @@
     <div id="target-item-type">{{item.type}}</div>
     <img id="target-item-image" src="{{ 'img/' + item.imageUrl + '.png' }}">
     <div id="target-item-lock" class="ion-locked" ng-if="lockLevel($index)"></div>
-    <div id="target-item-cost" class=""><span style="font-size: 15px;">$</span>{{commafyNumber(item.fee)}}.00<span ng-if="canAfford(item.fee, $index)" id="insufficient">INSUFFICIENT FUNDS</span></div>
+    <div id="target-item-cost" class=""><span style="font-size: 15px;">$</span>{{commafyNumber(item.fee)}}.00<span ng-if="canAfford(item.fee, $index)" id="insufficient">insufficient funds</span></div>
   </div>
   </ion-content>
 </div>

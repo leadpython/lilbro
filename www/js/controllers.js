@@ -853,7 +853,7 @@ angular.module('lilbro.controllers', [])
       imageUrl: 'img/folder.png',
       description: 'Use to get out of jail for free.',
       cost: function() {
-        return 100000;
+        return 5000000;
       },
       getQuantity: function() {
         return DataSERVICES.user.blackmail;
