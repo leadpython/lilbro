@@ -19,6 +19,8 @@ angular.module('lilbro', ['ionic', 'lilbro.controllers', 'lilbro.services', 'ngC
     $cordovaNativeAudio.preloadComplex('static', 'audio/copstatic.wav', 1, 1);
     $cordovaNativeAudio.preloadComplex('scifi', 'audio/scifi.mp3', 0.5, 1);
     $cordovaNativeAudio.preloadComplex('buy', 'audio/buy.mp3', 1, 1);
+    $cordovaNativeAudio.preloadComplex('page', 'audio/page.wav', 1, 1);
+    $cordovaNativeAudio.preloadComplex('caught', 'audio/caught.wav', 1, 1);
 
     setTimeout(playBackgroundMusic, 3000);
 

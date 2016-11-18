@@ -233,7 +233,7 @@ angular.module('lilbro.services', ['ngCordova'])
       disrupt: 0,
       speed: 0,
       bonusAttempts: 0,
-      blackmail: 10
+      blackmail: 0
     };
     dataServices.saveUser();
   };
@@ -359,6 +359,12 @@ angular.module('lilbro.services', ['ngCordova'])
   };
   soundServices.buyFX = function() {
     $cordovaNativeAudio.play('buy');
+  };
+  soundServices.page = function() {
+    $cordovaNativeAudio.play('page');
+  };
+  soundServices.caught = function() {
+    $cordovaNativeAudio.play('caught');
   };
 
   return soundServices;

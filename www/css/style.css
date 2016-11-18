@@ -335,7 +335,7 @@
   background: rgb(25,25,25);
   padding: 2px;
   padding-left: 0px;
-  left: 70px;
+  left: 60px;
   right: 5px;
   font-size: 20px;
   top: 42px;
@@ -736,8 +736,8 @@
 }
 .game-toolbox-item-description {
   position: absolute;
-  font-size: 15px;
-  top: 25px;
+  font-size: 12px;
+  top: 20px;
   left: 80px;
   right: 50px;
   padding: 5px;
@@ -957,7 +957,7 @@
   position: absolute;
   bottom: 0px;
   left: 5px;
-  font-size: 20px;
+  font-size: 12px;
 }
 #market-item-description {
   position: absolute;
@@ -976,7 +976,7 @@
   color: rgb(255,75,75);
   right: 5px;
   bottom: 30px;
-  font-size: 20px;
+  font-size: 15px;
 }
 #special-message {
   line-height: 25px;
@@ -1000,7 +1000,7 @@
   right: 0px;
   text-align: center;
   background-color: rgb(25,25,25);
-  height: 50px;
+  height: 40px;
 }
 #jail-blackmail:active {
   background-color: gray;

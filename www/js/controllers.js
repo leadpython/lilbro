@@ -251,7 +251,7 @@ angular.module('lilbro.controllers', [])
       {
         name: 'SPEED 2.0',
         imageUrl: 'img/syringe.png',
-        description: 'Slow down perception of time by 25%.',
+        description: 'Slow down perception of time by 50%. 5% chance of speeding up time by 100%.',
         getQuantity: function() {
           return DataSERVICES.user.speed;
         },
@@ -268,12 +268,12 @@ angular.module('lilbro.controllers', [])
           DataSERVICES.user.speed--;
           DataSERVICES.saveUser();
           $scope.toggledTools.toolbox = false;
-          if (Math.random() <= 0.03) {
+          if (Math.random() <= 0.05) {
             $scope.timeColor = 'red';
             $scope.timeLimitSpeedMultiplier = 0.5;
           } else {
             $scope.timeColor = 'rgb(100,200,255)';
-            $scope.timeLimitSpeedMultiplier = 1.25;
+            $scope.timeLimitSpeedMultiplier = 1.5;
           }
           if ($scope.target.security.timeLimit === undefined) {
             $scope.timeColor = 'gray';
@@ -476,6 +476,9 @@ angular.module('lilbro.controllers', [])
       name: 'disconnect',
       ioniconTag: 'ion-power',
       clickHandler: function() {
+        if ($scope.lost) {
+          return;
+        }
         var disconnectBTN = document.getElementsByClassName('ion-power')[0];
         if ($scope.clicked) {
           return;
@@ -696,6 +699,7 @@ angular.module('lilbro.controllers', [])
         $scope.goingToJail = false;
         $interval.cancel($scope.goToJailAnimation);
         DataSERVICES.unCheat();
+        SoundSERVICES.caught();
         $location.path('/jail');
       }
     }, 10);
@@ -715,6 +719,7 @@ angular.module('lilbro.controllers', [])
 .controller('JailCONTROLLER', function($scope, $interval, $location, SoundSERVICES, TargetSERVICES, DataSERVICES) {
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
+    SoundSERVICES.caught();
     if (DataSERVICES.amIFree()) {
       $location.path('/hud');
     }
@@ -763,8 +768,10 @@ angular.module('lilbro.controllers', [])
   $scope.getTimeLeft = function() {
     var timeLeftSeconds = $scope.secondsLeft;
     $scope.costString = `${Math.floor(timeLeftSeconds * 75)}`;
-    var mins = Math.floor(timeLeftSeconds / 60.0);
-    var seconds = Math.floor(timeLeftSeconds - (mins * 60));
+    var hours = Math.floor(timeLeftSeconds / (60.0 * 60.0));
+    var mins = Math.floor( (timeLeftSeconds - (hours * 60.0 * 60.0)) / 60);
+    var seconds = Math.floor(timeLeftSeconds - ( (hours * 60 * 60) + mins * 60 ) );
+    var hourString = '';
     var minsString = '';
     var secondsString = '';
     if (seconds >= 10) {
@@ -777,14 +784,19 @@ angular.module('lilbro.controllers', [])
     } else {
       minsString = `0${mins}`;
     }
-    $scope.timeLeftString = `${minsString}:${secondsString}`;
+    if (hours >= 10) {
+      hourString = `${hours}`;
+    } else {
+      hourString = `0${hours}`;
+    }
+    $scope.timeLeftString = `${hourString}:${minsString}:${secondsString}`;
   };
   $scope.bribe = function() {
     if ($scope.funds >= Math.floor($scope.secondsLeft * 75)) {
       DataSERVICES.updateFunds(-1 * ($scope.secondsLeft * 75));
       DataSERVICES.release();
       $interval.cancel($scope.animateTime);
-      SoundSERVICES.click();
+      SoundSERVICES.buyFX();
       $location.path('/hud');
     }
   };
@@ -794,7 +806,7 @@ angular.module('lilbro.controllers', [])
       DataSERVICES.saveUser();
       DataSERVICES.release();
       $interval.cancel($scope.animateTime);
-      SoundSERVICES.click();
+      SoundSERVICES.page();
       $location.path('/hud');
     }
   };
@@ -803,9 +815,14 @@ angular.module('lilbro.controllers', [])
   };
 })
 
-.controller('MarketCONTROLLER', function($scope, $location, SoundSERVICES, DataSERVICES) {
+.controller('MarketCONTROLLER', function($scope, $location, $interval, SoundSERVICES, DataSERVICES) {
   $scope.$on('$ionicView.enter', function() {
-
+    $scope.balanceColor = {
+      r: 255,
+      g: 25,
+      b: 25,
+      o: 0
+    };
   });
   $scope.goToMain = function() {
     SoundSERVICES.click();
@@ -833,10 +850,13 @@ angular.module('lilbro.controllers', [])
     {
       name: 'UPGRADE HACKING TOOL',
       imageUrl: 'img/upgrade.png',
-      description: 'Adds bonus password attempt permanently.',
+      description: 'Adds bonus password attempt permanently. Can only purchase up to 8.',
       cost: function() {
         var quantityOwned = DataSERVICES.user.bonusAttempts;
-        return 100 * Math.pow(10, quantityOwned);
+        if (quantityOwned >= 8) {
+          return 'xxxxx';
+        }
+        return 1000 * Math.pow(10, quantityOwned); //100,000,000,000
       },
       getQuantity: function() {
         return DataSERVICES.user.bonusAttempts;
@@ -845,7 +865,19 @@ angular.module('lilbro.controllers', [])
         if (DataSERVICES.user.funds < cost) {
           return;
         }
-        SoundSERVICES.click();
+        if (DataSERVICES.user.bonusAttempts >= 8) {
+          return;
+        }
+        $interval.cancel($scope.purchaseAnimation);
+        $scope.balanceColor.o = 1000;
+        $scope.purchaseAnimation = $interval(function() {
+          if ($scope.balanceColor.o <= 100) {
+            $scope.balanceColor.o = 0;
+            $interval.cancel($scope.purchaseAnimation);
+          }
+          $scope.balanceColor.o -= 100;
+        },100);
+        SoundSERVICES.buyFX();
         DataSERVICES.updateFunds(-1 * cost);
         DataSERVICES.addAttempts();
       }
@@ -853,7 +885,7 @@ angular.module('lilbro.controllers', [])
     {
       name: 'SPEED 2.0',
       imageUrl: 'img/syringe.png',
-      description: 'slow down perception of time by 25%. Warning: 3% risk of speeding perception of time by 50%.',
+      description: 'slow down perception of time by 50%. Warning: 5% risk of speeding perception of time by 100%.',
       cost: function() {
         return 50000;
       },
@@ -864,6 +896,15 @@ angular.module('lilbro.controllers', [])
         if (DataSERVICES.user.funds < cost) {
           return;
         }
+        $interval.cancel($scope.purchaseAnimation);
+        $scope.balanceColor.o = 1000;
+        $scope.purchaseAnimation = $interval(function() {
+          if ($scope.balanceColor.o <= 100) {
+            $scope.balanceColor.o = 0;
+            $interval.cancel($scope.purchaseAnimation);
+          }
+          $scope.balanceColor.o -= 100;
+        },100);
         SoundSERVICES.buyFX();
         DataSERVICES.updateFunds(-1 * cost);
         DataSERVICES.addSpeed();  
@@ -874,7 +915,7 @@ angular.module('lilbro.controllers', [])
       imageUrl: 'img/power.png',
       description: 'disable all target\'s defenses for 30 seconds.',
       cost: function() {
-        return 30000;
+        return 100000;
       },
       getQuantity: function() {
         return DataSERVICES.user.disrupt;
@@ -883,7 +924,16 @@ angular.module('lilbro.controllers', [])
         if (DataSERVICES.user.funds < cost) {
           return;
         }
-        SoundSERVICES.click();
+        $interval.cancel($scope.purchaseAnimation);
+        $scope.balanceColor.o = 1000;
+        $scope.purchaseAnimation = $interval(function() {
+          if ($scope.balanceColor.o <= 100) {
+            $scope.balanceColor.o = 0;
+            $interval.cancel($scope.purchaseAnimation);
+          }
+          $scope.balanceColor.o -= 100;
+        },100);
+        SoundSERVICES.buyFX();
         DataSERVICES.updateFunds(-1 * cost);
         DataSERVICES.addDisrupt();        
       }
@@ -902,13 +952,21 @@ angular.module('lilbro.controllers', [])
         if (DataSERVICES.user.funds < cost) {
           return;
         }
-        SoundSERVICES.click();
+        $interval.cancel($scope.purchaseAnimation);
+        $scope.balanceColor.o = 1000;
+        $scope.purchaseAnimation = $interval(function() {
+          if ($scope.balanceColor.o <= 100) {
+            $scope.balanceColor.o = 0;
+            $interval.cancel($scope.purchaseAnimation);
+          }
+          $scope.balanceColor.o -= 100;
+        },100);
+        SoundSERVICES.buyFX();
         DataSERVICES.updateFunds(-1 * cost);
         DataSERVICES.addBlackmail();
       }
     }
   ];
-
 })
 
 .controller('CreditsCONTROLLER', function($scope, $location) {
@@ -934,7 +992,7 @@ angular.module('lilbro.controllers', [])
       },
       {
         name: 'SPEED 2.0',
-        description: 'slow down time by 25%. 3% chance of speeding up time.',
+        description: 'slow down time by 50%. 5% chance of speeding up time by 100%.',
         image: 'img/syringe.png',
         quantity: DataSERVICES.user.speed || 0
       },

@@ -7,6 +7,8 @@
   <div id="market-funds-label"><u>ACCOUNT BALANCE:</u></div>
   <div id="market-funds"><span style="font-size: 20px;">$</span>{{commafyNumber(getFunds())}}.00</div>
 
+  <div id="market-funds" style="background-color: transparent; border: 5px solid rgba({{balanceColor.r}}, {{balanceColor.g}}, {{balanceColor.b}}, {{balanceColor.o/1000}})"></div>
+
   <view id="market-product-container">
     <div id="market-product-title">commodities</div>
     <ion-content id="market-product-content">
