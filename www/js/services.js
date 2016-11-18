@@ -1,4 +1,4 @@
-angular.module('lilbro.services', [])
+angular.module('lilbro.services', ['ngCordova'])
 
 .factory('TargetSERVICES', function() {
   var targetServices = {};
@@ -9,8 +9,8 @@ angular.module('lilbro.services', [])
 
   targetServices.currentTarget = {};
   targetServices.targets = {
-    'Credit Card': {
-      type: 'Credit Card',
+    'credit card': {
+      type: 'credit card',
       security: {
         passLength: 3,
         timeLimit: undefined,
@@ -27,8 +27,8 @@ angular.module('lilbro.services', [])
       numOfResults: 10,
       imageUrl: 0
     },
-    'Debit Card': {
-      type: 'Debit Card',
+    'debit card': {
+      type: 'debit card',
       security: {
         passLength: 4,
         timeLimit: undefined,
@@ -45,8 +45,8 @@ angular.module('lilbro.services', [])
       numOfResults: 10,
       imageUrl: 1
     },
-    'Local Business': {
-      type: 'Local Business',
+    'local business': {
+      type: 'local business',
       security: {
         passLength: 5,
         timeLimit: undefined,
@@ -63,8 +63,8 @@ angular.module('lilbro.services', [])
       numOfResults: 10,
       imageUrl: 2
     },
-    'Casino': {
-      type: 'Casino',
+    'casino': {
+      type: 'casino',
       security: {
         passLength: 5,
         timeLimit: 300,
@@ -81,8 +81,8 @@ angular.module('lilbro.services', [])
       numOfResults: 10,
       imageUrl: 3
     },
-    'Drug Cartel': {
-      type: 'Drug Cartel',
+    'mafia': {
+      type: 'mafia',
       security: {
         passLength: 5,
         timeLimit: 240,
@@ -91,16 +91,16 @@ angular.module('lilbro.services', [])
       },
       reward: {
         min: 100000,
-        max: 100000000
+        max: 120000000
       },
-      fee: 1090000,
+      fee: 12000000,
       jailTime: 60,
       description: '',
       numOfResults: 10,
       imageUrl: 4
     },
-    'Covert Operative': {
-      type: 'Covert Operative',
+    'covert operative': {
+      type: 'covert operative',
       security: {
         passLength: 6,
         timeLimit: undefined,
@@ -109,16 +109,16 @@ angular.module('lilbro.services', [])
       },
       reward: {
         min: 500000,
-        max: 120000000
+        max: 1200000000
       },
-      fee: 12500000,
+      fee: 120000000,
       jailTime: 120,
       description: '',
       numOfResults: 10,
       imageUrl: 5
     },
-    'Multinational Corporation': {
-      type: 'Multinational Corporation',
+    'multinational corporation': {
+      type: 'multinational corporation',
       security: {
         passLength: 6,
         timeLimit: undefined,
@@ -153,8 +153,8 @@ angular.module('lilbro.services', [])
       numOfResults: 5,
       imageUrl: 7
     },
-    'Black Hat Hacker': {
-      type: 'Black Hat Hacker',
+    'rogue hacker': {
+      type: 'rogue hacker',
       security: {
         passLength: 8,
         timeLimit: 120,
@@ -165,7 +165,7 @@ angular.module('lilbro.services', [])
         min: 5000000000,
         max: 50000000000
       },
-      fee: 0,
+      fee: 10000000000,
       jailTime: 4320,
       description: '',
       numOfResults: 1,
@@ -233,7 +233,7 @@ angular.module('lilbro.services', [])
       disrupt: 0,
       speed: 0,
       bonusAttempts: 0,
-      blackmail: 0
+      blackmail: 10
     };
     dataServices.saveUser();
   };
@@ -337,4 +337,29 @@ angular.module('lilbro.services', [])
   };
 
   return gameServices;
+})
+
+.factory('SoundSERVICES', function($cordovaNativeAudio) {
+  var soundServices = {};
+
+  soundServices.click = function() {
+    $cordovaNativeAudio.play('click');
+  };
+  soundServices.hack = function() {
+    $cordovaNativeAudio.play('hack');
+  };
+  soundServices.shutdown = function() {
+    $cordovaNativeAudio.play('shutdown');
+  };
+  soundServices.slomo = function() {
+    $cordovaNativeAudio.play('slomo');
+  };
+  soundServices.staticFX = function() {
+    $cordovaNativeAudio.play('static');
+  };
+  soundServices.buyFX = function() {
+    $cordovaNativeAudio.play('buy');
+  };
+
+  return soundServices;
 })

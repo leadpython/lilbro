@@ -1,0 +1,50 @@
+<ion-view id="hudPage">
+
+<div id="hud-identity">
+  <div id="hud-identity-label">criminal profile</div>
+  <img id="hud-identity-face" src="img/lilbroface.png">
+  <div id="hud-identity-bio">
+    codename: <span style="color:rgb(100,200,255)">{{name}}</span><br>
+    name: <span style="color: rgb(75,75,75);">[unknown] </span><br>
+    dob: <span style="color: rgb(75,75,75);">[unknown] </span><br>
+    location: <span style="color: rgb(75,75,75);">[unknown] </span><br>
+    wanted level: <span style="color: rgb(255,100,100);">traitor</span>
+  </div>
+</div>
+
+<div id="hud-account">
+  <div id="hud-identity-label">bank account</div>
+  <div id="hud-account-num">account: xxxx-xxxx-xxxx-xxxx</div>
+  <div style="color: #00cc99; position: absolute; top: 55px; padding-left: 10px; font-size: 20px;">balance: <span style="color: green; display: inline-block; width: 250px; font-size: 25px; background-color: rgb(50,50,50); height: 24px; padding-top: 4px; padding-left: 5px;">$ {{commafyNumber()}}</span></div>
+</div>
+
+<div id="hud-hack" ng-click="goToTarget()">
+  <img id="main-menu-option-image" style="width: 30px; height: auto;" src="img/target.png">
+  <span id="main-menu-option-name" style="position: absolute; left: 25px; bottom: 15px; font-size: 20px; color: #00cc99;">hack targets</span>
+</div>
+<div id="hud-market" ng-click="goToMarket()">
+  <img id="main-menu-option-image" style="width: 30px; height: auto;" src="img/balance.png">
+  <span id="main-menu-option-name" style="position: absolute; left: 25px; top: 15px; font-size: 20px; color: #00cc99;">black market</span>
+</div>
+
+<div id="hud-toolbox">
+  <div id="hud-identity-label">hacking tools</div>
+  <div id="hud-toolbox-labels">
+    <div id="hud-toolbox-label-name" style="border-right: 1px solid #00cc99; text-align: center; padding: 2px; display: inline-block">icon</div>
+    <div id="hud-toolbox-label-description" style="border-right: 1px solid #00cc99; text-align: center; padding: 2px; display: inline-block">name/description</div>
+    <div id="hud-toolbox-label-quantity" style="text-align: center; padding: 2px; display: inline-block">quantity</div>
+  </div>
+  <ion-content id="hud-toolbox-items-container">
+    <div class="hud-toolbox-item" ng-repeat="tool in getTools() track by $index">
+      <img class="hud-toolbox-item-icon" src="{{tool.image}}">
+      <div class="hud-toolbox-item-name">{{tool.name}}</div>
+      <div class="hud-toolbox-item-description">- {{tool.description}}</div>
+      <div class="hud-toolbox-item-quantity">{{tool.quantity}}</div>
+    </div>
+  </ion-content>
+</div>
+
+
+<div id="target-home-button" style="color: #00cc99;" ng-click="goToMain()"> < main menu </div>
+
+</ion-view>

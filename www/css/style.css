@@ -84,7 +84,7 @@
 /* Logo & Name */
 #main-logoAndName-container {
   position: absolute;
-  top: 25px;
+  bottom: 275px;
   width: 100%;
   height: auto;
   text-align: center;
@@ -99,11 +99,10 @@
 }
 .main-menu-container {
   position: absolute;
-  left: 5px;
-  right: 5px;
-  bottom: 20px;
-  top: 260px;
-  border: 1px solid #00cc99;
+  left: 25px;
+  right: 25px;
+  bottom: 5px;
+  height: 245px;
 }
 .main-menu-login {
   position: absolute;
@@ -114,7 +113,7 @@
   top: 0px;
 }
 #main-menu {
-  top: 60px;
+  top: 0px;
 }
 #main-alias-label {
   position: absolute;
@@ -157,24 +156,24 @@
   background-color: rgba(25,25,25,1);
 }
 #main-menu-option {
-  border: 1px solid rgba(25,25,25,1);
+  border: 1px solid rgba(50,50,50,1);
   margin: 5px;
-  height: 70px;
+  height: 50px;
   padding: 10px;
-  background-color: rgba(25,25,25,0.5);
+  background-color: rgba(25,25,25,1);
   position: relative;
 }
 #main-menu-option:active {
   background-color: rgba(50,50,50,1);
 }
 #main-menu-option-image {
-  height: 50px;
+  height: 100%;
 }
 #main-menu-option-name {
-  font-size: 30px;
+  font-size: 20px;
   position: absolute;
-  top: 25px;
-  margin-left: 20px;
+  top: 15px;
+  margin-left: 30px;
 }
 
 /*///// TARGET PAGE /////*/
@@ -212,7 +211,7 @@
 }
 #target-list-container {
   position: absolute;
-  top: 75px;
+  top: 20px;
   left: 5px;
   right: 5px;
   bottom: 35px;
@@ -254,7 +253,7 @@
 }
 #target-item-cost {
   color: rgba(255,50,100,1);
-  background: rgba(255,0,0,0.1);
+  background: rgba(50,50,50,1);
   padding: 2px;
   padding-left: 10px;
   left: 0px;
@@ -365,7 +364,7 @@
 .game-keypad-container {
   position: absolute;
   background: rgba(25,25,25,0.9);
-  height: 305px;
+  height: 350px;
   left: 10px;
   right: 10px;
   bottom: 45px;
@@ -374,7 +373,7 @@
 #game-keypad-pads-container {
   position: absolute;
   width: 100%;
-  bottom: 45px;
+  top: 80px;
   height: auto;
 }
 .game-keypad-pads-row {
@@ -404,22 +403,44 @@
 #game-keypad-guess {
   position: absolute;
   width: 100%;
+  top: 260px;
+  text-align: center;
+}
+#game-keypad-check {
+  position: absolute;
+  width: 100%;
   bottom: 0px;
   text-align: center;
 }
-.game-keypad-guess-pad {
+.game-keypad-guess-back {
   bottom: 0px;
   margin: 0px;
   margin-bottom: 5px;
   text-align: center;
   display: inline-block;
   height: 40px;
-  width: 47%;
+  width: 97%;
   padding: 10px;
   background: rgba(0,0,0,0.5);
   font-size: 25px;
 }
-.game-keypad-guess-pad:active {
+.game-keypad-guess-check {
+  bottom: 0px;
+  margin: 0px;
+  margin-bottom: 5px;
+  text-align: center;
+  display: inline-block;
+  height: 40px;
+  width: 97%;
+  padding: 10px;
+  background: rgba(0,0,0,0.5);
+  font-size: 25px;
+}
+.game-keypad-guess-back:active {
+  color: black;
+  background: #00cc99;
+}
+.game-keypad-guess-check:active {
   color: black;
   background: #00cc99;
 }
@@ -673,8 +694,8 @@
   position: absolute;
   right: 10px;
   top: 20px;
-  padding: 10px;
-  border: 1px solid rgba(50,50,50,1);
+  padding: 5px;
+  border: 2px solid rgba(75,75,75,1);
   border-radius: 5px;
   height: 40px;
   width: 40px;
@@ -887,7 +908,7 @@
   padding-top: 5px;
   padding-left: 10px;
   font-size: 25px;
-  font-weight: bold;
+  /*font-weight: bold;*/
   top: 0px;
   left: 0px;
   right: 0px;
@@ -913,7 +934,7 @@
 #market-item-image {
   height: auto;
   width: 75px;
-  padding: 5px;
+  padding: 15px;
   background-color: rgb(50,50,50);
 }
 #market-item-buy {
@@ -936,7 +957,7 @@
   position: absolute;
   bottom: 0px;
   left: 5px;
-  font-size: 15px;
+  font-size: 20px;
 }
 #market-item-description {
   position: absolute;
@@ -955,7 +976,7 @@
   color: rgb(255,75,75);
   right: 5px;
   bottom: 30px;
-  font-size: 15px;
+  font-size: 20px;
 }
 #special-message {
   line-height: 25px;
@@ -972,5 +993,200 @@
   padding: 10px;
   padding-top: 20px;
 }
+#jail-blackmail {
+  position: absolute;
+  bottom: 50px;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+  background-color: rgb(25,25,25);
+  height: 50px;
+}
+#jail-blackmail:active {
+  background-color: gray;
+}
 
+#jail-blackmail-image {
+  padding: 5px;
+  height: 100%;
+  width: auto;
+}
+
+/* HUDE PAGE */
+#hudPage {
+  font-family: square;
+  background-color: black;
+}
+#hud-identity {
+  position: absolute;
+  border: 2px solid #00cc99;
+  top: 20px;
+  left: 5px;
+  right: 5px;
+  height: 145px;
+}
+#hud-identity-label {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  background: #00cc99;
+  padding: 5px;
+  padding-left: 10px;
+  font-size: 25px;
+  height: 30px;
+}
+#hud-identity-face {
+  position: absolute;
+  border: 1px solid #00cc99;
+  padding: 5px;
+  top: 35px;
+  left: 5px;
+  width: 100px;
+}
+#hud-identity-bio {
+  color: #00cc99;
+  font-size: 20px;
+  position: absolute;
+  top: 35px;
+  left: 115px;
+}
+#hud-identity-wanted {
+  color: #00cc99;
+  font-size: 20px;
+  position: absolute;
+  top: 140px;
+  left: 5px;
+}
+#hud-account {
+  position: absolute;
+  border: 2px solid #00cc99;
+  top: 170px;
+  left: 5px;
+  right: 5px;
+  height: 90px;
+}
+#hud-account-num {
+  position: absolute;
+  color: #00cc99;
+  font-size: 20px;
+  padding: 5px;
+  padding-left: 10px;
+  top: 30px;
+}
+#hud-market {
+  border: 1px solid rgb(50,50,50);
+  height: 50px;
+  padding: 10px;
+  background-color: rgba(25,25,25,1);
+  position: absolute;
+  bottom: 35px;
+  left: 5px;
+  right: 5px;
+}
+#hud-market:active {
+  background: rgb(50,50,50);
+}
+#hud-hack:active {
+  background: rgb(50,50,50);
+}
+#hud-hack {
+  border: 1px solid rgb(50,50,50);
+  height: 50px;
+  padding: 10px;
+  background-color: rgba(25,25,25,1);
+  position: absolute;
+  bottom: 90px;
+  right: 5px;
+  left: 5px;
+}
+#hud-toolbox {
+  position: absolute;
+  border: 2px solid #00cc99;
+  left: 5px;
+  right: 5px;
+  top: 265px;
+  bottom: 145px;
+}
+#hud-toolbox-labels {
+  position: absolute;
+  color: #00cc99;
+  top: 30px;
+  left: 0px;
+  right: 0px;
+}
+#hud-toolbox-label-name {
+  position: absolute;
+  left: 0px;
+  right: 80%;
+  border-bottom: 1px solid #00cc99;
+  height: 20px;
+}
+#hud-toolbox-label-description {
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  border-bottom: 1px solid #00cc99;
+  height: 20px;
+}
+#hud-toolbox-label-quantity {
+  position: absolute;
+  left: 80%;
+  right: 0px;
+  border-bottom: 1px solid #00cc99;
+  height: 20px;
+}
+#hud-toolbox-items-container {
+  position: absolute;
+  width: 100%;
+  padding: 5px;
+  top: 55px;
+  height: 170px;
+}
+.hud-toolbox-item {
+  position: relative;
+  border: 1px solid #00cc99;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 5px;
+}
+.hud-toolbox-item-icon {
+  height: 100%;
+  width: auto;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: rgb(50,50,50);
+}
+.hud-toolbox-item-name {
+  position: absolute;
+  color: #00cc99;
+  font-size: 12px;
+  top: 0px;
+  left: 75px;
+}
+.hud-toolbox-item-description {
+  position: absolute;
+  left: 75px;
+  right: 20%;
+  line-height: 12px;
+  color: #00cc99;
+  font-size: 12px;
+  top: 17px;
+  bottom: 2px;
+  left: 75px;
+}
+.hud-toolbox-item-quantity {
+  position: absolute;
+  color: #00cc99;
+  background-color: rgb(50,50,50);
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  width: 19%;
+  padding-top: 15px;
+  padding-left: 5px;
+  text-align: center;
+  font-size: 50px;
+}
 

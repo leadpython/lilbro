@@ -26,13 +26,18 @@
   <div style="width: 100%; text-align: center; margin-bottom: 5px; font-size: 25px;">${{commafyNumber(costString)}}.00</div>
 </div>
 
+<div id="jail-blackmail" ng-click="blackmail()">
+  <img id="jail-blackmail-image" src="img/folder.png">
+  <div id="jail-blackmail-text">{{quantity}}blackmail</div>
+</div>
+
 <div id="jail-bribe" ng-click="bribe()">
   BRIBE
 </div>
 
 <div ng-if="specialMessage" ng-click="exitSpecialMessage()" id="special-message">
   <br><br>
-  You let your guard down by leaving a hacking session incomplete. You got sent to jail. <br>
+  You got caught leaving in the middle of a hacking session. You got sent to jail. <br>
   (press anywhere to exit)
 </div>
 

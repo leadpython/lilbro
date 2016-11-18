@@ -1,7 +1,7 @@
 <ion-view id="gamePage">
 
 <div id="playerData">
-  <div>Username: <span style="color: rgba(100,200,255,1);">{{player.username}}</span></div>
+  <div>codename: <span style="color: rgba(100,200,255,1);">{{player.username}}</span></div>
   <div>Funds: <span style="{{drainingStyle()}}">${{commafyNumber(player.funds)}}.00</span></div>
   <div id="game-toolbox" ng-click="toggleToolbox()">
     <image style="width: 100%; height: auto;"src="img/toolbox.png" />
@@ -73,8 +73,10 @@
     </div>
   </div>
   <div id="game-keypad-guess">
-    <div class="game-keypad-guess-pad ion-backspace" ng-click="clear()"></div>
-    <div class="game-keypad-guess-pad ion-checkmark" ng-click="checkGuess()"></div>
+    <div class="game-keypad-guess-back ion-backspace" ng-click="clear()"></div>
+  </div>
+  <div id="game-keypad-check">
+    <div class="game-keypad-guess-check ion-checkmark" ng-click="checkGuess()"></div>
   </div>
 </div>
 

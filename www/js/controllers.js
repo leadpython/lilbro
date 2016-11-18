@@ -1,21 +1,17 @@
 angular.module('lilbro.controllers', [])
 
 /////// MAIN CONTROLLER ///////
-.controller('MainCONTROLLER', function($scope, $location, DataSERVICES) {
-  $scope.$on('$ionicView.loaded', function (viewInfo, state) {
-
-  });
+.controller('MainCONTROLLER', function($scope, $location, DataSERVICES, SoundSERVICES) {
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
-    if (DataSERVICES.didPlayerCheat() === 'cheater') {
-      DataSERVICES.chargeCrime(1);
-      $location.path('/jail');
+    $scope.hasAlias = !DataSERVICES.noUser;
+    if (DataSERVICES.didPlayerCheat() === 'cheater' && DataSERVICES.amIFree()) {
+      DataSERVICES.chargeCrime(10);
     }
     if (!DataSERVICES.amIFree()) {
       $location.path('/jail');
     }
     $scope.user = DataSERVICES.user;
-    $scope.hasAlias = !DataSERVICES.noUser;
   });
   $scope.start = function() {
     if ($scope.user.username === '' || $scope.user.username === undefined || $scope.user.username === null) {
@@ -44,30 +40,34 @@ angular.module('lilbro.controllers', [])
   };
   $scope.menuOptions = [
     {
-      name: 'seek targets',
-      image: 'img/target.png',
+      name: 'play',
+      image: 'img/play.png',
       clickEventHandler: function() {
-        $location.path('/target');
-      }
-    },
-    {
-      name: 'black market',
-      image: 'img/balance.png',
-      clickEventHandler: function() {
-        $location.path('/market');
+        SoundSERVICES.click();
+        $location.path('/hud');
       }
     },
     {
       name: 'hacker manual',
       image: 'img/laptop.png',
       clickEventHandler: function() {
+        SoundSERVICES.click();
         $location.path('/tutorial');
+      }
+    },
+    {
+      name: 'credits',
+      image: 'img/list.png',
+      clickEventHandler: function() {
+        SoundSERVICES.click();
+        $location.path('/credits');
       }
     },
     {
       name: 'reset game',
       image: 'img/garbage.png',
       clickEventHandler: function() {
+        SoundSERVICES.click();
         $scope.hasAlias = false;
         $scope.user.username = '';
         DataSERVICES.resetUser();
@@ -77,7 +77,7 @@ angular.module('lilbro.controllers', [])
 })
 
 /////// TARGET CONTROLLER ///////
-.controller('TargetCONTROLLER', function($scope, $interval, $location, $ionicModal, GameSERVICES, DataSERVICES, TargetSERVICES) {
+.controller('TargetCONTROLLER', function($scope, $interval, $location, $ionicModal, GameSERVICES, DataSERVICES, TargetSERVICES, SoundSERVICES) {
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
     $scope.player = DataSERVICES.user;
@@ -89,7 +89,8 @@ angular.module('lilbro.controllers', [])
   $scope.targets = TargetSERVICES.targets;
 
   $scope.goToMain = function() {
-    $location.path('/main');
+    SoundSERVICES.click();
+    $location.path('/hud');
   };
   $scope.targetClickEventHandler = function(target, index) {
     if ($scope.currentLevel < index) {
@@ -98,6 +99,7 @@ angular.module('lilbro.controllers', [])
     if ($scope.player.funds < target.fee) {
       return;
     }
+    SoundSERVICES.click();
     $scope.selectedTarget = target;
     $scope.progress = 0;;
     $ionicModal.fromTemplateUrl('templates/pop-templates/target-list.html', {
@@ -151,9 +153,11 @@ angular.module('lilbro.controllers', [])
     return commafied.join('');
   };
   $scope.closeTargetList = function() {
+    SoundSERVICES.click();
     $scope.targetListModal.remove();
   };
   $scope.initiateGame = function(target) {
+    SoundSERVICES.click();
     GameSERVICES.generatePassword(target.security.passLength);
     TargetSERVICES.currentTarget = target;
     DataSERVICES.updateFunds(-1 * target.fee);
@@ -167,7 +171,7 @@ angular.module('lilbro.controllers', [])
   });
 })
 
-.controller('HackSimulationCONTROLLER', function($scope, $interval, $location, TargetSERVICES) {
+.controller('HackSimulationCONTROLLER', function($scope, $interval, $location, TargetSERVICES, SoundSERVICES) {
   $scope.$on('$ionicView.enter', function() {
     $scope.consoleOutput = [];
     var hackCommands = ['lilbro_000@lilbro MINGW64 ~/Desktop $ cd root/hack-executables',
@@ -189,7 +193,7 @@ angular.module('lilbro.controllers', [])
                  'Hacking interface successfully loaded!'];
     $scope.isAnimateCommandsDone = false;
     $scope.isLast3AnimationsDone = false;
-    $scope.countdown = 3000;
+    $scope.countdown = 1000;
     var i = 0;
     $scope.animateCommands = $interval(function() {
       if (i >= hackCommands.length) {
@@ -226,7 +230,7 @@ angular.module('lilbro.controllers', [])
   });
 })
 
-.controller('GameCONTROLLER', function($scope, $timeout, $interval, $location, DataSERVICES, TargetSERVICES, GameSERVICES) {
+.controller('GameCONTROLLER', function($scope, $timeout, $interval, $location, SoundSERVICES, DataSERVICES, TargetSERVICES, GameSERVICES) {
   $scope.$on('$ionicView.leave', function() {
     $interval.cancel($scope.disconnectBarAnimation);
     if ($scope.target.imageUrl >= $scope.player.level && $scope.win) {
@@ -236,12 +240,56 @@ angular.module('lilbro.controllers', [])
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.cheat();
     DataSERVICES.loadUser();
+    var toolboxBTN = document.getElementById('game-toolbox');
+    toolboxBTN.style.backgroundColor = 'rgba(25,25,25,1)';
     if (!DataSERVICES.amIFree()) {
       $interval.cancel($scope.timeLeftAnimation);
       $location.path('/jail');
     }
 
     $scope.toolboxItems = [
+      {
+        name: 'SPEED 2.0',
+        imageUrl: 'img/syringe.png',
+        description: 'Slow down perception of time by 25%.',
+        getQuantity: function() {
+          return DataSERVICES.user.speed;
+        },
+        effect: function() {
+          if (DataSERVICES.user.speed <= 0) {
+            return;
+          }
+          if ($scope.isDisrupted) {
+            return;
+          }
+          SoundSERVICES.click();
+          SoundSERVICES.slomo();
+          document.getElementById('game-toolbox').style.backgroundColor = 'rgb(25,25,25)';
+          DataSERVICES.user.speed--;
+          DataSERVICES.saveUser();
+          $scope.toggledTools.toolbox = false;
+          if (Math.random() <= 0.03) {
+            $scope.timeColor = 'red';
+            $scope.timeLimitSpeedMultiplier = 0.5;
+          } else {
+            $scope.timeColor = 'rgb(100,200,255)';
+            $scope.timeLimitSpeedMultiplier = 1.25;
+          }
+          if ($scope.target.security.timeLimit === undefined) {
+            $scope.timeColor = 'gray';
+            $scope.timeLimitSpeedMultiplier = 1;
+          }
+
+          if ($scope.target.security.timeLimit) {
+            $interval.cancel($scope.timeLeftAnimation);
+            $scope.startTimeLimitAnimation();
+          }
+          if ($scope.target.security.drainRate) {
+            $interval.cancel($scope.defensiveDrainAnimation);
+            $scope.startDefensiveDrain();
+          }
+        }
+      },
       {
         name: 'DISRUPT COMMS',
         imageUrl: 'img/power.png',
@@ -253,6 +301,11 @@ angular.module('lilbro.controllers', [])
           if (DataSERVICES.user.disrupt <= 0) {
             return;
           }
+          if ($scope.target.security.timeLimit === undefined && $scope.target.security.drainRate === undefined) {
+            return;
+          }
+          SoundSERVICES.click();
+          SoundSERVICES.shutdown();
           document.getElementById('game-toolbox').style.backgroundColor = 'rgb(25,25,25)';
           DataSERVICES.user.disrupt--;
           DataSERVICES.saveUser();
@@ -278,43 +331,6 @@ angular.module('lilbro.controllers', [])
               $scope.startDefensiveDrain();
               $scope.isDisrupted = false;
             }, 30000);
-          }
-        }
-      },
-      {
-        name: 'SPEED 2.0',
-        imageUrl: 'img/syringe.png',
-        description: 'Slow down perception of time by 25%.',
-        getQuantity: function() {
-          return DataSERVICES.user.speed;
-        },
-        effect: function() {
-          if (DataSERVICES.user.speed <= 0) {
-            return;
-          }
-          document.getElementById('game-toolbox').style.backgroundColor = 'rgb(25,25,25)';
-          DataSERVICES.user.speed--;
-          DataSERVICES.saveUser();
-          $scope.toggledTools.toolbox = false;
-          if (Math.random() <= 0.03) {
-            $scope.timeColor = 'red';
-            $scope.timeLimitSpeedMultiplier = 0.5;
-          } else {
-            $scope.timeColor = 'rgb(100,200,255)';
-            $scope.timeLimitSpeedMultiplier = 1.25;
-          }
-          if ($scope.target.security.timeLimit === undefined) {
-            $scope.timeColor = 'gray';
-            $scope.timeLimitSpeedMultiplier = 1;
-          }
-
-          if ($scope.target.security.timeLimit) {
-            $interval.cancel($scope.timeLeftAnimation);
-            $scope.startTimeLimitAnimation();
-          }
-          if ($scope.target.security.drainRate) {
-            $interval.cancel($scope.defensiveDrainAnimation);
-            $scope.startDefensiveDrain();
           }
         }
       }
@@ -360,7 +376,7 @@ angular.module('lilbro.controllers', [])
         toolboxBTN.style.backgroundColor = 'rgb(25,25,25)';
         $scope.toggledTools.toolbox = false;
       } else {
-        toolboxBTN.style.backgroundColor = 'rgb(50,50,50)';
+        toolboxBTN.style.backgroundColor = 'rgb(75,75,75)';
         $scope.toggledTools.toolbox = true;
       }
     };
@@ -404,6 +420,7 @@ angular.module('lilbro.controllers', [])
           $scope.timeLeft = 0;
           $interval.cancel($scope.disconnectAnimation);
           $interval.cancel($scope.disconnectBarAnimation);
+          SoundSERVICES.staticFX();
           $scope.triggerLoss();
         } else if ($scope.lost) {
           $interval.cancel($scope.timeLeftAnimation);
@@ -469,6 +486,7 @@ angular.module('lilbro.controllers', [])
             return;
           }
         }
+        SoundSERVICES.click();
         $scope.clicked = true;
         disconnectBTN.style.backgroundColor = 'blue';
         $scope.disconnecting = true;
@@ -496,9 +514,9 @@ angular.module('lilbro.controllers', [])
                   $interval.cancel($scope.defensiveDrainAnimation);
                   $scope.clicked = false;
                   DataSERVICES.unCheat();
-                  $location.path('/main');
+                  $location.path('/hud');
                 }
-              }, 50);
+              }, 25);
             }, 500);
           }
         }, 25);
@@ -508,6 +526,7 @@ angular.module('lilbro.controllers', [])
       name: 'keypad',
       ioniconTag: 'ion-calculator',
       clickHandler: function() {
+        SoundSERVICES.click();
         $scope.toggledTools.keypad = !$scope.toggledTools.keypad;
       }
     },
@@ -520,6 +539,8 @@ angular.module('lilbro.controllers', [])
           return;
         }
         if ($scope.win) {
+          SoundSERVICES.click();
+          SoundSERVICES.hack();
           drainBTN.style.backgroundColor = 'blue';
           $interval.cancel($scope.defensiveDrainAnimation);
           DataSERVICES.updateFunds($scope.target.funds);
@@ -578,10 +599,12 @@ angular.module('lilbro.controllers', [])
     }
   };
   $scope.hitNum = function(num) {
+    SoundSERVICES.click();
     $scope.guess[$scope.currentDigit] = num.toString();
     $scope.moveSelector('right');
   };
   $scope.clear = function() {
+    SoundSERVICES.click();
     $scope.guess = [];
     for (var i = 0; i < $scope.target.security.passLength; i++) {
       $scope.guess.push('0');
@@ -589,6 +612,7 @@ angular.module('lilbro.controllers', [])
     $scope.currentDigit = 0;
   };
   $scope.moveSelector = function(direction) {
+    SoundSERVICES.click();
     if (direction === 'left') {
       if ($scope.currentDigit <= 0) {
         return;
@@ -602,6 +626,7 @@ angular.module('lilbro.controllers', [])
     }
   };
   $scope.checkGuess = function() {
+    SoundSERVICES.click();
     $scope.currentDigit = 0;
     $scope.toggledTools.keypad = false;
     if ($scope.lost || $scope.win) {
@@ -687,11 +712,11 @@ angular.module('lilbro.controllers', [])
   };
 })
 
-.controller('JailCONTROLLER', function($scope, $interval, $location, TargetSERVICES, DataSERVICES) {
+.controller('JailCONTROLLER', function($scope, $interval, $location, SoundSERVICES, TargetSERVICES, DataSERVICES) {
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
     if (DataSERVICES.amIFree()) {
-      $location.path('/main');
+      $location.path('/hud');
     }
     if (DataSERVICES.didPlayerCheat() === 'cheater') {
       $scope.specialMessage = true;
@@ -707,7 +732,7 @@ angular.module('lilbro.controllers', [])
       if ($scope.secondsLeft <= 0) {
         DataSERVICES.release();
         $interval.cancel($scope.animateTime);
-        $location.path('/main');
+        $location.path('/hud');
       }
     }, 100);
   });
@@ -759,7 +784,18 @@ angular.module('lilbro.controllers', [])
       DataSERVICES.updateFunds(-1 * ($scope.secondsLeft * 75));
       DataSERVICES.release();
       $interval.cancel($scope.animateTime);
-      $location.path('/main');
+      SoundSERVICES.click();
+      $location.path('/hud');
+    }
+  };
+  $scope.blackmail = function() {
+    if (DataSERVICES.user.blackmail > 0) {
+      DataSERVICES.user.blackmail--;
+      DataSERVICES.saveUser();
+      DataSERVICES.release();
+      $interval.cancel($scope.animateTime);
+      SoundSERVICES.click();
+      $location.path('/hud');
     }
   };
   $scope.exitSpecialMessage = function() {
@@ -767,12 +803,13 @@ angular.module('lilbro.controllers', [])
   };
 })
 
-.controller('MarketCONTROLLER', function($scope, $location, DataSERVICES) {
+.controller('MarketCONTROLLER', function($scope, $location, SoundSERVICES, DataSERVICES) {
   $scope.$on('$ionicView.enter', function() {
 
   });
   $scope.goToMain = function() {
-    $location.path('/main')
+    SoundSERVICES.click();
+    $location.path('/hud')
   };
   $scope.getFunds = function() {
     return DataSERVICES.user.funds;
@@ -808,32 +845,15 @@ angular.module('lilbro.controllers', [])
         if (DataSERVICES.user.funds < cost) {
           return;
         }
+        SoundSERVICES.click();
         DataSERVICES.updateFunds(-1 * cost);
         DataSERVICES.addAttempts();
       }
     },
     {
-      name: 'DISRUPT COMMS',
-      imageUrl: 'img/power.png',
-      description: 'Disable all target\'s defenses for 30 seconds.',
-      cost: function() {
-        return 30000;
-      },
-      getQuantity: function() {
-        return DataSERVICES.user.disrupt;
-      },
-      purchase: function(cost) {
-        if (DataSERVICES.user.funds < cost) {
-          return;
-        }
-        DataSERVICES.updateFunds(-1 * cost);
-        DataSERVICES.addDisrupt();        
-      }
-    },
-    {
       name: 'SPEED 2.0',
       imageUrl: 'img/syringe.png',
-      description: 'Slow down perception of time by 25%. Warning: 3% risk of speeding perception of time by 50%.',
+      description: 'slow down perception of time by 25%. Warning: 3% risk of speeding perception of time by 50%.',
       cost: function() {
         return 50000;
       },
@@ -844,8 +864,28 @@ angular.module('lilbro.controllers', [])
         if (DataSERVICES.user.funds < cost) {
           return;
         }
+        SoundSERVICES.buyFX();
         DataSERVICES.updateFunds(-1 * cost);
         DataSERVICES.addSpeed();  
+      }
+    },
+    {
+      name: 'STUXNET LITE',
+      imageUrl: 'img/power.png',
+      description: 'disable all target\'s defenses for 30 seconds.',
+      cost: function() {
+        return 30000;
+      },
+      getQuantity: function() {
+        return DataSERVICES.user.disrupt;
+      },
+      purchase: function(cost) {
+        if (DataSERVICES.user.funds < cost) {
+          return;
+        }
+        SoundSERVICES.click();
+        DataSERVICES.updateFunds(-1 * cost);
+        DataSERVICES.addDisrupt();        
       }
     },
     {
@@ -862,12 +902,85 @@ angular.module('lilbro.controllers', [])
         if (DataSERVICES.user.funds < cost) {
           return;
         }
+        SoundSERVICES.click();
         DataSERVICES.updateFunds(-1 * cost);
         DataSERVICES.addBlackmail();
       }
     }
   ];
 
+})
+
+.controller('CreditsCONTROLLER', function($scope, $location) {
+  $scope.goToMain = function() {
+    $location.path('/main');
+  };
+})
+.controller('HUDCONTROLLER', function($scope, $location, DataSERVICES, SoundSERVICES) {
+  $scope.$on('$ionicView.enter', function() {
+    DataSERVICES.loadUser();
+    $scope.name = DataSERVICES.user.username;
+    if (!DataSERVICES.amIFree()) {
+      $location.path('/jail');
+    }
+  });
+  $scope.getTools = function() {
+    var tools = [
+      {
+        name: 'UPGRADE',
+        description: 'adds bonus password attempt permanently.',
+        image: 'img/upgrade.png',
+        quantity: DataSERVICES.user.bonusAttempts || 0
+      },
+      {
+        name: 'SPEED 2.0',
+        description: 'slow down time by 25%. 3% chance of speeding up time.',
+        image: 'img/syringe.png',
+        quantity: DataSERVICES.user.speed || 0
+      },
+      {
+        name: 'STUXNET LITE',
+        description: 'disable all target\'s defenses for 30 seconds.',
+        image: 'img/power.png',
+        quantity: DataSERVICES.user.disrupt || 0
+      },
+      {
+        name: 'BLACKMAIL',
+        description: 'use to get out of jail for free.',
+        image: 'img/folder.png',
+        quantity: DataSERVICES.user.blackmail || 0
+      }
+    ];
+    return tools;
+  }
+  $scope.commafyNumber = function(num) {
+    num = DataSERVICES.user.funds;
+    if (num === undefined) {
+      return '';
+    }
+    var strArr = (num.toString()).split('');
+    var commafied = [];
+    for (var i = strArr.length-1, count = 1; i >= 0; i--, count++) {
+      commafied.unshift(strArr[i]);
+      if (count === 3 && i > 0) {
+        count = 0;
+        commafied.unshift(',');
+      }
+    }
+    return commafied.join('');
+  };
+  $scope.goToMain = function() {
+    SoundSERVICES.click();
+    $location.path('/main');
+  };
+  $scope.goToMarket = function() {
+    SoundSERVICES.click();
+    $location.path('/market');
+  };
+  $scope.goToTarget = function() {
+    SoundSERVICES.click();
+    $location.path('/target');
+  }
 });
 
 

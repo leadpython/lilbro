@@ -11,19 +11,14 @@
   <div class="main-menu-container">
   
     <div ng-if="hasAlias">
-    <!-- Player Info -->
-    <div id="main-playerData">
-      <div>Username: <span style="color: rgba(100,200,255,1);">{{user.username}}</span></div>
-      <div>Funds: <span style="color: green;">${{commafyNumber(user.funds)}}.00</span></div>
-    </div>
 
-    <!-- Menu Options -->
-    <ion-content id="main-menu" has-bouncing="false">
-      <div id="main-menu-option" ng-click="option.clickEventHandler()" ng-repeat="option in menuOptions track by $index">
-        <img id="main-menu-option-image" src="{{option.image}}">
-        <span id="main-menu-option-name" >{{option.name}}</span>
-      </div>
-    </ion-content>
+      <!-- Menu Options -->
+      <ion-content id="main-menu" has-bouncing="false">
+        <div id="main-menu-option" ng-click="option.clickEventHandler()" ng-repeat="option in menuOptions track by $index">
+          <img id="main-menu-option-image" src="{{option.image}}">
+          <span id="main-menu-option-name" >{{option.name}}</span>
+        </div>
+      </ion-content>
     </div>
 
   </div>
@@ -35,9 +30,6 @@
       <input id="main-alias-input" ng-model="user.username">
       <div id="main-start-button" ng-click="start()">LOGIN</div>
     </div>
-    
-    
   </div>
 
-<div ng-if="hasAlias" style="position: absolute; bottom: 0px; left: 0px; right: 0px; font-size: 12px; text-align: center;" >Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 </ion-view>

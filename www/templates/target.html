@@ -1,16 +1,11 @@
 <!-- TARGETS PAGE -->
 <ion-view id="targetPage">
 
-<div id="playerData">
-  <div>Username: <span style="color: rgba(100,200,255,1);">{{player.username}}</span></div>
-  <div>Funds: <span style="color: green;">${{commafyNumber(player.funds)}}.00</span></div>
-</div>
-
-<div id="target-home-button" ng-click="goToMain()"> < main menu </div>
+<div id="target-home-button" ng-click="goToMain()"> < back </div>
 
 <!-- Target List -->
 <div id="target-list-container">
-  <div id="target-list-container-label">TARGET TYPES</div>
+  <div id="target-list-container-label">targets</div>
   <!-- Target -->
   <ion-content style="padding: 5px; padding-top: 25px;" has-bouncing="false">
   <div id="target-item" ng-click="targetClickEventHandler(item, $index)" ng-repeat="item in targets track by $index">

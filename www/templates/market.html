@@ -8,7 +8,7 @@
   <div id="market-funds"><span style="font-size: 20px;">$</span>{{commafyNumber(getFunds())}}.00</div>
 
   <view id="market-product-container">
-    <div id="market-product-title">COMMODITIES</div>
+    <div id="market-product-title">commodities</div>
     <ion-content id="market-product-content">
       <div id="market-product" ng-repeat="item in products track by $index">
         <image id="market-item-image" src="{{item.imageUrl}}" />
@@ -16,10 +16,10 @@
         <div id="market-item-cost">${{commafyNumber(item.cost())}}.00</div>
         <div id="market-item-buy" ng-click="item.purchase(item.cost())">PURCHASE</div>
         <div id="market-item-description"><u>Description:</u><br>--- {{item.description}}</div>
-        <div id="market-item-quantity">Quantity owned: {{item.getQuantity();}}</div>
+        <div id="market-item-quantity">quantity owned: {{item.getQuantity();}}</div>
       </div>
     </ion-content>
   </view>
 
-  <div id="target-home-button" ng-click="goToMain()">< main menu</div>
+  <div id="target-home-button" ng-click="goToMain()">< back</div>
 </ion-view>

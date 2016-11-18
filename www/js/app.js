@@ -3,10 +3,25 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('lilbro', ['ionic', 'lilbro.controllers', 'lilbro.services'])
+angular.module('lilbro', ['ionic', 'lilbro.controllers', 'lilbro.services', 'ngCordova'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $cordovaNativeAudio) {
+  var playBackgroundMusic = function() {
+    $cordovaNativeAudio.loop('scifi');
+  };
   $ionicPlatform.ready(function() {
+
+    // SOUNDS
+    $cordovaNativeAudio.preloadComplex('click', 'audio/click.wav', 1, 1);
+    $cordovaNativeAudio.preloadComplex('hack', 'audio/hack.wav', 1, 1);
+    $cordovaNativeAudio.preloadComplex('shutdown', 'audio/shutdown.wav', 1, 1);
+    $cordovaNativeAudio.preloadComplex('slomo', 'audio/slomo.wav', 1, 1);
+    $cordovaNativeAudio.preloadComplex('static', 'audio/copstatic.wav', 1, 1);
+    $cordovaNativeAudio.preloadComplex('scifi', 'audio/scifi.mp3', 1, 1);
+    $cordovaNativeAudio.preloadComplex('buy', 'audio/buy.mp3', 1, 1);
+
+    setTimeout(playBackgroundMusic, 3000);
+
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -33,6 +48,11 @@ angular.module('lilbro', ['ionic', 'lilbro.controllers', 'lilbro.services'])
       templateUrl: 'templates/main.html',
       controller: 'MainCONTROLLER'
     })
+    .state('hud', {
+      url: '/hud',
+      templateUrl: 'templates/hud.html',
+      controller: 'HUDCONTROLLER'
+    })
     .state('target', {
       url: '/target',
       templateUrl: 'templates/target.html',
@@ -58,6 +78,10 @@ angular.module('lilbro', ['ionic', 'lilbro.controllers', 'lilbro.services'])
       templateUrl: 'templates/jail.html',
       controller: 'JailCONTROLLER'
     })
-
+    .state('credits', {
+      url: '/credits',
+      templateUrl: 'templates/credits.html',
+      controller: 'CreditsCONTROLLER'
+    })
   $urlRouterProvider.otherwise('/main');
 });
