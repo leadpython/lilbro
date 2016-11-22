@@ -15,8 +15,8 @@
       <div id="market-details-container">
         <div id="market-item-name">{{item.name}}</div>
         <div id="market-item-description">{{item.description}}</div>
-        <div id="market-item-cost">Price: ${{commafyNumber(item.cost())}}.00</div>
         <div id="market-item-quantity">You already own: {{item.getQuantity();}}</div>
+        <div id="market-item-cost">Price: $ {{commafyNumber(item.cost())}}.00</div>
       </div>
       <div id="market-item-buy" ng-click="item.purchase(item.cost())">PURCHASE</div>
     </div>
