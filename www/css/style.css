@@ -5,6 +5,14 @@
   src: url(square.ttf);
 }
 
+#music {
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  left: 10px;
+  top: 20px;
+}
+
 #playerData {
   font-size: 20px;
   padding: 10px;

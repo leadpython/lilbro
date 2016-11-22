@@ -3,6 +3,22 @@ angular.module('lilbro.controllers', [])
 /////// MAIN CONTROLLER ///////
 .controller('MainCONTROLLER', function($scope, $location, DataSERVICES, SoundSERVICES) {
   $scope.$on('$ionicView.enter', function() {
+    if (SoundSERVICES.isEffectsMuted) {
+      $scope.musicState = {name:'OFF', color: 'rgb(255,100,100)'};
+    } else {
+      $scope.musicState = {name:'ON', color: '#00cc99'};
+    }
+    $scope.toggleSound = function() {
+      SoundSERVICES.toggleMuteFX();
+      if (SoundSERVICES.isEffectsMuted) {
+        $scope.musicState.name = 'OFF';
+        $scope.musicState.color = 'rgb(255,100,100)';
+      } else {
+        $scope.musicState.name = 'ON';
+        $scope.musicState.color = '#00cc99';
+      }
+    };
+
     DataSERVICES.loadUser();
     $scope.hasAlias = !DataSERVICES.noUser;
     if (DataSERVICES.didPlayerCheat() === 'cheater' && DataSERVICES.amIFree()) {

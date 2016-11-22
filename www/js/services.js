@@ -341,29 +341,62 @@ angular.module('lilbro.services', ['ngCordova'])
 
 .factory('SoundSERVICES', function($cordovaNativeAudio) {
   var soundServices = {};
+  soundServices.isEffectsMuted = false;
 
+  soundServices.toggleMuteFX = function() {
+    soundServices.isEffectsMuted = !soundServices.isEffectsMuted;
+    if (soundServices.isEffectsMuted) {
+      $cordovaNativeAudio.stop('hacker');
+    } else {
+      $cordovaNativeAudio.loop('hacker');
+    }
+  };
   soundServices.click = function() {
+    if (soundServices.isEffectsMuted) {
+      return;
+    }
     $cordovaNativeAudio.play('click');
   };
   soundServices.hack = function() {
+    if (soundServices.isEffectsMuted) {
+      return;
+    }
     $cordovaNativeAudio.play('hack');
   };
   soundServices.shutdown = function() {
+    if (soundServices.isEffectsMuted) {
+      return;
+    }
     $cordovaNativeAudio.play('shutdown');
   };
   soundServices.slomo = function() {
+    if (soundServices.isEffectsMuted) {
+      return;
+    }
     $cordovaNativeAudio.play('slomo');
   };
   soundServices.staticFX = function() {
+    if (soundServices.isEffectsMuted) {
+      return;
+    }
     $cordovaNativeAudio.play('static');
   };
   soundServices.buyFX = function() {
+    if (soundServices.isEffectsMuted) {
+      return;
+    }
     $cordovaNativeAudio.play('buy');
   };
   soundServices.page = function() {
+    if (soundServices.isEffectsMuted) {
+      return;
+    }
     $cordovaNativeAudio.play('page');
   };
   soundServices.caught = function() {
+    if (soundServices.isEffectsMuted) {
+      return;
+    }
     $cordovaNativeAudio.play('caught');
   };
 

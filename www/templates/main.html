@@ -1,6 +1,11 @@
 <!-- MAIN PAGE -->
 <ion-view id="mainpage">
 
+  <div id="music" style="color: {{musicState.color}};" ng-click="toggleSound()">
+    <span class="ion-music-note"></span>
+    {{musicState.name}}
+  </div>
+
   <!-- Logo & Name -->
   <div id="main-logoAndName-container">
     <img id="main-logo" src="img/lilbroface.png">
