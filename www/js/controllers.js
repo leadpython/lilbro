@@ -262,7 +262,6 @@ angular.module('lilbro.controllers', [])
           if ($scope.isDisrupted) {
             return;
           }
-          SoundSERVICES.click();
           SoundSERVICES.slomo();
           document.getElementById('game-toolbox').style.backgroundColor = 'rgb(25,25,25)';
           DataSERVICES.user.speed--;
@@ -304,7 +303,6 @@ angular.module('lilbro.controllers', [])
           if ($scope.target.security.timeLimit === undefined && $scope.target.security.drainRate === undefined) {
             return;
           }
-          SoundSERVICES.click();
           SoundSERVICES.shutdown();
           document.getElementById('game-toolbox').style.backgroundColor = 'rgb(25,25,25)';
           DataSERVICES.user.disrupt--;
@@ -602,12 +600,10 @@ angular.module('lilbro.controllers', [])
     }
   };
   $scope.hitNum = function(num) {
-    SoundSERVICES.click();
     $scope.guess[$scope.currentDigit] = num.toString();
     $scope.moveSelector('right');
   };
   $scope.clear = function() {
-    SoundSERVICES.click();
     $scope.guess = [];
     for (var i = 0; i < $scope.target.security.passLength; i++) {
       $scope.guess.push('0');
@@ -615,7 +611,6 @@ angular.module('lilbro.controllers', [])
     $scope.currentDigit = 0;
   };
   $scope.moveSelector = function(direction) {
-    SoundSERVICES.click();
     if (direction === 'left') {
       if ($scope.currentDigit <= 0) {
         return;
@@ -629,7 +624,6 @@ angular.module('lilbro.controllers', [])
     }
   };
   $scope.checkGuess = function() {
-    SoundSERVICES.click();
     $scope.currentDigit = 0;
     $scope.toggledTools.keypad = false;
     if ($scope.lost || $scope.win) {
