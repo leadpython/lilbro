@@ -227,8 +227,8 @@ angular.module('lilbro.services', ['ngCordova'])
     dataServices.noUser = true;
     dataServices.user = {
       username: '', 
-      funds: 150446005, 
-      level: 5, 
+      funds: 500, 
+      level: 0, 
       releaseDate: new Date(0),
       disrupt: 0,
       speed: 0,
