@@ -104,7 +104,7 @@ angular.module('lilbro.services', ['ngCordova'])
       security: {
         passLength: 6,
         timeLimit: undefined,
-        drainRate: 125000,
+        drainRate: 0.0005,
         tries: 7
       },
       reward: {
@@ -122,7 +122,7 @@ angular.module('lilbro.services', ['ngCordova'])
       security: {
         passLength: 6,
         timeLimit: undefined,
-        drainRate: 5000000,
+        drainRate: 0.001,
         tries: 7
       },
       reward: {
@@ -140,7 +140,7 @@ angular.module('lilbro.services', ['ngCordova'])
       security: {
         passLength: 7,
         timeLimit: undefined,
-        drainRate: 10000000,
+        drainRate: 0.0025,
         tries: 7
       },
       reward: {
@@ -158,7 +158,7 @@ angular.module('lilbro.services', ['ngCordova'])
       security: {
         passLength: 8,
         timeLimit: 120,
-        drainRate: 50000000,
+        drainRate: 0.005,
         tries: 7
       },
       reward: {

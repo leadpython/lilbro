@@ -85,5 +85,11 @@ angular.module('lilbro', ['ionic', 'lilbro.controllers', 'lilbro.services', 'ngC
       templateUrl: 'templates/credits.html',
       controller: 'CreditsCONTROLLER'
     })
+    .state('manual', {
+      url: '/manual',
+      templateUrl: 'templates/manual.html',
+      controller: 'ManualCONTROLLER'
+    })
+
   $urlRouterProvider.otherwise('/main');
 });

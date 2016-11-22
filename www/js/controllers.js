@@ -52,7 +52,7 @@ angular.module('lilbro.controllers', [])
       image: 'img/laptop.png',
       clickEventHandler: function() {
         SoundSERVICES.click();
-        $location.path('/tutorial');
+        $location.path('/manual');
       }
     },
     {
@@ -430,15 +430,15 @@ angular.module('lilbro.controllers', [])
     $scope.startTimeLimitAnimation();
     $scope.startDefensiveDrain = function() {
       if ($scope.target.security.drainRate) {
-        var decrement = $scope.target.security.drainRate / 10.0;
-        if (decrement < 1) {
-          decrement = 1;
-        }
         $scope.defensiveDrainAnimation = $interval(function() {
-          if (decrement >= $scope.target.funds) {
+          var decrement = $scope.target.security.drainRate * $scope.target.funds;
+          if (decrement <= 1) {
+            decrement = 1;
+          }
+          if ($scope.target.funds <= 2) {
             $scope.target.funds = 0;
           } else {
-            $scope.target.funds -= decrement;
+            $scope.target.funds -= Math.floor(decrement);
           }
           if ($scope.target.funds <= 0) {
             $scope.drained = true;
@@ -848,7 +848,8 @@ angular.module('lilbro.controllers', [])
   };
   $scope.products = [
     {
-      name: 'UPGRADE HACKING TOOL',
+      name: 'UPGRADE HACKING PROGRAM',
+      isShown: false,
       imageUrl: 'img/upgrade.png',
       description: 'Adds bonus password attempt permanently. Can only purchase up to 8.',
       cost: function() {
@@ -856,7 +857,7 @@ angular.module('lilbro.controllers', [])
         if (quantityOwned >= 8) {
           return 'xxxxx';
         }
-        return 1000 * Math.pow(10, quantityOwned); //100,000,000,000
+        return 1000 * Math.pow(10, quantityOwned);
       },
       getQuantity: function() {
         return DataSERVICES.user.bonusAttempts;
@@ -884,6 +885,7 @@ angular.module('lilbro.controllers', [])
     },
     {
       name: 'SPEED 2.0',
+      isShown: false,
       imageUrl: 'img/syringe.png',
       description: 'slow down perception of time by 50%. Warning: 5% risk of speeding perception of time by 100%.',
       cost: function() {
@@ -912,6 +914,7 @@ angular.module('lilbro.controllers', [])
     },
     {
       name: 'STUXNET LITE',
+      isShown: false,
       imageUrl: 'img/power.png',
       description: 'disable all target\'s defenses for 30 seconds.',
       cost: function() {
@@ -940,6 +943,7 @@ angular.module('lilbro.controllers', [])
     },
     {
       name: 'BLACKMAIL',
+      isShown: false,
       imageUrl: 'img/folder.png',
       description: 'Use to get out of jail for free.',
       cost: function() {
@@ -985,7 +989,7 @@ angular.module('lilbro.controllers', [])
   $scope.getTools = function() {
     var tools = [
       {
-        name: 'UPGRADE',
+        name: 'UPGRADE HACKING PROGRAM',
         description: 'adds bonus password attempt permanently.',
         image: 'img/upgrade.png',
         quantity: DataSERVICES.user.bonusAttempts || 0
@@ -1039,6 +1043,12 @@ angular.module('lilbro.controllers', [])
     SoundSERVICES.click();
     $location.path('/target');
   }
+})
+
+.controller('ManualCONTROLLER', function($scope, $location) {
+  $scope.goToMain = function() {
+    $location.path('/main')
+  };
 });
 
 

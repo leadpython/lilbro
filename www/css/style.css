@@ -206,7 +206,6 @@
   left: 0px;
   right: 0px;
   font-size: 15px;
-  font-weight: bold;
   z-index: 9999999;
 }
 #target-list-container {
@@ -340,7 +339,7 @@
   font-size: 20px;
   top: 42px;
   height: auto;
-  color: green;
+  color: rgb(0,200,0);
 }
 #game-toolbar-container {
   position: absolute;
@@ -859,7 +858,7 @@
   left: 0px;
   right: 0px;
   height: 75px;
-  background-color: rgb(25,25,25);
+  background-color: rgb(50,50,50);
 }
 #market-icon {
   position: absolute;
@@ -870,113 +869,109 @@
 }
 #market-title {
   position: absolute;
-  font-weight: bold;
-  top: 40px;
-  left: 75px;
-  display: block;
-  font-size: 30px;
+  color: rgb(100,100,100);
+  padding: 5px;
+  padding-left: 10px;
+  border-radius: 15px;
+  font-family: Verdana;
+  background-color: white;
+  left: 10px;
+  right: 100px;
+  bottom: 10px;
 }
 #market-funds {
   position: absolute;
-  color: green;
+  color: rgb(0,200,0);
   font-size: 25px;
-  background-color: rgb(25,25,25);
+  background-color: rgb(50,50,50);
   height: 35px;
-  width: 250px;
-  top: 108px;
+  top: 100px;
   left: 0px;
+  right: 50px;
   padding: 7px;
   padding-left: 15px;
 }
 #market-funds-label {
   position: absolute;
   font-size: 15px;
-  top: 90px;
+  top: 80px;
   left: 5px;
 }
-#market-product-container {
-  position: absolute;
-  border: 2px solid #00cc99;
-  top: 155px;
-  left: 10px;
-  right: 10px;
-  bottom: 40px;
-}
+
 #market-product-title {
   position: absolute;
   color: black;
   padding-top: 5px;
   padding-left: 10px;
   font-size: 25px;
-  /*font-weight: bold;*/
   top: 0px;
   left: 0px;
   right: 0px;
   height: 30px;
-  background-color: #00cc99;
+  background-color: black;
 }
 #market-product-content {
   position: absolute;
-  top: 35px;
+  top: 150px;
   left: 5px;
   right: 5px;
-  bottom: 5px;
+  bottom: 40px;
 }
 #market-product {
   position: relative;
-  border: 1px solid gray;
-  background-color: rgb(25,25,25);
+  background-color: rgb(50,50,50);
   width: 100%;
-  height: 150px;
+  height: 100px;
   padding: 0px;
   margin-bottom: 5px;
 }
 #market-item-image {
   height: auto;
-  width: 75px;
+  width: 100px;
   padding: 15px;
-  background-color: rgb(50,50,50);
+  background-color: rgb(75,75,75);
 }
 #market-item-buy {
   position: absolute;
   text-align: center;
   background-color: #00cc99;
   color: black;
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 15px;
   bottom: 0px;
   right: 0px;
-  width: 150px;
-  padding: 5px;
+  width: 125px;
+  height: 20px;
 }
 #market-item-buy:active {
   color: #00cc99;
   background-color: rgba(0,0,0,0);
 }
 #market-item-quantity {
-  position: absolute;
-  bottom: 0px;
-  left: 5px;
+  top: 70px;
+  left: 125px;
   font-size: 12px;
 }
 #market-item-description {
-  position: absolute;
   top: 20px;
-  left: 85px;
-  font-size: 15px;
+  left: 125px;
+  font-size: 12px;
 }
 #market-item-name {
-  position: absolute;
   top: 5px;
-  left: 85px;
+  left: 125px;
   font-size: 15px;
 }
 #market-item-cost {
-  position: absolute;
   color: rgb(255,75,75);
-  right: 5px;
-  bottom: 30px;
-  font-size: 15px;
+  left: 125px;
+  top: 55px;
+  font-size: 12px;
+}
+#market-details-container {
+  position: absolute;
+  left: 105px;
+  top: 5px;
+  line-height: 15px;
 }
 #special-message {
   line-height: 25px;
@@ -1145,7 +1140,7 @@
 }
 .hud-toolbox-item {
   position: relative;
-  border: 1px solid #00cc99;
+  border: 1px solid rgb(75,75,75);
   width: 100%;
   height: 50px;
   margin-bottom: 5px;
@@ -1160,7 +1155,7 @@
 }
 .hud-toolbox-item-name {
   position: absolute;
-  color: #00cc99;
+  color: rgb(200,200,200);
   font-size: 12px;
   top: 0px;
   left: 75px;
@@ -1170,7 +1165,7 @@
   left: 75px;
   right: 20%;
   line-height: 12px;
-  color: #00cc99;
+  color: rgb(150,150,150);
   font-size: 12px;
   top: 17px;
   bottom: 2px;
@@ -1178,7 +1173,7 @@
 }
 .hud-toolbox-item-quantity {
   position: absolute;
-  color: #00cc99;
+  color: rgb(150,150,150);
   background-color: rgb(50,50,50);
   right: 0px;
   top: 0px;
@@ -1189,4 +1184,44 @@
   text-align: center;
   font-size: 50px;
 }
+
+/* MANUAL PAGE */
+#manualPage {
+  background-color: black;
+  font-family: square;
+  color: #00cc99;
+  padding: 10px;
+}
+#manual-instructions-container {
+  position: absolute;
+  top: 60px;
+  bottom: 30px;
+  padding: 10px;
+}
+#manual-title {
+  position: absolute;
+  background-color: rgb(25,25,25);
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+  font-size: 40px;
+  line-height: 40px;
+  padding-bottom: 0px;
+  padding-top: 15px;
+}
+.manual-label {
+  padding-left: 5px;
+  font-size: 20px;
+  border-bottom: 1px solid #00cc99;
+  width: 100%;
+}
+.manual-direction {
+  font-size: 15px;
+  padding: 10px;
+  background-color: rgb(50,50,50);
+  margin-bottom: 20px;
+}
+
+
 

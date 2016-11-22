@@ -1,7 +1,7 @@
 <ion-view id="marketPage">
   <div id="market-header">
-    <image id="market-icon" src="img/balance.png" />
-    <span id="market-title">BLACK MARKET</span>
+    <!-- <image id="market-icon" src="img/balance.png" /> -->
+    <span id="market-title">http://ncVxocVXc6vkL6eB.onion</span>
   </div>
 
   <div id="market-funds-label"><u>ACCOUNT BALANCE:</u></div>
@@ -9,19 +9,18 @@
 
   <div id="market-funds" style="background-color: transparent; border: 5px solid rgba({{balanceColor.r}}, {{balanceColor.g}}, {{balanceColor.b}}, {{balanceColor.o/1000}})"></div>
 
-  <view id="market-product-container">
-    <div id="market-product-title">commodities</div>
-    <ion-content id="market-product-content">
-      <div id="market-product" ng-repeat="item in products track by $index">
-        <image id="market-item-image" src="{{item.imageUrl}}" />
+  <ion-content id="market-product-content">
+    <div id="market-product" ng-repeat="item in products track by $index">
+      <image id="market-item-image" src="{{item.imageUrl}}" />
+      <div id="market-details-container">
         <div id="market-item-name">{{item.name}}</div>
-        <div id="market-item-cost">${{commafyNumber(item.cost())}}.00</div>
-        <div id="market-item-buy" ng-click="item.purchase(item.cost())">PURCHASE</div>
-        <div id="market-item-description"><u>Description:</u><br>--- {{item.description}}</div>
-        <div id="market-item-quantity">quantity owned: {{item.getQuantity();}}</div>
+        <div id="market-item-description">{{item.description}}</div>
+        <div id="market-item-cost">Price: ${{commafyNumber(item.cost())}}.00</div>
+        <div id="market-item-quantity">You already own: {{item.getQuantity();}}</div>
       </div>
-    </ion-content>
-  </view>
+      <div id="market-item-buy" ng-click="item.purchase(item.cost())">PURCHASE</div>
+    </div>
+  </ion-content>
 
   <div id="target-home-button" ng-click="goToMain()">< back</div>
 </ion-view>
