@@ -25,7 +25,7 @@
   <div id="game-target-label">{{target.type.toUpperCase()}}</div>
   <image id="game-target-image" src="{{ 'img/' + target.imageUrl + '.png' }}"></image>
   <div id="game-target-account"><span style="font-size: 12px;">ACCOUNT: #</span>{{target.accountNum}}</div>
-  <div id="game-target-funds" style="{{drainingStyle()}}"><span style="font-size: 12px; margin-left: 5px">BALANCE:</span> ${{commafyNumber(target.funds)}}.00<span ng-if="defensiveDrain()" class="ion-nuclear" id="defDrain"></span></div>
+  <div id="game-target-funds" style="{{drainingStyle()}}"><span style="font-size: 12px; margin-left: 5px">BALANCE:</span> $ {{commafyNumber(target.funds)}}.00<span ng-if="defensiveDrain()" class="ion-nuclear" id="defDrain"></span></div>
 </div>
 
 <div id="game-attempts">

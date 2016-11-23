@@ -27,20 +27,20 @@
   bottom: 50px;
   left: 25px;
   right: 25px;
-  border: 2px solid #00cc99;
+  border: 4px solid rgb(50,50,50);
   font-family: Courier New, Courier, monospace;
-  color: rgba(100, 200, 255, 1);
+  color: gray;
 }
 .popup-headerBar {
   position: absolute;
   top: 0px;
   width: 100%;
   height: 30px;
-  border-bottom: 2px solid #00cc99;
-  background-color: #00cc99;
+  border-bottom: 2px solid rgb(50,50,50);
+  background-color: rgb(50,50,50);
 }
 .popup-filename {
-  color: black;
+  color: gray;
   position: absolute;
   font-weight: bold;
   font-size: 20px;
@@ -55,7 +55,7 @@
   height: 100%;
   width: 30px;
   text-align: center;
-  color: #00cc99;
+  color: gray;
   font-size: 25px;
   padding: 2px;
   background-color: black;
@@ -69,10 +69,10 @@
   position: absolute;
   padding: 5px;
   color: rgba(100, 200, 255, 1);
-  top: 30px;
+  top: 32px;
   left: 0px;
   right: 0px;
-  bottom: 0px;
+  bottom: 2px;
 }
 .loading-bar {
   position: absolute;
@@ -207,8 +207,8 @@
 #target-list-container-label {
   position: absolute;
   width: 100%;
-  background-color: #00cc99;
-  color: black;
+  background-color: rgb(50,50,50);
+  color: gray;
   text-align: center;
   top: -1px;
   left: 0px;
@@ -222,7 +222,7 @@
   left: 5px;
   right: 5px;
   bottom: 35px;
-  border: 2px solid #00cc99;
+  border: 2px solid rgb(50,50,50);
   padding: 0px; 
 }
 #target-item {
@@ -308,14 +308,13 @@
   padding: 0px;
   padding-left: 10px;
   text-align: left;
-  background: #00cc99;
-  color: black;
-  font-weight: bold;
+  background: rgb(50,50,50);
+  color: gray;
   font-size: 15px;
 }
 #game-target-container {
   position: absolute;
-  border: 2px solid #00cc99;
+  border: 2px solid rgb(50,50,50);
   left: 5px;
   right: 5px;
   top: 70px;
@@ -328,7 +327,7 @@
   top: 16px;
   height: 57px;
   width: auto;
-  border: 2px solid #00cc99;
+  border: 2px solid rgb(50,50,50);
   padding: 5px;
 }
 #game-target-account {
@@ -471,7 +470,7 @@
   text-align: center;
 }
 #game-log-container {
-  border: 2px solid #00cc99;
+  border: 2px solid rgb(50,50,50);
   position: absolute;
   bottom: 40px;
   left: 5px;
@@ -481,8 +480,8 @@
 }
 #game-log-label {
   position: absolute;
-  background: #00cc99;
-  color: black;
+  background: rgb(50,50,50);
+  color: gray;
   font-weight: bold;
   font-size: 15px;
   padding-left: 10px;
@@ -607,7 +606,7 @@
 }
 #game-attempts {
   position: absolute;
-  border: 2px solid #00cc99;
+  border: 2px solid rgb(50,50,50);
   height: 45px;
   right: 153px;
   left: 5px;
@@ -647,8 +646,8 @@
 }
 #game-attempts-label {
   position: absolute;
-  background-color: #00cc99;
-  color: black;
+  background-color: rgb(50,50,50);
+  color: gray;
   font-size: 35px;
   padding: 2px;
   padding-left: 4px;
@@ -660,6 +659,7 @@
 }
 #game-attempts-squares {
   position: absolute;
+  background-color: black;
   left: 37px;
   right: 0px;
   bottom: 0px;
@@ -669,7 +669,7 @@
 }
 .game-attempts-square {
   display: inline-block;
-  border: 1px solid #00cc99;
+  border: 1px solid gray;
   height: 100%;
   width: 8px;
   margin-right: 3px;
@@ -677,7 +677,7 @@
 #game-goingToJail-window {
   position: absolute;
   background-color: rgba(0,0,0,0.75);
-  border: 5px solid #00cc99;
+  border: 4px solid #00cc99;
   font-size: 30px;
   font-weight: bold;
   top: 250px;
@@ -689,7 +689,7 @@
 }
 #game-lockedOut-window {
   position: absolute;
-  border: 5px solid #00cc99;
+  border: 4px solid #00cc99;
   background-color: black;
   color: #00cc99;
   top: 50px;
@@ -1022,7 +1022,7 @@
 }
 #hud-identity {
   position: absolute;
-  border: 2px solid #00cc99;
+  border: 4px solid rgb(50,50,50);
   top: 20px;
   left: 5px;
   right: 5px;
@@ -1033,11 +1033,12 @@
   top: 0px;
   left: 0px;
   right: 0px;
-  background: #00cc99;
+  background: rgb(50,50,50);
   padding: 5px;
   padding-left: 10px;
   font-size: 25px;
   height: 30px;
+  color: gray;
 }
 #hud-identity-face {
   position: absolute;
@@ -1063,7 +1064,7 @@
 }
 #hud-account {
   position: absolute;
-  border: 2px solid #00cc99;
+  border: 4px solid rgb(50,50,50);
   top: 170px;
   left: 5px;
   right: 5px;
@@ -1072,7 +1073,7 @@
 #hud-account-num {
   position: absolute;
   color: #00cc99;
-  font-size: 20px;
+  font-size: 15px;
   padding: 5px;
   padding-left: 10px;
   top: 30px;
@@ -1105,7 +1106,7 @@
 }
 #hud-toolbox {
   position: absolute;
-  border: 2px solid #00cc99;
+  border: 4px solid rgb(50,50,50);
   left: 5px;
   right: 5px;
   top: 265px;
@@ -1113,7 +1114,7 @@
 }
 #hud-toolbox-labels {
   position: absolute;
-  color: #00cc99;
+  color: gray;
   top: 30px;
   left: 0px;
   right: 0px;
@@ -1122,21 +1123,21 @@
   position: absolute;
   left: 0px;
   right: 80%;
-  border-bottom: 1px solid #00cc99;
+  border-bottom: 1px solid gray;
   height: 20px;
 }
 #hud-toolbox-label-description {
   position: absolute;
   left: 20%;
   right: 20%;
-  border-bottom: 1px solid #00cc99;
+  border-bottom: 1px solid gray;
   height: 20px;
 }
 #hud-toolbox-label-quantity {
   position: absolute;
   left: 80%;
   right: 0px;
-  border-bottom: 1px solid #00cc99;
+  border-bottom: 1px solid gray;
   height: 20px;
 }
 #hud-toolbox-items-container {
@@ -1163,7 +1164,7 @@
 }
 .hud-toolbox-item-name {
   position: absolute;
-  color: rgb(200,200,200);
+  color: #00cc99;
   font-size: 12px;
   top: 0px;
   left: 75px;
@@ -1173,7 +1174,7 @@
   left: 75px;
   right: 20%;
   line-height: 12px;
-  color: rgb(150,150,150);
+  color: #00cc99;
   font-size: 12px;
   top: 17px;
   bottom: 2px;
