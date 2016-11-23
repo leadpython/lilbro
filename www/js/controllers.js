@@ -21,8 +21,12 @@ angular.module('lilbro.controllers', [])
 
     DataSERVICES.loadUser();
     $scope.hasAlias = !DataSERVICES.noUser;
-    if (DataSERVICES.didPlayerCheat() === 'cheater' && DataSERVICES.amIFree()) {
-      DataSERVICES.chargeCrime(10);
+    if (DataSERVICES.didPlayerCheat() === 'cheater') {
+      if (DataSERVICES.amIFree()) {
+        DataSERVICES.release();
+      } else {
+        DataSERVICES.chargeCrime(10);
+      }
     }
     if (!DataSERVICES.amIFree()) {
       $location.path('/jail');
