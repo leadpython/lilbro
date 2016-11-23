@@ -135,8 +135,8 @@ angular.module('lilbro.services', ['ngCordova'])
       numOfResults: 10,
       imageUrl: 6
     },
-    'Central Bank': {
-      type: 'Central Bank',
+    'central bank': {
+      type: 'central bank',
       security: {
         passLength: 7,
         timeLimit: 120,
@@ -355,49 +355,49 @@ angular.module('lilbro.services', ['ngCordova'])
     if (soundServices.isEffectsMuted) {
       return;
     }
-    $cordovaNativeAudio.play('click');
+    // $cordovaNativeAudio.play('click');
   };
   soundServices.hack = function() {
     if (soundServices.isEffectsMuted) {
       return;
     }
-    $cordovaNativeAudio.play('hack');
+    // $cordovaNativeAudio.play('hack');
   };
   soundServices.shutdown = function() {
     if (soundServices.isEffectsMuted) {
       return;
     }
-    $cordovaNativeAudio.play('shutdown');
+    // $cordovaNativeAudio.play('shutdown');
   };
   soundServices.slomo = function() {
     if (soundServices.isEffectsMuted) {
       return;
     }
-    $cordovaNativeAudio.play('slomo');
+    // $cordovaNativeAudio.play('slomo');
   };
   soundServices.staticFX = function() {
     if (soundServices.isEffectsMuted) {
       return;
     }
-    $cordovaNativeAudio.play('static');
+    // $cordovaNativeAudio.play('static');
   };
   soundServices.buyFX = function() {
     if (soundServices.isEffectsMuted) {
       return;
     }
-    $cordovaNativeAudio.play('buy');
+    // $cordovaNativeAudio.play('buy');
   };
   soundServices.page = function() {
     if (soundServices.isEffectsMuted) {
       return;
     }
-    $cordovaNativeAudio.play('page');
+    // $cordovaNativeAudio.play('page');
   };
   soundServices.caught = function() {
     if (soundServices.isEffectsMuted) {
       return;
     }
-    $cordovaNativeAudio.play('caught');
+    // $cordovaNativeAudio.play('caught');
   };
 
   return soundServices;

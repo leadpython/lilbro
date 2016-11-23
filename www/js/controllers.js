@@ -3,6 +3,8 @@ angular.module('lilbro.controllers', [])
 /////// MAIN CONTROLLER ///////
 .controller('MainCONTROLLER', function($scope, $location, DataSERVICES, SoundSERVICES) {
   $scope.$on('$ionicView.enter', function() {
+    DataSERVICES.loadUser();
+    $scope.hasAlias = !DataSERVICES.noUser;
     if (SoundSERVICES.isEffectsMuted) {
       $scope.musicState = {name:'OFF', color: 'rgb(255,100,100)'};
     } else {
@@ -19,16 +21,12 @@ angular.module('lilbro.controllers', [])
       }
     };
 
-    DataSERVICES.loadUser();
-    $scope.hasAlias = !DataSERVICES.noUser;
-    if (DataSERVICES.didPlayerCheat() === 'cheater') {
-      if (DataSERVICES.amIFree()) {
-        DataSERVICES.release();
-      } else {
-        DataSERVICES.chargeCrime(10);
-      }
-    }
     if (!DataSERVICES.amIFree()) {
+      $location.path('/jail');
+    }
+    if (DataSERVICES.didPlayerCheat() === 'cheater') {
+      DataSERVICES.unCheat();
+      DataSERVICES.chargeCrime(10);
       $location.path('/jail');
     }
     $scope.user = DataSERVICES.user;
@@ -547,7 +545,6 @@ angular.module('lilbro.controllers', [])
       name: 'keypad',
       ioniconTag: 'ion-calculator',
       clickHandler: function() {
-        SoundSERVICES.click();
         $scope.toggledTools.keypad = !$scope.toggledTools.keypad;
       }
     },
@@ -732,6 +729,7 @@ angular.module('lilbro.controllers', [])
 
 .controller('JailCONTROLLER', function($scope, $interval, $location, SoundSERVICES, TargetSERVICES, DataSERVICES) {
   $scope.$on('$ionicView.enter', function() {
+    DataSERVICES.unCheat();
     DataSERVICES.loadUser();
     SoundSERVICES.caught();
     if (DataSERVICES.amIFree()) {
@@ -996,39 +994,37 @@ angular.module('lilbro.controllers', [])
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
     $scope.name = DataSERVICES.user.username;
-    if (!DataSERVICES.amIFree()) {
-      $location.path('/jail');
-    }
   });
-  $scope.getTools = function() {
-    var tools = [
-      {
-        name: 'UPGRADE HACKING PROGRAM',
-        description: 'adds bonus password attempt permanently.',
-        image: 'img/upgrade.png',
-        quantity: DataSERVICES.user.bonusAttempts || 0
-      },
-      {
-        name: 'SPEED 2.0',
-        description: 'slow down time by 50%. 5% chance of speeding up time by 100%.',
-        image: 'img/syringe.png',
-        quantity: DataSERVICES.user.speed || 0
-      },
-      {
-        name: 'STUXNET LITE',
-        description: 'disable all target\'s defenses for 30 seconds.',
-        image: 'img/power.png',
-        quantity: DataSERVICES.user.disrupt || 0
-      },
-      {
-        name: 'BLACKMAIL',
-        description: 'use to get out of jail for free.',
-        image: 'img/folder.png',
-        quantity: DataSERVICES.user.blackmail || 0
-      }
-    ];
-    return tools;
-  }
+  $scope.getWantedLevel = function() {
+    var wantedLevels = ['newbie', 'petty thief', 'white collar', 'infamous', 'marked for death', 'blacklisted', 'legend', 'traitor', 'untouchable'];
+    return wantedLevels[DataSERVICES.user.level];
+  };
+  $scope.tools = [
+    {
+      name: 'UPGRADE HACKING PROGRAM',
+      description: 'adds bonus password attempt permanently.',
+      image: 'img/upgrade.png',
+      quantity: DataSERVICES.user.bonusAttempts || 0
+    },
+    {
+      name: 'SPEED 2.0',
+      description: 'slow down time by 50%. 5% chance of speeding up time by 100%.',
+      image: 'img/syringe.png',
+      quantity: DataSERVICES.user.speed || 0
+    },
+    {
+      name: 'STUXNET LITE',
+      description: 'disable all target\'s defenses for 30 seconds.',
+      image: 'img/power.png',
+      quantity: DataSERVICES.user.disrupt || 0
+    },
+    {
+      name: 'BLACKMAIL',
+      description: 'use to get out of jail for free.',
+      image: 'img/folder.png',
+      quantity: DataSERVICES.user.blackmail || 0
+    }
+  ];
   $scope.commafyNumber = function(num) {
     num = DataSERVICES.user.funds;
     if (num === undefined) {

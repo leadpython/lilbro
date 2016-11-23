@@ -8,7 +8,7 @@
     name: <span style="color: rgb(75,75,75);">[unknown] </span><br>
     dob: <span style="color: rgb(75,75,75);">[unknown] </span><br>
     location: <span style="color: rgb(75,75,75);">[unknown] </span><br>
-    wanted level: <span style="color: rgb(255,100,100);">traitor</span>
+    reputation: <span style="color: rgb(255,100,100);">{{getWantedLevel()}}</span>
   </div>
 </div>
 
@@ -35,7 +35,7 @@
     <div id="hud-toolbox-label-quantity" style="text-align: center; padding: 2px; display: inline-block">quantity</div>
   </div>
   <ion-content id="hud-toolbox-items-container">
-    <div class="hud-toolbox-item" ng-repeat="tool in getTools() track by $index">
+    <div class="hud-toolbox-item" ng-repeat="tool in tools track by $index">
       <img class="hud-toolbox-item-icon" src="{{tool.image}}">
       <div class="hud-toolbox-item-name">{{tool.name}}</div>
       <div class="hud-toolbox-item-description">- {{tool.description}}</div>
