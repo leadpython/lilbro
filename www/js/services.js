@@ -103,7 +103,7 @@ angular.module('lilbro.services', ['ngCordova'])
       type: 'covert operative',
       security: {
         passLength: 6,
-        timeLimit: undefined,
+        timeLimit: 180,
         drainRate: 0.0005,
         tries: 7
       },
@@ -121,7 +121,7 @@ angular.module('lilbro.services', ['ngCordova'])
       type: 'multinational corporation',
       security: {
         passLength: 6,
-        timeLimit: undefined,
+        timeLimit: 150,
         drainRate: 0.001,
         tries: 7
       },
@@ -139,7 +139,7 @@ angular.module('lilbro.services', ['ngCordova'])
       type: 'Central Bank',
       security: {
         passLength: 7,
-        timeLimit: undefined,
+        timeLimit: 120,
         drainRate: 0.0025,
         tries: 7
       },
@@ -157,7 +157,7 @@ angular.module('lilbro.services', ['ngCordova'])
       type: 'rogue hacker',
       security: {
         passLength: 8,
-        timeLimit: 120,
+        timeLimit: 90,
         drainRate: 0.005,
         tries: 7
       },

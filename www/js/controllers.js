@@ -777,7 +777,7 @@ angular.module('lilbro.controllers', [])
   };
   $scope.getTimeLeft = function() {
     var timeLeftSeconds = $scope.secondsLeft;
-    $scope.costString = `${Math.floor(timeLeftSeconds * 75)}`;
+    $scope.costString = `${Math.floor(timeLeftSeconds * 150)}`;
     var hours = Math.floor(timeLeftSeconds / (60.0 * 60.0));
     var mins = Math.floor( (timeLeftSeconds - (hours * 60.0 * 60.0)) / 60);
     var seconds = Math.floor(timeLeftSeconds - ( (hours * 60 * 60) + mins * 60 ) );
