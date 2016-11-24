@@ -733,7 +733,7 @@ angular.module('lilbro.controllers', [])
     DataSERVICES.loadUser();
     SoundSERVICES.caught();
     if (DataSERVICES.amIFree()) {
-      // $location.path('/hud');
+      $location.path('/hud');
     }
     if (DataSERVICES.didPlayerCheat() === 'cheater') {
       $scope.specialMessage = true;
@@ -744,14 +744,14 @@ angular.module('lilbro.controllers', [])
     $scope.timeLeftString = '0:00';
     $scope.costString = '0';
     $scope.secondsLeft = $scope.getSeconds();
-    // $scope.animateTime = $interval(function() {
-    //   $scope.getSeconds();
-    //   if ($scope.secondsLeft <= 0) {
-    //     DataSERVICES.release();
-    //     $interval.cancel($scope.animateTime);
-    //     $location.path('/hud');
-    //   }
-    // }, 100);
+    $scope.animateTime = $interval(function() {
+      $scope.getSeconds();
+      if ($scope.secondsLeft <= 0) {
+        DataSERVICES.release();
+        $interval.cancel($scope.animateTime);
+        $location.path('/hud');
+      }
+    }, 100);
   });
   $scope.$on('$destroy', function() {
     $interval.cancel($scope.animateTime);
