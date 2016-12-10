@@ -31,6 +31,13 @@ angular.module('lilbro.controllers', [])
     }
     $scope.user = DataSERVICES.user;
   });
+  $scope.keyStroke = function(letter) {
+    $scope.user.username += letter;
+  };
+  $scope.backspace = function() {
+    if ($scope.user.username === '') { return; }
+    $scope.user.username = $scope.user.username.slice(0,-1);
+  };
   $scope.start = function() {
     if ($scope.user.username === '' || $scope.user.username === undefined || $scope.user.username === null) {
       return;

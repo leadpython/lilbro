@@ -1235,5 +1235,47 @@
   margin-bottom: 20px;
 }
 
-
-
+/* KEYBOARD */
+#main-keyboard {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255,255,255,0.2);
+  padding-top: 5px;
+}
+.main-keyboard-row {
+  text-align: center;
+  margin-bottom: 5px;
+}
+.main-key {
+  text-align: center;
+  display: inline-block;
+  padding: 5px;
+  background-color: rgb(25,25,25);
+  width: 7.5%;
+}
+.main-key-backspace {
+  text-align: center;
+  display: inline-block;
+  padding: 5px;
+  background-color: rgb(25,25,25);
+}
+.main-key-enter {
+  text-align: center;
+  display: inline-block;
+  padding: 5px;
+  background-color: rgb(25,25,25);
+}
+.main-key:active {
+  background: #00cc99;
+  color: black;
+}
+.main-key-backspace:active {
+  background: #00cc99;
+  color: black;
+}
+.main-key-enter:active {
+  background: #00cc99;
+  color: black;
+}

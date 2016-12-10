@@ -32,8 +32,56 @@
   <div class="main-menu-login" ng-if="!hasAlias">
     <div style="width: 100%; height: 100%; text-align: center; position: absolute; top: 35%;">
       <div id="main-alias-label">USERNAME:</div>
-      <input id="main-alias-input" ng-model="user.username">
-      <div id="main-start-button" ng-click="start()">begin</div>
+      <input id="main-alias-input" ng-model="user.username" ng-readonly="true">
+    </div>
+
+    <div id="main-keyboard">
+      <div class="main-keyboard-row">
+        <div class="main-key" ng-click="keyStroke(1)">1</div>
+        <div class="main-key" ng-click="keyStroke(2)">2</div>
+        <div class="main-key" ng-click="keyStroke(3)">3</div>
+        <div class="main-key" ng-click="keyStroke(4)">4</div>
+        <div class="main-key" ng-click="keyStroke(5)">5</div>
+        <div class="main-key" ng-click="keyStroke(6)">6</div>
+        <div class="main-key" ng-click="keyStroke(7)">7</div>
+        <div class="main-key" ng-click="keyStroke(8)">8</div>
+        <div class="main-key" ng-click="keyStroke(9)">9</div>
+        <div class="main-key" ng-click="keyStroke(0)">0</div>
+        <div class="main-key-backspace" ng-click="backspace()">&lt&lt&lt</div>
+      </div>
+      <div class="main-keyboard-row">
+        <div class="main-key" ng-click="keyStroke('q')">q</div>
+        <div class="main-key" ng-click="keyStroke('w')">w</div>
+        <div class="main-key" ng-click="keyStroke('e')">e</div>
+        <div class="main-key" ng-click="keyStroke('r')">r</div>
+        <div class="main-key" ng-click="keyStroke('t')">t</div>
+        <div class="main-key" ng-click="keyStroke('y')">y</div>
+        <div class="main-key" ng-click="keyStroke('u')">u</div>
+        <div class="main-key" ng-click="keyStroke('i')">i</div>
+        <div class="main-key" ng-click="keyStroke('o')">o</div>
+        <div class="main-key" ng-click="keyStroke('p')">p</div>
+      </div>
+      <div class="main-keyboard-row">
+        <div class="main-key" ng-click="keyStroke('a')">a</div>
+        <div class="main-key" ng-click="keyStroke('s')">s</div>
+        <div class="main-key" ng-click="keyStroke('d')">d</div>
+        <div class="main-key" ng-click="keyStroke('f')">f</div>
+        <div class="main-key" ng-click="keyStroke('g')">g</div>
+        <div class="main-key" ng-click="keyStroke('h')">h</div>
+        <div class="main-key" ng-click="keyStroke('j')">j</div>
+        <div class="main-key" ng-click="keyStroke('k')">k</div>
+        <div class="main-key" ng-click="keyStroke('l')">l</div>
+      </div>
+      <div class="main-keyboard-row">
+        <div class="main-key" ng-click="keyStroke('z')">z</div>
+        <div class="main-key" ng-click="keyStroke('x')">x</div>
+        <div class="main-key" ng-click="keyStroke('c')">c</div>
+        <div class="main-key" ng-click="keyStroke('v')">v</div>
+        <div class="main-key" ng-click="keyStroke('b')">b</div>
+        <div class="main-key" ng-click="keyStroke('n')">n</div>
+        <div class="main-key" ng-click="keyStroke('m')">m</div>
+        <div class="main-key-enter" ng-click="start()">enter</div>
+      </div>
     </div>
   </div>
 
