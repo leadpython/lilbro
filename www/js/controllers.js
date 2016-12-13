@@ -315,7 +315,7 @@ angular.module('lilbro.controllers', [])
         }
       },
       {
-        name: 'DISRUPT COMMS',
+        name: 'STUXNET LITE',
         imageUrl: 'img/power.png',
         description: 'Disable target\'s defenses for 30 seconds.',
         getQuantity: function() {
