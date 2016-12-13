@@ -199,12 +199,12 @@ angular.module('lilbro.controllers', [])
 .controller('HackSimulationCONTROLLER', function($scope, $interval, $location, TargetSERVICES, SoundSERVICES) {
   $scope.$on('$ionicView.enter', function() {
     $scope.consoleOutput = [];
-    var hackCommands = ['lilbro_000@lilbro MINGW64 ~/Desktop $ cd root/hack-executables',
-                        'lilbro_000@lilbro MINGW64 ~/root $ stage sql-injection.exe',
-                        'lilbro_000@lilbro MINGW64 ~/root $ stage encryption-override.exe',
-                        'lilbro_000@lilbro MINGW64 ~/root $ set route -force fund-route.bat',
-                        'lilbro_000@lilbro MINGW64 ~/root $ stage account-drain.exe',
-                        'lilbro_000@lilbro MINGW64 ~/root $ engage stage -all',
+    var hackCommands = ['darknet_000@hacker MINGW64 ~/Desktop $ cd root/hack-executables',
+                        'darknet_000@hacker MINGW64 ~/root $ stage sql-injection.exe',
+                        'darknet_000@hacker MINGW64 ~/root $ stage encryption-override.exe',
+                        'darknet_000@hacker MINGW64 ~/root $ set route -force fund-route.bat',
+                        'darknet_000@hacker MINGW64 ~/root $ stage account-drain.exe',
+                        'darknet_000@hacker MINGW64 ~/root $ engage stage -all',
                         'Injection...COMPLETE',
                         'Encryption override...COMPLETE',
                         'Creating pointer to route...COMPLETE',
