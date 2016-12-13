@@ -199,24 +199,16 @@ angular.module('lilbro.services', ['ngCordova'])
   dataServices.user = {};
   dataServices.noUser = true;
   dataServices.saveUser = function() {
-    $window.localStorage.setItem('lilbro-username', dataServices.user.username);
-    $window.localStorage.setItem('lilbro-funds', JSON.stringify(dataServices.user.funds));
-    $window.localStorage.setItem('lilbro-level', JSON.stringify(dataServices.user.level));
-    $window.localStorage.setItem('lilbro-speed', JSON.stringify(dataServices.user.speed));
-    $window.localStorage.setItem('lilbro-disrupt', JSON.stringify(dataServices.user.disrupt));
-    $window.localStorage.setItem('lilbro-blackmail', JSON.stringify(dataServices.user.blackmail));
-    $window.localStorage.setItem('lilbro-bonusAttempts', JSON.stringify(dataServices.user.bonusAttempts));
-    $window.localStorage.setItem('lilbro-jailTerm', JSON.stringify(dataServices.user.releaseDate.getTime()));
+    var data = dataServices.user;
+    if (typeof data.releaseDate === "object") {
+      data.releaseDate = data.releaseDate.getTime();
+    }
+    $window.localStorage.setItem('darknet-hacker-data', JSON.stringify(data));
   };
   dataServices.loadUser = function() {
-    dataServices.user.username = $window.localStorage.getItem('lilbro-username');
-    dataServices.user.funds = Number($window.localStorage.getItem('lilbro-funds'));
-    dataServices.user.level = Number($window.localStorage.getItem('lilbro-level'));
-    dataServices.user.speed = Number($window.localStorage.getItem('lilbro-speed'));
-    dataServices.user.disrupt = Number($window.localStorage.getItem('lilbro-disrupt'));
-    dataServices.user.blackmail = Number($window.localStorage.getItem('lilbro-blackmail'));
-    dataServices.user.bonusAttempts = Number($window.localStorage.getItem('lilbro-bonusAttempts'));
-    dataServices.user.releaseDate = new Date(Number($window.localStorage.getItem('lilbro-jailTerm')));
+    var data = JSON.parse($window.localStorage.getItem('darknet-hacker-data'));
+    data.releaseDate = new Date(data.releaseDate);
+    dataServices.user = data;
     if (dataServices.user.username === null || dataServices.user.username === undefined || dataServices.user.username === '') {
       dataServices.resetUser();
     } else {

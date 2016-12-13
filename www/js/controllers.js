@@ -4,6 +4,7 @@ angular.module('lilbro.controllers', [])
 .controller('MainCONTROLLER', function($scope, $location, DataSERVICES, SoundSERVICES) {
   $scope.$on('$ionicView.enter', function() {
     DataSERVICES.loadUser();
+    $scope.user = DataSERVICES.user;
     $scope.hasAlias = !DataSERVICES.noUser;
     if (SoundSERVICES.isEffectsMuted) {
       $scope.musicState = {name:'OFF', color: 'rgb(255,100,100)'};
@@ -29,7 +30,6 @@ angular.module('lilbro.controllers', [])
       DataSERVICES.chargeCrime(10);
       $location.path('/jail');
     }
-    $scope.user = DataSERVICES.user;
   });
   $scope.keyStroke = function(letter) {
     $scope.user.username += letter;
