@@ -82,7 +82,7 @@
 
 <div id="game-log-container">
   <div id="game-log-label">HISTORY LOG</div>
-  <ion-content id="game-log-content">
+  <ion-content id="game-log-content" delegate-handle="historylog">
     <div class="game-log-entry" style="{{successEntryStyle(entry.success)}}" ng-repeat="entry in log track by $index">
       <div class="game-log-guessCode">{{entry.guess}}</div>
       <div id="game-log-clues">
@@ -132,7 +132,7 @@
 <div ng-if="lockedOut" style="background: rgba(0,0,0,0.5); position: absolute; top: 190px; bottom: 40px; left: 0px; right: 0px;">
 <div id="game-lockedOut-window">
   <div style="padding-top: 15px; width: 100%; text-align: center; font-size: 40px; font-weight: bold;">LOCKED OUT</div>
-  <div style="position: absolute; text-align: center; bottom: 5px; left: 0px; right: 0px;">DISCONNECT NOW BEFORE<br>YOU ARE CAUGHT</div>
+  <div style="position: absolute; text-align: center; bottom: 5px; left: 0px; right: 0px; font-size: 15px;">The correct password is: {{getPass()}}<br>DISCONNECT NOW!</div>
 </div>
 </div>
 

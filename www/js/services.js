@@ -301,6 +301,9 @@ angular.module('lilbro.services', ['ngCordova'])
     password = Math.floor(Math.random() * (max - min + 1)) + min;
     password = password.toString().split('');
   };
+  gameServices.getPass = function() {
+    return password;
+  };
   gameServices.checkGuess = function(guess) {
     var guessArr = guess.split('');
     var secretCodeArr = password.join('').split('');

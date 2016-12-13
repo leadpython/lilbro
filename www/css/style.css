@@ -103,7 +103,7 @@
 }
 #main-name {
   margin-top: 20px;
-  font-size: 50px;
+  font-size: 45px;
 }
 .main-menu-container {
   position: absolute;
@@ -257,6 +257,7 @@
   bottom: 0px;
   left: 0px;
   right: 0px;
+  z-index: 9999;
 }
 #target-item-cost {
   color: rgba(255,50,100,1);
@@ -267,6 +268,17 @@
   right: 0px;
   bottom: 0px;
   height: auto;
+}
+#target-item-info {
+  position: absolute;
+  color: rgb(150,150,150);
+  right: 0;
+  top: 0;
+  z-index: 0;
+  font-size: 12px;
+  line-height: 12px;
+  text-align: right;
+  padding: 5px;
 }
 #retrieving-loading-container {
   position: absolute;
@@ -1231,7 +1243,7 @@
 .manual-direction {
   font-size: 15px;
   padding: 10px;
-  background-color: rgb(50,50,50);
+  background-color: rgb(25,25,25);
   margin-bottom: 20px;
 }
 

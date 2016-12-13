@@ -255,7 +255,7 @@ angular.module('lilbro.controllers', [])
   });
 })
 
-.controller('GameCONTROLLER', function($scope, $timeout, $interval, $location, SoundSERVICES, DataSERVICES, TargetSERVICES, GameSERVICES) {
+.controller('GameCONTROLLER', function($scope, $timeout, $interval, $location, $ionicScrollDelegate, SoundSERVICES, DataSERVICES, TargetSERVICES, GameSERVICES) {
   $scope.$on('$ionicView.leave', function() {
     $interval.cancel($scope.disconnectBarAnimation);
     if ($scope.target.imageUrl >= $scope.player.level && $scope.win) {
@@ -648,6 +648,7 @@ angular.module('lilbro.controllers', [])
     }
   };
   $scope.checkGuess = function() {
+    $ionicScrollDelegate.$getByHandle('historylog').scrollTop();
     $scope.currentDigit = 0;
     $scope.toggledTools.keypad = false;
     if ($scope.lost || $scope.win) {
@@ -731,6 +732,9 @@ angular.module('lilbro.controllers', [])
     } else {
       return true;
     }
+  };
+  $scope.getPass = function() {
+    return GameSERVICES.getPass().join('');
   };
 })
 
