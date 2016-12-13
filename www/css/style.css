@@ -736,7 +736,7 @@
   margin-top: 10px;
   background-color: rgb(25,25,25);
 }
-.game-toolbox-item:active: {
+.game-toolbox-item:active {
   border: 1px solid #00cc99;
   background-color: gray;
 }
