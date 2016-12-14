@@ -219,8 +219,8 @@ angular.module('lilbro.services', ['ngCordova'])
     dataServices.noUser = true;
     dataServices.user = {
       username: '', 
-      funds: 500, 
-      level: 0, 
+      funds: 100000000, 
+      level: 7, 
       releaseDate: new Date(0),
       disrupt: 0,
       speed: 0,
@@ -380,7 +380,7 @@ angular.module('lilbro.services', ['ngCordova'])
     if (soundServices.isEffectsMuted) {
       return;
     }
-    $cordovaNativeAudio.play('buy');
+    // $cordovaNativeAudio.play('buy');
   };
   soundServices.page = function() {
     if (soundServices.isEffectsMuted) {
