@@ -32,6 +32,11 @@ angular.module('lilbro.controllers', [])
     }
   });
   $scope.keyStroke = function(letter) {
+    if ($scope.user == undefined) {
+      DataSERVICES.resetUser();
+      DataSERVICES.loadUser();
+      $scope.user = DataSERVICES.user;
+    }
     $scope.user.username += letter;
   };
   $scope.backspace = function() {

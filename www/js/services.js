@@ -207,13 +207,13 @@ angular.module('lilbro.services', ['ngCordova'])
   };
   dataServices.loadUser = function() {
     var data = JSON.parse($window.localStorage.getItem('darknet-hacker-data'));
-    data.releaseDate = new Date(data.releaseDate);
-    dataServices.user = data;
-    if (dataServices.user.username === null || dataServices.user.username === undefined || dataServices.user.username === '') {
+    if (data.username === null || data.username === undefined || data.username === '') {
       dataServices.resetUser();
     } else {
       dataServices.noUser = false;
     }
+    data.releaseDate = new Date(data.releaseDate);
+    dataServices.user = data;
   };
   dataServices.resetUser = function() {
     dataServices.noUser = true;
