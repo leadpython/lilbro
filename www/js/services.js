@@ -19,7 +19,7 @@ angular.module('lilbro.services', ['ngCordova'])
       },
       reward: {
         min: 0,
-        max: 15000
+        max: 1000
       },
       fee: 150,
       jailTime: 0.5,
@@ -36,8 +36,8 @@ angular.module('lilbro.services', ['ngCordova'])
         tries: 7
       },
       reward: {
-        min: 5000,
-        max: 25000
+        min: 1000,
+        max: 10000
       },
       fee: 1500,
       jailTime: 1,
@@ -55,9 +55,9 @@ angular.module('lilbro.services', ['ngCordova'])
       },
       reward: {
         min: 10000,
-        max: 500000
+        max: 50000
       },
-      fee: 60000,
+      fee: 15000,
       jailTime: 5,
       description: '',
       numOfResults: 10,
@@ -73,9 +73,9 @@ angular.module('lilbro.services', ['ngCordova'])
       },
       reward: {
         min: 50000,
-        max: 5000000
+        max: 150000
       },
-      fee: 550000,
+      fee: 75000,
       jailTime: 10,
       description: '',
       numOfResults: 10,
@@ -90,10 +90,10 @@ angular.module('lilbro.services', ['ngCordova'])
         tries: 7
       },
       reward: {
-        min: 100000,
-        max: 120000000
+        min: 150000,
+        max: 500000
       },
-      fee: 12000000,
+      fee: 200000,
       jailTime: 60,
       description: '',
       numOfResults: 10,
@@ -109,9 +109,9 @@ angular.module('lilbro.services', ['ngCordova'])
       },
       reward: {
         min: 500000,
-        max: 1200000000
+        max: 2500000
       },
-      fee: 120000000,
+      fee: 750000,
       jailTime: 120,
       description: '',
       numOfResults: 10,
@@ -126,10 +126,10 @@ angular.module('lilbro.services', ['ngCordova'])
         tries: 7
       },
       reward: {
-        min: 50000000,
-        max: 5000000000
+        min: 2500000,
+        max: 50000000
       },
-      fee: 500000000,
+      fee: 5000000,
       jailTime: 300,
       description: '',
       numOfResults: 10,
@@ -144,10 +144,10 @@ angular.module('lilbro.services', ['ngCordova'])
         tries: 7
       },
       reward: {
-        min: 1000000000,
-        max: 20000000000
+        min: 50000000,
+        max: 500000000
       },
-      fee: 500000000,
+      fee: 100000000,
       jailTime: 1440,
       description: '',
       numOfResults: 5,
@@ -162,8 +162,8 @@ angular.module('lilbro.services', ['ngCordova'])
         tries: 7
       },
       reward: {
-        min: 5000000000,
-        max: 50000000000
+        min: 500000000,
+        max: 5000000000
       },
       fee: 10000000000,
       jailTime: 4320,
@@ -350,7 +350,7 @@ angular.module('lilbro.services', ['ngCordova'])
     if (soundServices.isEffectsMuted) {
       return;
     }
-    // $cordovaNativeAudio.play('click');
+    $cordovaNativeAudio.play('click');
   };
   soundServices.hack = function() {
     if (soundServices.isEffectsMuted) {
