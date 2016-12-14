@@ -1,7 +1,7 @@
 {
-  "name": "lilbro",
+  "name": "dark.net hacker",
   "version": "1.1.1",
-  "description": "lilbro: An Ionic project",
+  "description": "dark.net hacker: mobile hacking game",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
@@ -23,5 +23,7 @@
     "ionic-plugin-keyboard",
     "cordova-plugin-nativeaudio"
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "ios"
+  ]
 }
